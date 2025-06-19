@@ -29,12 +29,11 @@ with ur.open("../data/run37.root") as file:
     b_apv_q = t_raw["apv_q"].array(library="np")
     b_apv_qmax = t_data["apv_qmax"].array(library="np")
 
-    zero = b_apv_qmax[0]
-
-    print(b_apv_qmax.shape)
-    print(b_apv_qmax[0])
-
+    # 225 seems to be the number of arrays in the file
     for i in range(225):
-        print(b_apv_qmax[i])
+        filename = f"b_apv_qmax_and_mm_strip_{i}"
+        with open(filename, "w") as f:
+            for j in range(len(b_apv_qmax[i])):
+                f.write("{0} {1}\n".format(b_mm_strip[i][j], b_apv_qmax[i][j]))
 
     

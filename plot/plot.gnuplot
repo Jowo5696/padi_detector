@@ -17,13 +17,17 @@ set style line 8 lt rgb "#b2df8a" pt 13 ps .5 # pastel green
 set style line 9 lt rgb "#fb9a99" pt 13 ps .5 # pastel red
 set style line 10 lt rgb "#cab2d6" pt 13 ps .5 # pastel purple
 
-f(x) = m*x+n
-fit f(x) 'test.dat' via m,n
-chi2 = (FIT_STDFIT*FIT_STDFIT)
-set label sprintf("x² = %.5f", chi2) at 2,10
-plot 'test.dat' u 1:2:(1):3 with xyerrorbars title 'test data' ls 1,\
-        x**2 title '$x^2$',\
-        f(x) title 'straight fit'
+#f(x) = m*x+n
+#fit f(x) 'test.dat' via m,n
+#chi2 = (FIT_STDFIT*FIT_STDFIT)
+#set label sprintf("x² = %.5f", chi2) at 2,10
+
+do for [i=0:2] {
+  set output 'output_'.i.'.tex'
+  plot '../data/b_apv_qmax_and_mm_strip_'.i using 1:2 title 'event '.i
+}
+#plot for [i=1:2] '../data/b_apv_qmax_and_mm_strip_'.i using 1:2 title 'event '.i
+
 # NaN with points / lines title '' ls 1 # fake legend
 
 # pt 0 pixel
