@@ -1,0 +1,10 @@
+data/*
+!*.root
+
+plot/*
+!*.gnuplot
+!*.tex
+!*.sh
+
+latex/*
+!*.tex
