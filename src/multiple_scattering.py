@@ -20,7 +20,7 @@ x0_rho = np.array([12.86, 24.01]) # g/cm²
 x0 = np.array([1.436, 8.897]) # cm
 
 # thickness of material
-x = np.array([.04, .4]) # cm
+x = np.array([10, 7000]) # cm
 
 theta = np.ndarray(shape=(2,))
 first_sigma = np.ndarray(shape=(2,))
@@ -36,9 +36,9 @@ for i in range(2):
     print(material[i], x[i], "[cm]")
     print("angle: ", theta[i], "[degree]")
     # 10 cm², roughly 4x4 cm² for error
-    first_sigma[i] = 4./np.tan(1. * theta[i])
-    second_sigma[i] = 4./np.tan(2. * theta[i])
-    third_sigma[i] = 4./np.tan(3. * theta[i])
+    first_sigma[i] = 4./np.tan(1. * theta[i]*np.pi/180)
+    second_sigma[i] = 4./np.tan(2. * theta[i]*np.pi/180)
+    third_sigma[i] = 4./np.tan(3. * theta[i]*np.pi/180)
     print("first sigma: ", first_sigma[i], "[cm]")
     print("second sigma: ", second_sigma[i], "[cm]")
     print("third sigma: ", third_sigma[i], "[cm]")
