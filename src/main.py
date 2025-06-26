@@ -11,9 +11,18 @@ with ur.open("../data/run37.root") as file:
     # print(file.keys())
     # ['raw;1', 'pedestals;1', 'data;1', 'run_info;1', 'config;1', 'config/TEnv;1']
 
+    info = file["run_info"]
+
+    config = file["config"]
+
     t_raw = file["raw"]
 
     t_data = file["data"]
+
+    print(config.keys())
+    print(config["TEnv"])
+    print(info.keys())
+    print(info["comment"])
 
     # print(t_raw.keys())
     # ['apv_evt', 'time_s', 'time_us', 'apv_fecNo', 'apv_id', 'apv_ch', 'mm_id', 'mm_readout', 'mm_strip', 'apv_q', 'apv_presamples']

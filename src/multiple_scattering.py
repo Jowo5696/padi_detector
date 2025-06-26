@@ -14,7 +14,7 @@ x0_rho = np.array([12.86, 24.01]) # g/cm²
 x0 = np.array([1.436, 8.897]) # cm
 
 # thickness of material
-x = np.array([.01, .1]) # cm
+x = np.array([.2, 5]) # cm
 
 theta = np.ndarray(shape=(2,))
 first_sigma = np.ndarray(shape=(2,))
@@ -36,12 +36,13 @@ for i in range(2):
 
     # 10 cm², roughly 4x4 cm² for error
     # np.tan takes rad as argument. if theta is rad then this works
-    first_sigma[i] = 4./np.tan(1. * theta[i])
-    second_sigma[i] = 4./np.tan(2. * theta[i])
-    third_sigma[i] = 4./np.tan(3. * theta[i])
+    first_sigma[i] = 2./np.tan(1. * theta[i])
+    second_sigma[i] = 2./np.tan(2. * theta[i])
+    third_sigma[i] = 2./np.tan(3. * theta[i])
     print("first sigma: ", first_sigma[i], "[cm]")
-    print("second sigma: ", second_sigma[i], "[cm]")
-    print("third sigma: ", third_sigma[i], "[cm]")
+#    print("second sigma: ", second_sigma[i], "[cm]")
+#    print("third sigma: ", third_sigma[i], "[cm]")
+    print("distance target-detector: ", third_sigma[i], "[cm]")
     print("----------")
 
 ''' testing
