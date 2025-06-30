@@ -16,10 +16,11 @@ x0 = np.array([1.436, 8.897]) # cm
 # thickness of material
 x = np.array([.2, 5]) # cm
 
+# distance target detector
+d = 40 # cm
+
 theta = np.ndarray(shape=(2,))
-first_sigma = np.ndarray(shape=(2,))
-second_sigma = np.ndarray(shape=(2,))
-third_sigma = np.ndarray(shape=(2,))
+distance_target_detector = np.ndarray(shape=(2,))
 
 material = ["Copper", "Aluminium"]
 
@@ -30,19 +31,16 @@ for i in range(2):
 
     print(material[i], x[i], "[cm]")
 
-    # the unit of the angle is still unsure. the unit might from the formula might be rad and not degree
     print("angle: ", theta[i], "[rad]")
     print("angle: ", theta[i]*180/np.pi, "[degree]")
 
+    #print("adjacent side length: ", np.tan(theta[i]) * d, "[cm]")
+          
     # 10 cm², roughly 4x4 cm² for error
     # np.tan takes rad as argument. if theta is rad then this works
-    first_sigma[i] = 2./np.tan(1. * theta[i])
-    second_sigma[i] = 2./np.tan(2. * theta[i])
-    third_sigma[i] = 2./np.tan(3. * theta[i])
-    print("first sigma: ", first_sigma[i], "[cm]")
-#    print("second sigma: ", second_sigma[i], "[cm]")
-#    print("third sigma: ", third_sigma[i], "[cm]")
-    print("distance target-detector: ", third_sigma[i], "[cm]")
+    #distance_target_detector[i] = 2./np.tan(3. * theta[i])
+    #print("distance target-detector (theory): ", distance_target_detector[i], "[cm]")
+
     print("----------")
 
 ''' testing

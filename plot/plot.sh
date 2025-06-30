@@ -6,3 +6,4 @@ latex plot.tex
 printf "\n--- done latex ---\n\n"
 pdflatex plot.tex
 printf "\n--- done ---\n\n"
+zathura plot.pdf

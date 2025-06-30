@@ -1,8 +1,8 @@
 set terminal epslatex color
 set output "output.tex"
-set title 'title'
-set xlabel '$x$ [\#]'
-set ylabel '$y$ [\#]'
+set title 'histrogram of 40cm distance 5cm Al'
+set xlabel 'strips [\#]'
+set ylabel 'cummulated events [\#]'
 set grid
 set key box top left width -4 # 'samplen x' sets how much space the symbol takes
 
@@ -17,16 +17,24 @@ set style line 8 lt rgb "#b2df8a" pt 13 ps .5 # pastel green
 set style line 9 lt rgb "#fb9a99" pt 13 ps .5 # pastel red
 set style line 10 lt rgb "#cab2d6" pt 13 ps .5 # pastel purple
 
-#f(x) = m*x+n
-#fit f(x) 'test.dat' via m,n
-#chi2 = (FIT_STDFIT*FIT_STDFIT)
-#set label sprintf("x² = %.5f", chi2) at 2,10
+file = '../src/y_histogram_data.txt'
 
-do for [i=0:2] {
-  set output 'output_'.i.'.tex'
-  plot '../data/b_apv_qmax_and_mm_strip_'.i using 1:2 title 'event '.i
-}
-#plot for [i=1:2] '../data/b_apv_qmax_and_mm_strip_'.i using 1:2 title 'event '.i
+f(x) = a * exp( -1 * (x - b)**n / c**n ) + d
+n = 2
+a = 4000
+b = 50 
+c = 12
+d = 1000
+# might need to adjust the taken data
+#every ::30::70
+fit f(x) file u 1:2:3 yerrors via a,b,c,d
+chi2 = (FIT_STDFIT*FIT_STDFIT)
+set label sprintf("$\\chi^2 = %.5f$", chi2) at 70,4000
+
+
+plot file u 1:2:3 with yerrorbars ls 1,\
+  f(x)
+
 
 # NaN with points / lines title '' ls 1 # fake legend
 

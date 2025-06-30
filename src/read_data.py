@@ -36,63 +36,106 @@ for i in range(n):
     data_tree.GetEntry(i)
 
 # Create 1D histogram
-h_xpos = ROOT.TH1F("h_xpos", "X Position (only ID=0 or 1);x position [mm];counts", 100, 0, 100)
-h_ypos = ROOT.TH1F("h_ypos", "Y Position (only ID=2 or 3);y position [mm];counts", 100, 0, 100)
+hist_xpos = ROOT.TH1F("hist_xpos", "X Position (only ID=0 or 1);x position [mm];counts", 100, 0, 100)
+hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [mm];counts", 100, 0, 100)
+hist_charge = ROOT.TH1F("hist_charge", "title", 100, 0, 100)
 
 # Create 2D histogram: average X vs average Y
-h_xy = ROOT.TH2F("h_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
+hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
+hist_xy_no_avg = ROOT.TH2F("hist_xy_no_avg", "NOT Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
 
 
 # Loop through events
 for entry in raw_tree:
 
     # number of hits per triggered event (abt every 25ns)
-    n_hits = len(entry.apv_id)
+    num_hits = len(entry.apv_id)
 
+    x_pos = 0
     sum_x = 0
-    nhits_x = 0
+    num_hits_x = 0
+    y_pos = 0
     sum_y = 0
-    nhits_y = 0
+    num_hits_y = 0
 
     # sort where a particle hit
-    for i in range(n_hits):
+    for i in range(num_hits):
 
         charge = entry.apv_q[i]
+
+        # print(max(charge))
+
+        # len = 26 = num_hits for first entry
+        # print(len(charge)) # type seems to be vector
 
         # id of the apv which registers event
         apv_id = entry.apv_id[i]
         strip = entry.mm_strip[i]
 
-        # x
-        if apv_id in [0,1]:
-            x_pos = strip * 100. / 256.
-            h_xpos.Fill(x_pos)
-            sum_x += x_pos
-            nhits_x += 1
-        # y
-        if apv_id in [2,3]:
-            y_pos = ((strip + 128) % 256) * 100. / 256.
-            #y_pos = strip * 100.0 / 256
-            h_ypos.Fill(y_pos)
-            sum_y += y_pos
-            nhits_y += 1
+        # to filter noise. this value can be adjusted to get a desired gaussian profile
+        # TODO is general threshold for charge (i.e. count only when charge is within x std_dev) better than fixed value??
+        #if max(charge) > 4 * np.std(charge):
+        if max(charge) > 1300:
+            # x
+            if apv_id in [0,1]:
+                x_pos = strip * 100. / 256.
+                hist_xpos.Fill(x_pos) # counts events that happen at a certain x position
+                sum_x += x_pos * max(charge)
+                num_hits_x += max(charge)
+                # no weight
+                #sum_x += x_pos
+                #num_hits_x += 1
+            # y
+            if apv_id in [2,3]:
+                y_pos = ((strip + 128) % 256) * 100. / 256.
+                #y_pos = strip * 100.0 / 256
+                hist_ypos.Fill(y_pos)
+                sum_y += y_pos * max(charge)
+                num_hits_y += max(charge)
+                #sum_y += y_pos
+                #num_hits_y += 1
 
     # average over all events
-    if nhits_x > 0 and nhits_y > 0:
-        average_x = sum_x / nhits_x
-        average_y = sum_y / nhits_y
-        h_xy.Fill(average_x, average_y)
+    # TODO weigh hits 
+    ## weigh with charge seems to make not much of a difference
+    if num_hits_x > 0 and num_hits_y > 0:
+        # average position which is hit, i.e. hit at 2 and hit at 10 will be hit at 6 = (2+10)/2
+        # TODO actually don't average this??
+        average_x = sum_x / num_hits_x
+        average_y = sum_y / num_hits_y
+        hist_xy.Fill(average_x, average_y)
 
 # Draw the histogram
+# TODO TeX font (computer modern serif)
+# TODO fit gaussian curve to x and y
+
+# fits
+fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
+hist_xpos.Fit("fit_x")
+fit_y = ROOT.TF1("fit_y", "gaus", 0, 100)
+hist_ypos.Fit("fit_y")
+
 c = ROOT.TCanvas("c", "Canvas", 800, 600)
-h_xpos.Draw()
+hist_xpos.Draw()
 c.SaveAs("x_position_histogram.png")  # Optional: save plot
 
-h_ypos.Draw()
+hist_ypos.Draw()
 c.SaveAs("y_position_histogram.png")  # Optional: save plot
 
 # 2D hit map
-h_xy.Draw("COLZ")
+hist_xy.Draw("COLZ")
 c.SaveAs("xy_hitmap.png")
+
+#hist_xy_no_avg.Draw("COLZ")
+#c.SaveAs("xy_hitmap_no_avg.png")
+
+# save bin centers, contents, and errors to file
+with open("y_histogram_data.txt", "w") as f:
+    f.write("# BinCenter  BinContent  BinError\n")
+    for i in range(1, hist_ypos.GetNbinsX() + 1):
+        bin_center = hist_ypos.GetBinCenter(i)
+        bin_content = hist_ypos.GetBinContent(i)
+        bin_error = hist_ypos.GetBinError(i)
+        f.write(f"{bin_center}  {bin_content}  {bin_error}\n")
 
 file.Close()
