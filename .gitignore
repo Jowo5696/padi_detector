@@ -5,5 +5,8 @@ plot/*
 !*.tex
 !*.sh
 
-latex/*
+tex/*
 !*.tex
+!*.cls
+!*.bst
+!*.bib
