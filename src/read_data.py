@@ -1,6 +1,7 @@
 import ROOT
 import numpy as np
 import matplotlib.pyplot as plt
+from itertools import product
 
 # Open the ROOT file
 file = ROOT.TFile.Open("../data/run87.root")
@@ -38,7 +39,7 @@ for i in range(n):
 # Create 1D histogram
 hist_xpos = ROOT.TH1F("hist_xpos", "X Position (only ID=0 or 1);x position [mm];counts", 100, 0, 100)
 hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [mm];counts", 100, 0, 100)
-hist_charge = ROOT.TH1F("hist_charge", "title", 100, 0, 100)
+hist_charge = ROOT.TH1F("hist_charge", "title", 100, 0, 2500)
 
 # Create 2D histogram: average X vs average Y
 hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
@@ -46,10 +47,10 @@ hist_xy_no_avg = ROOT.TH2F("hist_xy_no_avg", "NOT Average X vs Average Y;x posit
 
 
 # Loop through events
-for entry in raw_tree:
+for entry_raw in raw_tree:
 
     # number of hits per triggered event (abt every 25ns)
-    num_hits = len(entry.apv_id)
+    num_hits = len(entry_raw.apv_id)
 
     x_pos = 0
     sum_x = 0
@@ -61,24 +62,31 @@ for entry in raw_tree:
     # sort where a particle hit
     for i in range(num_hits):
 
-        charge = entry.apv_q[i]
-
+        #charge_max = entry_data.apv_qmax[i]
+        charge = entry_raw.apv_q[i] # type: {1,2,3,,,,}
+        # len = 26 for every entry
+        # print(len(charge)) # type seems to be vector
         # print(max(charge))
 
-        # len = 26 = num_hits for first entry
-        # print(len(charge)) # type seems to be vector
+        # this is true
+        # print(charge_max == max(charge))
 
+        hist_charge.Fill(max(charge))
+        
         # id of the apv which registers event
-        apv_id = entry.apv_id[i]
-        strip = entry.mm_strip[i]
+        apv_id = entry_raw.apv_id[i]
+        strip = entry_raw.mm_strip[i]
+        entry_raw.mm_strip.push_back(0)
+        entry_raw.mm_strip.push_back(0)
 
         # to filter noise. this value can be adjusted to get a desired gaussian profile
-        # TODO is general threshold for charge (i.e. count only when charge is within x std_dev) better than fixed value??
-        #if max(charge) > 4 * np.std(charge):
-        if max(charge) > 1300:
+        # highest charge doesn't seem to be the events we are looking for. see hist_charge plot. low charge are the most events
+        #if True:
+        if ((strip + 1) == entry_raw.mm_strip[i+1] and (strip + 1) == entry_raw.mm_strip[i+1] and max(charge) > 80 and max(charge) < 1000):
+        #if ((strip + 1) != entry_raw.mm_strip[i+1] and (strip + 2) != entry_raw.mm_strip[i+2] and max(charge) > 80 and max(charge) < 1000):
             # x
             if apv_id in [0,1]:
-                x_pos = strip * 100. / 256.
+                x_pos = strip * 100./256. # 10cm long and 256 strips
                 hist_xpos.Fill(x_pos) # counts events that happen at a certain x position
                 sum_x += x_pos * max(charge)
                 num_hits_x += max(charge)
@@ -97,7 +105,7 @@ for entry in raw_tree:
 
     # average over all events
     # TODO weigh hits 
-    ## weigh with charge seems to make not much of a difference
+    # weigh with charge seems to make not much of a difference
     if num_hits_x > 0 and num_hits_y > 0:
         # average position which is hit, i.e. hit at 2 and hit at 10 will be hit at 6 = (2+10)/2
         # TODO actually don't average this??
@@ -110,10 +118,10 @@ for entry in raw_tree:
 # TODO fit gaussian curve to x and y
 
 # fits
-fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
-hist_xpos.Fit("fit_x")
-fit_y = ROOT.TF1("fit_y", "gaus", 0, 100)
-hist_ypos.Fit("fit_y")
+#fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
+#hist_xpos.Fit("fit_x")
+#fit_y = ROOT.TF1("fit_y", "gaus", 0, 100)
+#hist_ypos.Fit("fit_y")
 
 c = ROOT.TCanvas("c", "Canvas", 800, 600)
 hist_xpos.Draw()
@@ -121,6 +129,9 @@ c.SaveAs("x_position_histogram.png")  # Optional: save plot
 
 hist_ypos.Draw()
 c.SaveAs("y_position_histogram.png")  # Optional: save plot
+
+hist_charge.Draw()
+c.SaveAs("hist_charge.png")
 
 # 2D hit map
 hist_xy.Draw("COLZ")
