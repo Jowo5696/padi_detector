@@ -40,6 +40,9 @@ for i in range(n):
 hist_xpos = ROOT.TH1F("hist_xpos", "X Position (only ID=0 or 1);x position [mm];counts", 100, 0, 100)
 hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [mm];counts", 100, 0, 100)
 hist_charge = ROOT.TH1F("hist_charge", "title", 100, 0, 2500)
+hist_apv = ROOT.TH1F("hist_apv", "APV ID", 4, 0, 4)
+hist_apv_ch = ROOT.TH1F("hist_apv_ch", "APV CH", 128, 0, 128)
+hist_cluster = ROOT.TH1F("hist_cluster", "Cluster size", 9, 1, 10)
 
 # Create 2D histogram: average X vs average Y
 hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
@@ -58,6 +61,7 @@ for entry_raw in raw_tree:
     y_pos = 0
     sum_y = 0
     num_hits_y = 0
+    cluster_count = 0
 
     # sort where a particle hit
     for i in range(num_hits):
@@ -75,14 +79,33 @@ for entry_raw in raw_tree:
         
         # id of the apv which registers event
         apv_id = entry_raw.apv_id[i]
+        apv_ch = entry_raw.apv_ch[i]
         strip = entry_raw.mm_strip[i]
         entry_raw.mm_strip.push_back(0)
         entry_raw.mm_strip.push_back(0)
 
+        hist_apv.Fill(apv_id)
+        hist_apv_ch.Fill(apv_ch)
+
+
+        if (strip + 1) == entry_raw.mm_strip[i+1]: 
+            cluster_count += 1
+        else:
+            cluster_count = 0
+
+        hist_cluster.Fill(cluster_count)
+
+
         # to filter noise. this value can be adjusted to get a desired gaussian profile
         # highest charge doesn't seem to be the events we are looking for. see hist_charge plot. low charge are the most events
         #if True:
-        if ((strip + 1) == entry_raw.mm_strip[i+1] and (strip + 1) == entry_raw.mm_strip[i+1] and max(charge) > 80 and max(charge) < 1000):
+        if (
+                ((strip + 1) == entry_raw.mm_strip[i+1] and (strip + 2) == entry_raw.mm_strip[i + 2])
+                or ((strip - 1) == entry_raw.mm_strip[i-1] and (strip + 1) == entry_raw.mm_strip[i + 1])
+                or ((strip - 1) == entry_raw.mm_strip[i-1] and (strip - 2) == entry_raw.mm_strip[i - 2])
+                and max(charge) > 80 
+                and max(charge) < 1000
+                ):
         #if ((strip + 1) != entry_raw.mm_strip[i+1] and (strip + 2) != entry_raw.mm_strip[i+2] and max(charge) > 80 and max(charge) < 1000):
             # x
             if apv_id in [0,1]:
@@ -93,6 +116,7 @@ for entry_raw in raw_tree:
                 # no weight
                 #sum_x += x_pos
                 #num_hits_x += 1
+
             # y
             if apv_id in [2,3]:
                 y_pos = ((strip + 128) % 256) * 100. / 256.
@@ -102,6 +126,7 @@ for entry_raw in raw_tree:
                 num_hits_y += max(charge)
                 #sum_y += y_pos
                 #num_hits_y += 1
+
 
     # average over all events
     # TODO weigh hits 
@@ -132,6 +157,15 @@ c.SaveAs("y_position_histogram.png")  # Optional: save plot
 
 hist_charge.Draw()
 c.SaveAs("hist_charge.png")
+
+hist_apv.Draw()
+c.SaveAs("hist_apv.png")
+
+hist_apv_ch.Draw()
+c.SaveAs("hist_apv_ch.png")
+
+hist_cluster.Draw()
+c.SaveAs("hist_cluster.png")
 
 # 2D hit map
 hist_xy.Draw("COLZ")
