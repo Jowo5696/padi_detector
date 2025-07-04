@@ -18,6 +18,7 @@ x = np.array([.2, 5]) # cm
 
 # distance target detector
 d = 40 # cm
+print("distance: ", d, "[cm]")
 
 theta = np.ndarray(shape=(2,))
 distance_target_detector = np.ndarray(shape=(2,))

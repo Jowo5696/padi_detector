@@ -4,7 +4,9 @@ import matplotlib.pyplot as plt
 from itertools import product
 
 # Open the ROOT file
-file = ROOT.TFile.Open("../data/run87.root")
+#file = ROOT.TFile.Open("../data/elsa/half_radiation_length/Aluminum_5cm/40cm_distance/run87.root")
+#file = ROOT.TFile.Open("../data/elsa/no_target/run82.root")
+file = ROOT.TFile.Open("../data/elsa/half_radiation_length/aluminium_5cm/distance_15cm/run83.root")
 
 # Function to read all branches from a TTree
 def read_tree(tree):
@@ -37,15 +39,18 @@ for i in range(n):
     data_tree.GetEntry(i)
 
 # Create 1D histogram
-hist_xpos = ROOT.TH1F("hist_xpos", "X Position (only ID=0 or 1);x position [mm];counts", 100, 0, 100)
-hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [mm];counts", 100, 0, 100)
+hist_xpos = ROOT.TH1F("hist_xpos", "X Position (only ID=0 or 1);x position [strip];counts", 257, 0, 257)
+#hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [strip];counts", 257, 0, 257)
+hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [strip];counts", 100, 0, 101)
 hist_charge = ROOT.TH1F("hist_charge", "title", 100, 0, 2500)
 hist_apv = ROOT.TH1F("hist_apv", "APV ID", 4, 0, 4)
 hist_apv_ch = ROOT.TH1F("hist_apv_ch", "APV CH", 128, 0, 128)
-hist_cluster = ROOT.TH1F("hist_cluster", "Cluster size", 9, 1, 10)
+hist_cluster_count = ROOT.TH1F("hist_cluster_count", "Cluster count", 25, 1, 26)
+hist_cluster_size = ROOT.TH1F("hist_cluster_size", "Cluster size", 25, 1, 26)
 
 # Create 2D histogram: average X vs average Y
-hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
+#hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
+hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [strip];y position [strip]", 256, 0, 257, 256, 0, 257)
 hist_xy_no_avg = ROOT.TH2F("hist_xy_no_avg", "NOT Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
 
 
@@ -61,10 +66,22 @@ for entry_raw in raw_tree:
     y_pos = 0
     sum_y = 0
     num_hits_y = 0
-    cluster_count = 0
 
-    # sort where a particle hit
-    for i in range(num_hits):
+    cluster_count = 0
+    cluster_size = 0
+
+    # a cluster is defined as a number of strips that fire next to each other
+    for i in range(num_hits - 1):
+        if (entry_raw.mm_strip[i] + 1) == entry_raw.mm_strip[i + 1]: 
+            cluster_size += 1 # strips per cluster
+            #continue
+        else:
+            cluster_count += 1 # number of clusters
+            hist_cluster_size.Fill(cluster_size)
+            cluster_size = 0
+
+    for i in range(num_hits - 1):
+
 
         #charge_max = entry_data.apv_qmax[i]
         charge = entry_raw.apv_q[i] # type: {1,2,3,,,,}
@@ -81,52 +98,49 @@ for entry_raw in raw_tree:
         apv_id = entry_raw.apv_id[i]
         apv_ch = entry_raw.apv_ch[i]
         strip = entry_raw.mm_strip[i]
-        entry_raw.mm_strip.push_back(0)
-        entry_raw.mm_strip.push_back(0)
 
         hist_apv.Fill(apv_id)
         hist_apv_ch.Fill(apv_ch)
 
-
-        if (strip + 1) == entry_raw.mm_strip[i+1]: 
-            cluster_count += 1
-        else:
-            cluster_count = 0
-
-        hist_cluster.Fill(cluster_count)
-
-
+        # {{{ if
         # to filter noise. this value can be adjusted to get a desired gaussian profile
         # highest charge doesn't seem to be the events we are looking for. see hist_charge plot. low charge are the most events
         #if True:
         if (
-                ((strip + 1) == entry_raw.mm_strip[i+1] and (strip + 2) == entry_raw.mm_strip[i + 2])
-                or ((strip - 1) == entry_raw.mm_strip[i-1] and (strip + 1) == entry_raw.mm_strip[i + 1])
-                or ((strip - 1) == entry_raw.mm_strip[i-1] and (strip - 2) == entry_raw.mm_strip[i - 2])
-                and max(charge) > 80 
-                and max(charge) < 1000
+                #((strip + 1) == entry_raw.mm_strip[i + 1] and (strip + 2) == entry_raw.mm_strip[i + 2])
+                #or ((strip - 1) == entry_raw.mm_strip[i - 1] and (strip + 1) == entry_raw.mm_strip[i + 1])
+                #or ((strip - 1) == entry_raw.mm_strip[i - 1] and (strip - 2) == entry_raw.mm_strip[i - 2])
+                #and ((strip + 3) != entry_raw.mm_strip[i + 3])
+                cluster_count < 4 # if there are more than x clusters in total dont use the event
+                #and max(charge) > 80 
+                #and max(charge) < 1000
+                #True
                 ):
         #if ((strip + 1) != entry_raw.mm_strip[i+1] and (strip + 2) != entry_raw.mm_strip[i+2] and max(charge) > 80 and max(charge) < 1000):
+    
+            # sort where a particle hit
             # x
             if apv_id in [0,1]:
-                x_pos = strip * 100./256. # 10cm long and 256 strips
+                x_pos = strip * 100. / 256. # 10cm long and 128 channels, 256 strips
                 hist_xpos.Fill(x_pos) # counts events that happen at a certain x position
-                sum_x += x_pos * max(charge)
-                num_hits_x += max(charge)
+                sum_x += x_pos  
+                num_hits_x += i
                 # no weight
                 #sum_x += x_pos
                 #num_hits_x += 1
 
             # y
             if apv_id in [2,3]:
-                y_pos = ((strip + 128) % 256) * 100. / 256.
-                #y_pos = strip * 100.0 / 256
+                y_pos = ((strip + 128) % 255) * 100. / 256.
+                #y_pos = strip #* 100.0 / 256
                 hist_ypos.Fill(y_pos)
-                sum_y += y_pos * max(charge)
-                num_hits_y += max(charge)
+                sum_y += y_pos * i
+                num_hits_y += i
                 #sum_y += y_pos
                 #num_hits_y += 1
+            #}}}
 
+    hist_cluster_count.Fill(cluster_count)
 
     # average over all events
     # TODO weigh hits 
@@ -145,8 +159,12 @@ for entry_raw in raw_tree:
 # fits
 #fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
 #hist_xpos.Fit("fit_x")
-#fit_y = ROOT.TF1("fit_y", "gaus", 0, 100)
-#hist_ypos.Fit("fit_y")
+fit_y = ROOT.TF1("fit_y", "gaus", 0, 256)
+hist_ypos.Fit("fit_y")
+
+#fct = hist_ypos.GetFunction("gaus")
+#sigma = fct.GetParameter(2)
+#print("sigma: ",sigma)
 
 c = ROOT.TCanvas("c", "Canvas", 800, 600)
 hist_xpos.Draw()
@@ -164,8 +182,11 @@ c.SaveAs("hist_apv.png")
 hist_apv_ch.Draw()
 c.SaveAs("hist_apv_ch.png")
 
-hist_cluster.Draw()
-c.SaveAs("hist_cluster.png")
+hist_cluster_count.Draw()
+c.SaveAs("hist_cluster_count.png")
+
+hist_cluster_size.Draw()
+c.SaveAs("hist_cluster_size.png")
 
 # 2D hit map
 hist_xy.Draw("COLZ")
