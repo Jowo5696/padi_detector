@@ -79,12 +79,15 @@ This poses a problem because there are many different reasons for the undesired 
 \end{enumerate}
 There will be a number of histograms, this includes: x and y strip events, clusters, cluster size, xy hitman etc.\
 
-\textit{!This is WIP!} 
 For the analysis a gaussian curve is fittet to the histogram: y strip events.
 The x strips don't work well (probably detector issue and the beam has an elliptic profile).
-The standard deviation of the curve is related to $\theta $ via $\tan \theta =\tfrac{d}{\sigma }$ with $d$ the distance between the target and the detector.
+The standard deviation of the curve is related to $\theta $ via $\tan \theta =\tfrac{\sigma }{d}$ with $d$ the distance between the target and the detector.
 First calculations with this formula are in the right order of magnitude.
 This will probably work better with a more precise filtering of the available data.
+
+To evaluate the theory, $$\theta _\text{exp}=\arctan\left(\dfrac{\sigma }{d}\right)$$ is plotted against $$\theta _\text{theo}=\text{const}\,\sqrt[]{\dfrac{x}{x_0}}\left(1+0.038\ln\left(\dfrac{x}{x_0}\right)\right).$$
+This should give a linear correlation between these two values thus verifying the proportionality i.e.\ the theory.
+\textbf{Currently there is no correlation at all between these two so WIP.}
 
 %\bibliography{refs}
 
