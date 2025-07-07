@@ -20,7 +20,7 @@
 \usepackage{listings}%
 \usepackage{newtxmath}%
 \usepackage[tiny]{titlesec}%
-\usepackage[ngerman]{babel}
+%\usepackage[ngerman]{babel}
 \usepackage{enumitem}
 
 \theoremstyle{thmstyleone}
@@ -51,8 +51,51 @@
 
 \section{Introduction}
 
+\section{Theory}
+
+\section{Cosmic Data}
+\subsection{Experimental Setup}
+\subsection{Experimental Procedure}
+% micromegas detector & szintillators & trigger logic & DAQ
+
+
+
+\section{Multiple Scattering}
+\subsection{Experimental Setup}
+To observe multiple scattering, a electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA. The setup of the micromegas detector with the szintillators and the trigger logic, used and tested with the cosmic data, is placed a few meters in front of the output of the accelerator, such that the beam hit the detector. This is ensured by an laser, build in at the end of the accelerator, which could be slide into the middel of the opening to point along the beam line. However, it is known that the laser points a few centimeters too low compared to the actual beam. This must be note by custructing the setup and while placing the targets.
+To do latter, a metal bar is mounted close to the detector thus the targets could be placed in a distance between $\SI{5.5\pm 0.5}{cm}$ and $\SI{105.5\pm 0.5}{cm}$ to the first szintillator into the beam. Thereby the laser is used to adjust the bar.
+The available materials with their thicknesses are listed in \autoref{tab:available_materials}.
+
+
+\begin{table}\centering
+  \renewcommand*{\arraystretch}{1.1}
+  \begin{tabular}{c|c||c|c}
+    \multicolumn{2}{c||}{Aluminium} & \multicolumn{2}{c}{Copper} \\
+    {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
+    \num{1.22\pm 0.2} & 2 & \num{0.2\pm 0.2} & 3 \\
+    \num{2.5\pm 0.2} & 1 & \num{0.5\pm 0.2} & 2 \\
+    \num{5\pm 0.2} & 1 & \num{1.48\pm 0.2} & 2 \\
+    \num{9.96\pm 0.2} & 1 & & \\
+    \num{9.93\pm 0.2} & 1 & & \\
+  \end{tabular}
+  \vspace{3mm}
+  \caption{Available scattering materials of thickniss $d$ and quantity $\#$.}
+  \label{tab:available_materials}
+\end{table}
+
+\subsection{Experimental Procedure}
+After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without a target in the beam is performed, to ensure the functionality of the setup and the data taking program DAQ.
+(...)
+
+
+% fotos of the setup
+% unsertainties and roundings
+
+
+
+
 \clearpage
-\section{Analysis ELSA}
+\section{Analysis ELSA (\textbf{temporary informations})}
 Here is a quick rundown of how the analysis for ELSA works.
 
 The way that the data taking works is that the detector triggers about every $\SI{25}{ns}$ and reads all strips.
