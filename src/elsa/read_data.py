@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from itertools import product
 
+#{{{ files and histograms
 # Open the ROOT file
 file = [ROOT.TFile.Open("../../data/elsa/no_target/run82.root"),
         ROOT.TFile.Open("../../data/elsa/double_radiation_length/aluminium_18cm65/distance_40cm/run92.root"),
@@ -49,7 +50,9 @@ hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y positio
 hist_xy_no_avg = ROOT.TH2F("hist_xy_no_avg", "NOT Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 100, 100, 0, 100)
 
 c = ROOT.TCanvas("c", "Canvas", 800, 600)
+#}}}
 
+#{{{ elsa
 def elsa():
     for r in range(2): #range(len(file)):
 
@@ -243,7 +246,9 @@ def elsa():
 
 file = [ROOT.TFile.Open("../../data/unordered_runs/run36.root"),
         ROOT.TFile.Open("../../data/unordered_runs/run37.root")]
+#}}}
 
+#{{{ muon
 def muon():
     for r in range(2): #range(len(file)):
 
@@ -354,6 +359,7 @@ def muon():
 
         hist_xy_no_avg.Draw("COLZ")
         c.SaveAs(f"xy_hitmap_no_avg_{r}.png")
+        #}}}
 
 #elsa()
 muon()
