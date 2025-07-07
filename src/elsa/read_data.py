@@ -35,6 +35,7 @@ hist_xpos_avg = ROOT.TH1F("hist_xpos_avg", "X Position Average (only ID=2 or 3);
 
 hist_ypos = ROOT.TH1F("hist_ypos", "Y Position (only ID=2 or 3);y position [mm];counts", 100, 0, 101)
 hist_ypos_strip = ROOT.TH1F("hist_ypos_strip", "Y Position (only ID=2 or 3);y position [strip];counts", 256, 0, 257)
+hist_ypos_strip_nofilter = ROOT.TH1F("hist_ypos_strip_nofilter", "Y Position (only ID=2 or 3) no filter;y position [strip];counts", 256, 0, 257)
 hist_ypos_avg = ROOT.TH1F("hist_ypos_avg", "Y Position Average (only ID=2 or 3);y position [mm];counts", 100, 0, 101)
 
 #hist_charge = ROOT.TH1F("hist_charge", "title", 100, 0, 2500)
@@ -53,13 +54,14 @@ c = ROOT.TCanvas("c", "Canvas", 800, 600)
 
 #{{{ elsa
 def elsa():
-    for r in range(2): #range(len(file)):
+    for r in [1]: #range(len(file)):
         hist_xpos.Reset("ICES")
         hist_xpos_strip.Reset("ICES")
         hist_xpos_avg.Reset("ICES")
 
         hist_ypos.Reset("ICES")
         hist_ypos_strip.Reset("ICES")
+        hist_ypos_strip_nofilter.Reset("ICES")
         hist_ypos_avg.Reset("ICES")
 
         #hist_charge.Reset("ICES")
@@ -116,18 +118,25 @@ def elsa():
                 apv_id = entry_raw.apv_id[i]
                 strip = entry_raw.mm_strip[i]
 
+                """
+                if (strip >= 2) and (strip <= 254):
+                    """
                 # y
-                if apv_id in [2,3]:
-                    # when using % 256 there will be a blank strip because 256 % 256 = 0
-                    strip = strip + 128 % 255
-                
-                if (strip + 1) == entry_raw.mm_strip[i + 1]: 
-                    cluster_size += 1 # strips per cluster
-                    #continue
+                #if strip == 1:
+                if strip in [0,1,255,256]:
+                    cluster_count -= 1
                 else:
-                    cluster_count += 1 # number of clusters
-                    hist_cluster_size.Fill(cluster_size)
-                    cluster_size = 0
+                    if apv_id in [2,3]:
+                        strip = strip + 128 % 256
+                
+                        if (strip + 1) == entry_raw.mm_strip[i + 1]: 
+                            # TODO this is always one???
+                            cluster_size += 1 # strips per cluster
+                            #continue
+                        else:
+                            cluster_count += 1 # number of clusters
+                            hist_cluster_size.Fill(cluster_size)
+                            cluster_size = 0
 
             for i in range(num_hits):
 
@@ -145,11 +154,16 @@ def elsa():
 
                 strip = entry_raw.mm_strip[i]
 
+                if apv_id in [2,3]:
+                    # strip == 1 seems to be too low in comparison to the other strips
+                    hist_ypos_strip_nofilter.Fill((strip + 128) % 256)
+                    #hist_ypos_strip_nofilter.Fill(strip)
+
                 if (
-                        #(cluster_count < 3) # if there are more than x clusters in total dont use the event
-                        #and (max(charge) > 30)
-                        #and (max(charge) < 1000)
-                        True
+                        (cluster_count < 5) # if there are more than x clusters in total dont use the event
+                        and (charge > 90)
+                        and (charge < 1500)
+                        #True
                         ):
             
                     # sort where a particle hit
@@ -166,9 +180,9 @@ def elsa():
                     # y
                     if apv_id in [2,3]:
                         # when using % 256 there will be a blank strip because 256 % 256 = 0 -> 255
-                        hist_ypos_strip.Fill((strip + 128) % 255)
+                        hist_ypos_strip.Fill((strip + 128) % 256)
 
-                        y_pos = ((strip + 128) % 255) * 100. / 256.
+                        y_pos = ((strip + 128) % 256) * 100. / 256.
                         hist_ypos.Fill(y_pos)
 
                         sum_y += y_pos
@@ -193,14 +207,14 @@ def elsa():
         #fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
         #hist_xpos.Fit("fit_x")
 
-        fit_y = ROOT.TF1("fit_y", "gaus", 0, 256)
-        hist_ypos.Fit("fit_y")
+        #fit_y = ROOT.TF1("fit_y", "gaus", 0, 256)
+        #hist_ypos.Fit("fit_y")
 
-        fit_y_strip = ROOT.TF1("fit_y_strip", "gaus", 0, 256)
-        hist_ypos_strip.Fit("fit_y_strip")
+        #fit_y_strip = ROOT.TF1("fit_y_strip", "gaus", 0, 256)
+        #hist_ypos_strip.Fit("fit_y_strip")
 
-        fit_y_avg = ROOT.TF1("fit_y_avg", "gaus", 0, 256)
-        hist_ypos_avg.Fit("fit_y_avg")
+        #fit_y_avg = ROOT.TF1("fit_y_avg", "gaus", 0, 256)
+        #hist_ypos_avg.Fit("fit_y_avg")
 
         hist_xpos.Draw()
         c.SaveAs(f"x_position_histogram_{r}.png")  # Optional: save plot
@@ -210,6 +224,9 @@ def elsa():
 
         hist_ypos_strip.Draw()
         c.SaveAs(f"y_position_strip_histogram_{r}.png")  # Optional: save plot
+
+        hist_ypos_strip_nofilter.Draw()
+        c.SaveAs(f"y_position_strip_nofilter_histogram_{r}.png")  # Optional: save plot
 
         hist_ypos_avg.Draw()
         c.SaveAs(f"y_position_avg_histogram_{r}.png")  # Optional: save plot
