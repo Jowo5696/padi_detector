@@ -62,34 +62,82 @@
 
 \section{Multiple Scattering}
 \subsection{Experimental Setup}
-To observe multiple scattering, a electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA. The setup of the micromegas detector with the szintillators and the trigger logic, used and tested with the cosmic data, is placed a few meters in front of the output of the accelerator, such that the beam hit the detector. This is ensured by an laser, build in at the end of the accelerator, which could be slide into the middel of the opening to point along the beam line. However, it is known that the laser points a few centimeters too low compared to the actual beam. This must be note by custructing the setup and while placing the targets.
-To do latter, a metal bar is mounted close to the detector thus the targets could be placed in a distance between $\SI{5.5\pm 0.5}{cm}$ and $\SI{105.5\pm 0.5}{cm}$ to the first szintillator into the beam. Thereby the laser is used to adjust the bar.
-The available materials with their thicknesses are listed in \autoref{tab:available_materials}.
+To observe multiple scattering, a electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA, whose exit is shown in \autoref{fig:beam_setup_elsa}. The setup of the micromegas detector with the scintillators and the trigger logic, used and tested with the cosmic data, is placed a few meters in front of the output of the accelerator, such that the beam hits the detector as seen in \autoref{fig:detector_setup_elsa}. This is ensured by a laser, build in at the end of the accelerator, which could be slid into the middle of the opening to point along the beam line. However, it is known that the laser points a few centimeters too low compared to the actual beam. This must be note by constructing the setup and while placing the targets.
+To do latter, a metal bar is mounted close to the detector thus the targets could be placed in a distance between $\SI{5.5\pm 0.5}{cm}$ and $\SI{105.5\pm 0.5}{cm}$ to the first scintillator into the beam, where the uncertainties come from the measuring tape used to evaluate these distances. Thereby, the laser is used to adjust the bar and to ensure a free beam path up to the detector or the placed material.
+The available materials with their thicknesses are listed in \autoref{tab:available_materials}. These were measured by a previous group with a caliper, so uncertainties of $\SI{0.1}{mm}$ are assumed, which is roughly checked with the maesuring tape.
 
 
 \begin{table}\centering
   \renewcommand*{\arraystretch}{1.1}
   \begin{tabular}{c|c||c|c}
-    \multicolumn{2}{c||}{Aluminium} & \multicolumn{2}{c}{Copper} \\
+    \multicolumn{2}{c||}{Aluminum} & \multicolumn{2}{c}{Copper} \\
     {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
-    \num{1.22\pm 0.2} & 2 & \num{0.2\pm 0.2} & 3 \\
-    \num{2.5\pm 0.2} & 1 & \num{0.5\pm 0.2} & 2 \\
-    \num{5\pm 0.2} & 1 & \num{1.48\pm 0.2} & 2 \\
-    \num{9.96\pm 0.2} & 1 & & \\
-    \num{9.93\pm 0.2} & 1 & & \\
-  \end{tabular}
-  \vspace{3mm}
-  \caption{Available scattering materials of thickniss $d$ and quantity $\#$.}
+    \num{1.22\pm 0.01} & 2 & \num{0.2\pm 0.01} & 3 \\
+    \num{2.5\pm 0.01} & 1 & \num{0.5\pm 0.01} & 2 \\
+    \num{5\pm 0.01} & 1 & \num{1.48\pm 0.01} & 2 \\
+    \num{9.96\pm 0.01} & 1 & & \\
+    \num{9.93\pm 0.01} & 1 & & \\
+  \end{tabular}\vspace{3mm}
+  \caption{Available scattering materials of thickness $d$ and quantity $\#$.}
   \label{tab:available_materials}
 \end{table}
 
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/beam_setup_elsa.jpg}
+  \caption{Exit of ELSA.}
+  \label{fig:beam_setup_elsa}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/detector_setup_elsa.jpg}
+  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the green laser.}
+  \label{fig:detector_setup_elsa}
+\end{figure}
+
 \subsection{Experimental Procedure}
-After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without a target in the beam is performed, to ensure the functionality of the setup and the data taking program DAQ.
+After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program DAQ.
+Afterwards, for both materials multiple runs are recorded. Thereby the thicknesses $D$ of the targets are always chosen to be different multiples of the radiation length $X_0$ of the material, namely $0.5$, $1$ and $2$ times the length. The exact configurations for the different recordings are listed in \autoref{tab:config_materials}.
 (...)
 
+\begin{table}\centering
+  \renewcommand*{\arraystretch}{1.15}
+  \begin{tabular}{c|c|c}
+    $D/X_0$ & Aluminum & Copper \\
+    & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline\rule{0pt}{6ex}
+    $0.5$ & \num{5} & $\begin{array}{r}
+                \num{0.5} \\
+                +\,\num{0.2} \\\hline
+                =\,\num{0.7}    
+              \end{array}$ \\\hline
+    $1$ & \num{9.93} & \num{1.48} \\\hline
+    $2$ & $\begin{array}{r}
+      \num{1.22} \\
+      +\,\num{2.5} \\
+      +\,\num{5} \\
+      +\,\num{9.93} \\\hline
+      =\,\num{18.65}
+    \end{array}$ & $\begin{array}{r}
+                      2\times\num{1.48} \\\hline
+                      =\,\num{2.96}
+                    \end{array}$ \\\hline
+    $3$ & $\begin{array}{r}
+      \num{2.5} \\
+      +\,\num{5} \\
+      +\,\num{9.93} \\
+      +\,\num{9.96} \\\hline
+      =\,\num{27.39}
+    \end{array}$ & $\begin{array}{r}
+                      2\times\num{0.2} \\
+                      +\,2\times\num{0.5} \\
+                      +\,2\times\num{1.48} \\\hline
+                      =\,\num{4.36}
+                    \end{array}$ \\\hline
+  \end{tabular}\vspace{3mm}
+  \caption{Specific configurations of used materials with radiation length $X_0$ and overall thicknesses $D$.}
+  \label{tab:config_materials}
+% uncertainties and units
+\end{table}
 
-% fotos of the setup
-% unsertainties and roundings
 
 
 
