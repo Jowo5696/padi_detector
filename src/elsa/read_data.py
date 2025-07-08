@@ -54,7 +54,7 @@ c = ROOT.TCanvas("c", "Canvas", 800, 600)
 
 #{{{ elsa
 def elsa():
-    for r in [1]: #range(len(file)):
+    for r in [0,1,3]: #range(len(file)):
         hist_xpos.Reset("ICES")
         hist_xpos_strip.Reset("ICES")
         hist_xpos_avg.Reset("ICES")
@@ -138,6 +138,9 @@ def elsa():
                             hist_cluster_size.Fill(cluster_size)
                             cluster_size = 0
 
+            #print("cluster_count: ",cluster_count)
+            #print("cluster_size: ",cluster_size)
+
             for i in range(num_hits):
 
                 # qmax is maximum charge per strip in the 25ns interval
@@ -148,11 +151,13 @@ def elsa():
                 
                 # id of the apv which registers event
                 apv_id = entry_raw.apv_id[i]
+                #print("apv_id: ",apv_id)
                 #apv_ch = entry_raw.apv_ch[i]
                 #hist_apv.Fill(apv_id)
                 #hist_apv_ch.Fill(apv_ch)
 
                 strip = entry_raw.mm_strip[i]
+                #print("strip: ",strip)
 
                 if apv_id in [2,3]:
                     # strip == 1 seems to be too low in comparison to the other strips
@@ -160,9 +165,9 @@ def elsa():
                     #hist_ypos_strip_nofilter.Fill(strip)
 
                 if (
-                        (cluster_count < 5) # if there are more than x clusters in total dont use the event
-                        and (charge > 90)
-                        and (charge < 1500)
+                        (cluster_count < 3) # if there are more than x clusters in total dont use the event
+                        #and (charge > 90)
+                        #and (charge < 1500)
                         #True
                         ):
             
@@ -202,6 +207,7 @@ def elsa():
 
                 hist_xpos_avg.Fill(average_x)
                 hist_ypos_avg.Fill(average_y)
+            #break
 
         # fits
         #fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
@@ -218,6 +224,9 @@ def elsa():
 
         hist_xpos.Draw()
         c.SaveAs(f"x_position_histogram_{r}.png")  # Optional: save plot
+
+        hist_xpos_strip.Draw()
+        c.SaveAs(f"x_position_strip_histogram_{r}.png")  # Optional: save plot
 
         hist_ypos.Draw()
         c.SaveAs(f"y_position_histogram_{r}.png")  # Optional: save plot

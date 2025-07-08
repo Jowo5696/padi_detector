@@ -1,12 +1,12 @@
 data/*
 
-plot/*
-!*.gnuplot
-!*.tex
-!*.sh
+plot/elsa/*
+!plot/elsa/*.gnuplot
+!plot/elsa/*.tex
+!plot/elsa/*.sh
 
 tex/*
-!*.tex
-!*.cls
-!*.bst
-!*.bib
+!tex/*.tex
+!tex/*.cls
+!tex/*.bst
+!tex/*.bib
