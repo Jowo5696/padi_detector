@@ -11,3 +11,4 @@ tex/*
 !tex/*.cls
 !tex/*.bst
 !tex/*.bib
+!tex/figures
