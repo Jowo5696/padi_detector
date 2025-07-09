@@ -90,56 +90,64 @@ The available materials with their thicknesses are listed in \autoref{tab:availa
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_setup_elsa.jpg}
-  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the green laser.}
+  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the laser.}
   \label{fig:detector_setup_elsa}
 \end{figure}
 
 \subsection{Experimental Procedure}
 After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program DAQ.
-Afterwards, for both materials multiple runs are recorded. Thereby the thicknesses $D$ of the targets are always chosen to be different multiples of the radiation length $X_0$ of the material, namely $0.5$, $1$ and $2$ times the length. The exact configurations for the different recordings are listed in \autoref{tab:config_materials}.
-(...)
+Afterwards, for both materials multiple runs are recorded. Thereby, the thicknesses $D$ of the targets are changed by placing different blocks of one material in a row. $D$ is approximately always chosen to be different multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. The distance $z$ between the scintillator and the leading edge of the material is always $z=\SI{40\pm0.5}{cm}$. Overall eight runs, one for each $m$ and both materials, are recorded. The exact configurations for the different recordings are listed in \autoref{tab:config_materials}.
 
 \begin{table}\centering
   \renewcommand*{\arraystretch}{1.15}
   \begin{tabular}{c|c|c}
-    $D/X_0$ & Aluminum & Copper \\
-    & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline\rule{0pt}{6ex}
-    $0.5$ & \num{5} & $\begin{array}{r}
-                \num{0.5} \\
-                +\,\num{0.2} \\\hline
-                =\,\num{0.7}    
+    & Aluminum & Copper \\
+    & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline
+    $m$ & $\sum d/cm = D /cm$ & $\sum d/cm = D /cm$ \\\hline\hline\rule{0pt}{6ex}
+    $0.5$ & \num{5\pm 0.01} & $\begin{array}{r}
+                \num{0.5\pm 0.01} \\
+                +\,\num{0.2\pm 0.01} \\\hline
+                =\,\num{0.7\pm 0.01}    
               \end{array}$ \\\hline
-    $1$ & \num{9.93} & \num{1.48} \\\hline
+    $1$ & \num{9.93\pm 0.01} & \num{1.48\pm 0.01} \\\hline
     $2$ & $\begin{array}{r}
-      \num{1.22} \\
-      +\,\num{2.5} \\
-      +\,\num{5} \\
-      +\,\num{9.93} \\\hline
-      =\,\num{18.65}
+      \num{1.22\pm 0.01} \\
+      +\,\num{2.5\pm 0.01} \\
+      +\,\num{5\pm 0.01} \\
+      +\,\num{9.93\pm 0.01} \\\hline
+      =\,\num{18.65\pm 0.02}
     \end{array}$ & $\begin{array}{r}
-                      2\times\num{1.48} \\\hline
-                      =\,\num{2.96}
+                      2\times\num{1.48\pm 0.01} \\\hline
+                      =\,\num{2.96\pm 0.01}
                     \end{array}$ \\\hline
     $3$ & $\begin{array}{r}
-      \num{2.5} \\
-      +\,\num{5} \\
-      +\,\num{9.93} \\
-      +\,\num{9.96} \\\hline
-      =\,\num{27.39}
+      \num{2.5\pm 0.01} \\
+      +\,\num{5\pm 0.01} \\
+      +\,\num{9.93\pm 0.01} \\
+      +\,\num{9.96\pm 0.01} \\\hline
+      =\,\num{27.39\pm 0.02}
     \end{array}$ & $\begin{array}{r}
-                      2\times\num{0.2} \\
-                      +\,2\times\num{0.5} \\
-                      +\,2\times\num{1.48} \\\hline
-                      =\,\num{4.36}
+                      2\times\num{0.2\pm 0.01} \\
+                      +\,2\times\num{0.5\pm 0.01} \\
+                      +\,2\times\num{1.48\pm 0.01} \\\hline
+                      =\,\num{4.36\pm 0.02}
                     \end{array}$ \\\hline
   \end{tabular}\vspace{3mm}
-  \caption{Specific configurations of used materials with radiation length $X_0$ and overall thicknesses $D$.}
+  \caption{Specific configurations of used materials with radiation length $X_0$ and overall thicknesses $D$ for different multiples $m$ of $X_0$.}
   \label{tab:config_materials}
-% uncertainties and units
 \end{table}
 
+\subsection{Data Analysis}
+The recorded data of the run without scattering material in the beam is shown as a histogram in (fig-temp). The distribution of the electrons in the x-direction is approximately twice as wide as in y-direction, resulting in an oval-shaped beam.
+To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable. Therefore, in the following analysis, only the y-direction is considered.
+
+For each run 
 
 
+
+
+% x and y hist for no material
+% explanations of each plot
 
 
 \clearpage
