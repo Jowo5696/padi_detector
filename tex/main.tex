@@ -56,7 +56,8 @@
 
 \section{Cosmic Data}
 \subsection{Experimental Setup}
-To observe cosmic muon rays, a micromegas detector was setup horizontally. Parallel to that detector two overlapping scintillators were positioned like shown in \autoref{fig:setup_ROT}.
+To observe cosmic muon rays, a micromegas detector was setup horizontally between two scintillators. 
+These scintillators are overlapping and positioned like shown in \autoref{fig:setup_ROT}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/setup_ROT.jpeg}
@@ -65,14 +66,16 @@ To observe cosmic muon rays, a micromegas detector was setup horizontally. Paral
 \end{figure}
 
 As can be seen, one of the scintillators is covered up by a cloth. This is because a previous group noticed that this particular scintillator did not seem to be sealed correctely and thus covered it to increase its efficiency.
-The scintillators are provided with voltages of roughly \SI{1700}{\volt} and \SI{1250}{\volt}. These voltages along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt} are provided by a high voltage module.
+The scintillators are provided with voltages of \SI{1700}{\volt} and \SI{1250}{\volt}. These voltages along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt} are provided by a high voltage module.
 Additionally to the high voltage module more modules are used to set up the trigger logic of the detector.
-The trigger logic ensures, that the detector only counts events when both scintillators register an event so noise is minimized.
-The readout system of the detector consists of four APVs and a minicrate, which are triggered by the trigger logic and send the received data to a PC where the data readout is handeled by the software DAQ.
-(...)
+The trigger logic ensures, that the detector only counts events when both scintillators register an event so noise is minimized and only particles which pass through the detector are counted.
+The readout system of the detector consists of four APVs and a minicrate, which are triggered by the trigger logic and send the received data to a PC where the data readout is handeled by the DAQ software.
+(...) % explanation and handling of DAQ? 
 
 \subsection{Experimental Procedure}
-To set up the trigger logic we first put the scintillators directly on top of each other, so more events would be registered at both of them.
+To set up the trigger logic we first put the scintillators directly on top of each other, so events would be registered at both of them at a higher rate.
+This positioning was only used in first setting up the trigger logic.
+For data taking we returned the scintillators to their original positions above and below the micromegas detector.
 Looking at the scintillator signal directly with an oscilloscope we could obseve a signal like shown in \autoref{fig:scintillator_signal}.
 
 \begin{figure}
@@ -82,8 +85,10 @@ Looking at the scintillator signal directly with an oscilloscope we could obseve
 \end{figure}
 
 The signals are quite weak, so we first amplified them using the 12-channel photomultiplier amplifier module which has a gain of 10.
-After amplifying the signal we want to discirminate it, so we can more easily look for coincidence of both scintillator signals.
-The discirminator only triggeres when a certain signal threshold is reached like depicted in \autoref{fig:discriminator}. By setting the threshold we can filter out most of the noise.
+After amplifying the signal we want to discriminate it, so we can more easily look for coincidence of both scintillator signals.
+The discriminator only triggeres when a certain signal threshold is reached like depicted in \autoref{fig:discriminator}. 
+When triggered the discriminator outputs a signal over a given discrimination time.
+By setting the threshold we can filter out most of the noise.
 Because the discriminator has a set discrimination time multilpe events in this time will not be registered. 
 For measuring cosmic muon rays this is not relevant because the events are of low enough frequency.
 
@@ -94,9 +99,11 @@ For measuring cosmic muon rays this is not relevant because the events are of lo
 \end{figure}
 
 After we produced the discriminated signal we want to check for coincidence between both signals of the scintillators.
-To archieve this we use a logic unit with an and operation on the signals.
-This yields only a singal when both scintillators have an overlapping discriminated signal like shown in \autoref{fig:disc_signal}. 
-At last we count the registered events with a simple counter module.
+To achieve this we use a logic unit with an \textsc{and} operation on both discriminated signals.
+This yields only a signal when both scintillators have overlapping discrimination signals like shown in \autoref{fig:disc_signal}.
+Because of the overlap it can be assumed that both scintillator signals stem from the same particle passing though them.
+When there is no overlap we assume that the scintillators are hit by different particles and we get no trigger signal.
+At last we count the registered events with a simple counter module to check if our trigger is registering events at a realistic rate.
 Now we have finished our trigger logic and we only trigger the detector readout when both scintillators register an overlapping signal.
 This means that a particle has hit both of the scintillators and thus has passed through our micromegas detector.
 
@@ -108,7 +115,7 @@ This means that a particle has hit both of the scintillators and thus has passed
 
 After setting up the trigger logic we are ready to take data. First we need to take a pedestal run in the DAQ to configure the readout electronics.
 When the pedestal run is finished the real data taking can start. 
-We took data over a time of roughly \SI{30}{\minute} and then extracted the informations from the root file which yields the hitmap in \autoref{fig:muon_hitmap}. (???)
+We took data over a time of roughly \SI{30}{\minute} and then extracted the informations from the root file which yields the hitmap in \autoref{fig:muon_hitmap}. (???) % time correct?
 
 % why averaged, and how exactly?
 \begin{figure}
@@ -118,11 +125,19 @@ We took data over a time of roughly \SI{30}{\minute} and then extracted the info
 \end{figure}
 
 As can be seen our scintillators were orientated parallel to each other and overlapped along their whole length.
-Because of our trigger logic we only register events where our scintillators overlapp. It is clear that other events may have happened but were not read out because of our trigger system.
+Because of our trigger logic we only register events at places where our scintillators overlap. 
+It is clear that other events may have happened but were not read out because our trigger logic did not register overlapping scintillator signals.
 The muons seem to be evenly distributed over the area of the scintillators which seems logical, because cosmic radiation should be homogeneously distributed.
-We can also see some events which do not seem to be in the area of our scintillators. Those can be explained by noise or other interferences in the data taking process. (???)
+We can also see some events which are not in the area of our scintillators. 
+Those can either be explained by noise or other interferences in the data taking process.
+It can also be possible that the detector readout was triggered by an event in the area of the scintillators while another event happened at a different place in the detector.
+Because one event triggered the detector readout another event which happened may have been read out as well.
+(???)
 
-% micromegas detector & szintillators & trigger logic & DAQ
+% Questions:
+% picture of modules after setting up trigger logic?
+% working principle of scintillators? 
+% description of readout system and DAQ?
 
 \section{Multiple Scattering}
 \subsection{Experimental Setup}
