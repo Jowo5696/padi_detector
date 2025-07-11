@@ -20,6 +20,28 @@ file = [ROOT.TFile.Open("../../data/elsa/no_target/run82.root"),
         ROOT.TFile.Open("../../data/elsa/triple_radiation_length/aluminium_27cm39/distance_40cm/run93.root"),
         ROOT.TFile.Open("../../data/elsa/triple_radiation_length/copper_4cm36/distance_40cm/run94.root")]
 
+## In order to give a dependance on the different parameters I will save them in vectors here
+## The distance between beam and detector is about 2m or so
+
+distance = [    200, 40,
+            40, 15,
+            20, 40,
+            44, 40,
+            40, 40,
+            40, 40,
+            40
+        ]
+
+thickness = [   0, 18.65,
+             21, 2.96,
+             5, 5,
+             5, 5,
+             0.7, 9.93,
+             1.48, 27.39,
+             4.36
+        ]
+
+
 # Function to read all branches from a TTree
 def read_tree(tree):
     print(f"\nReading tree: {tree.GetName()}")
@@ -52,9 +74,12 @@ hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y positio
 c = ROOT.TCanvas("c", "Canvas", 800, 600)
 #}}}
 
+## gives the array for the runs that are analyzed and which std deviations are then converted to angles 
+rArray = [0,1,3]
+
 #{{{ elsa
 def elsa():
-    for r in [0,1,3]: #range(len(file)):
+    for r in rArray: #range(len(file)):
         hist_xpos.Reset("ICES")
         hist_xpos_strip.Reset("ICES")
         hist_xpos_avg.Reset("ICES")
@@ -268,6 +293,16 @@ def elsa():
                 bin_error = hist_ypos.GetBinError(i)
                 f.write(f"{bin_center}  {bin_content}  {bin_error}\n")
         f.close()
+
+        with open(f"_{r}.txt", "w") as f:
+            f.write("Run, StdDeviation[mm], distance[cm], thickness[cm] \n")
+            xstd = hist_ypos.GetStdDev()
+            ystd = hist_xpos.GetStdDev()
+            f.write(f"x_run_{r}, {xstd}, {distance[r]}, {thickness[r]}\n")
+            f.write(f"y_run_{r}, {ystd}, {distance[r]}, {thickness[r]}\n")
+        f.close()
+        
+
 #}}}
 
 
@@ -387,5 +422,52 @@ def muon():
         c.SaveAs(f"xy_hitmap_no_avg_{r}.png")
         #}}}
 
+def stdDevConversion():
+    xArray, yArray = [], []
+
+    for j in rArray:
+        
+        with open(f"_{j}.txt", "r") as file:
+            i = 0
+            for line in file:
+                parts = line.strip().split(",")
+                ##Reading in the txt data for the runs
+
+                parts.pop(0) 
+                ##Deleting the first entry of the vector, 
+                ##so only numbers remain
+                if i == 1:
+                    parts = [float(x) for x in parts]
+                    ##conversion to float numbers
+                    xArray.append(parts)
+                if i == 2:
+                    parts = [float(x) for x in parts]
+                    yArray.append(parts)
+                i += 1
+    #print(xArray)
+    xArrayStdDev, yArrayStdDev = [],[]
+    
+    xStdDevEmpty = xArray[0][0]/xArray[0][1]
+    yStdDevEmpty = yArray[0][0]/yArray[0][1]
+    xArrayStdDev.append(xStdDevEmpty)
+    yArrayStdDev.append(yStdDevEmpty)
+
+
+    for i in range(1, len(xArray)):
+        
+        xArrayStdDev.append(
+                np.arctan(np.sqrt((xArray[i][0]/xArray[i][1])**2 - 
+                                  (xStdDevEmpty)**2))
+            )
+        yArrayStdDev.append(
+                np.arctan(np.sqrt((yArray[i][0]/yArray[i][1])**2 - 
+                                  (yStdDevEmpty)**2))
+            )
+    print(xArrayStdDev)
+
+
+
+
 elsa()
+stdDevConversion()
 #muon()
