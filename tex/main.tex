@@ -222,17 +222,21 @@ Afterwards, for both materials multiple runs are recorded. Thereby, the thicknes
 \end{table}
 
 \subsection{Data Analysis}
-The recorded data of the run without scattering material in the beam is shown as a histogram in (fig-temp). The distribution of the electrons in the x-direction is approximately twice as wide as in y-direction, resulting in an oval-shaped beam.
+The recorded data of the run without scattering material in the beam is shown as a heatmap in (fig-temp). The distribution of the electrons in the x-direction is approximately twice as wide as in y-direction, resulting in an oval-shaped beam.
 To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable. Therefore, in the following analysis, only the y-direction is considered.
 
-For each run 
+The collected raw data contains unwanted hits because of different reasons. First of all there is a noise on the detector, which is also read out when the scintillators trigger the system. To (...).
+Another unwanted effect are created $\delta$-electrons, which also could hit the detector and leads to multiple hits for one event. Moreover, the possibility of inelastic scattering (...). To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored. The filtered data is shown in (fig-temp).
+
+In order to evaluate the effects of multiple scattering, a gaussian curve is fittet to the histograms, as shown in (fig-temp). The standard deviation $\sigma$ leads to the scattering angle $\Theta$ via (theory-temp).
 
 
 
-
+% sources for X_0 
 % x and y hist for no material
 % explanations of each plot
-
+% definging event and hit
+% more reasons for ignoring the x data
 
 \clearpage
 \section{Analysis ELSA (\textbf{temporary informations})}
