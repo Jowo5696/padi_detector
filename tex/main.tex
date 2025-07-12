@@ -57,13 +57,13 @@ In order to observe multiple scattering of electrons in alumnium and copper, a m
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
-\section{Theory}
+\section{Theory}\label{sec:theory}
 \subsection{Micromegas detector}
 The Micromegas detector is a gaseous particle detector primarily used to detect ionizing radiation. As shown in \autoref{fig:readout}, the detector consist of two main regions: 
 The first region is the drift region, typically about \SI{5}{\milli\meter} thick.
 A cathode is placed at the top and held at a negative voltage to establish a uniform electric field.
 %pointing downward.
-This field pulls negatively charged particles toward the micromesh. The drift region is filled with a noble gas mixture Ar/C02, which facilitates the ionization of the gas when a cahrged particle passes through. The ioniziation process liberates electrons and because noble gases do not attach electron these freed electrons can travel freely toward the mesh. The second region is the amplification region, which is significantly thinner approximately \SI{128}{\micro\meter}. It is seperated from the drift region by a woven micromesh, am etallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transperency of about 40\%.
+This field pulls negatively charged particles toward the micromesh. The drift region is filled with a noble gas mixture Ar/C02, which facilitates the ionization of the gas when a charged particle passes through. The ioniziation process liberates electrons and because noble gases do not attach electron these freed electrons can travel freely toward the mesh. The second region is the amplification region, which is significantly thinner approximately \SI{128}{\micro\meter}. It is seperated from the drift region by a woven micromesh, a metallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transperency of about 40\%.
 An electric field of about \SI{500}{\volt\per\centi\meter} is applied between the cathode an the mesh, while a much stronger field of around \SI{70000}{\volt\per\centi\meter} is present between the mesh and the anode strips. This high field is due to the small gap and causes incoming electrons to gain enough energy to further ionize the gas, leading to an avalanche multiplication of electrons. The ions on the other hand drift upward the mesh and the electrons are collected by the anode strips, which make up the readout plate and results in a measurable electrical signal. Those regions together with the readout plane from the active area of the detector which is typically about \SI{10}{\centi\meter^2}.
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_readout.png}
@@ -99,8 +99,57 @@ Since $\theta_0$ scales linearly with $z$, particles with higher electric charge
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Cosmic Data}
+\subsection{Measuring of Detector Specifications} % structure?
+For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} was disassambled.
+While disassambling the detector we measured some specifications of the given device.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
+  \caption{Front of the spare micromegas detector}
+  \label{fig:micromegas_closed}
+\end{figure}
+
+To access the inner part of the micromegas detector the screws on the top need to be removed.
+After that the upper part is removed. Attached to the upper metal part is a mesh which is held by four plasic pillars as can be seen in \autoref{fig:micromegas_cover}.
+This mesh is functioning as the cathode of our detector. We measured the distance between the entry window and the cathode to be \SI{1.0\pm.2}{\centi\meter} aswell as the diameter of the cathode to be \SI{11\pm.2}{\centi\meter}.
+Our measurements were done with the help of a lineal and we therefore assumed an uncertaincy of \SI{.2}{\centi\meter} on all measurements.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
+  \caption{Mesh on the upper part of the micromegas}
+  \label{fig:micromegas_cover}
+\end{figure}
+
+More interesting is not the cover of the micromegas but what lies underneath.
+In \autoref{fig:micromegas_base} we can see the inside of our detector. The cathode was placed in the center gap.
+At the bottom we can see the mesh of the detector, which is responsible for gasamplification like explained in \autoref{sec:theory}.
+We measured the inner diameter of the mesh to be \SI{13.8\pm.2}{\centi\meter}.
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
+  \caption{Bottom part of the micromegas with the mesh}
+  \label{fig:micromegas_base}
+\end{figure}
+
+Below the mesh one can see the anode strips shown in \autoref{fig:micromegas_strips}.
+We measured the activ area, so the area covered with anodes, to be \SI{10\pm2.8}{\cm^2} where the uncertainty is calculated by the gaussian propagation of uncertainty.
+One could observe a grid-like structure of the anodes. 
+We measured width and height of one rectangle in this grid structure to be $\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}$.
+By further inspection we noticed that one rectangle in this structure is connected with 10 wires.
+This indicates that there are 10 strips per rectangle.
+Therefore we concluded that the true dimensions of one strip can be calculated as in \autoref{eq:dimensions}.
+\begin{equation}\label{eq:dimensions}
+  \frac{\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}}{10}=\SI{400\pm100}{\micro\meter}\times\SI{500\pm100}{\micro\meter}  
+\end{equation}
+
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
+  \caption{Grid-like structure of the anode strips}
+  \label{fig:micromegas_strips}
+\end{figure}
+
 \subsection{Experimental Setup}
-To observe cosmic muon rays, a micromegas detector was setup horizontally between two scintillators. 
+To observe cosmic muon rays, a micromegas detector was setup horizontally between two scintillators.
 These scintillators are overlapping and positioned like shown in \autoref{fig:setup_ROT}.
 
 \begin{figure}
