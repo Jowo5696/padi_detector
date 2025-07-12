@@ -46,7 +46,7 @@
 \subtitle{Observation of Multiple Scattering}
 \author*[1]{\fnm{Jonas} \sur{Wortmann}}\email{s02jwort@uni-bonn.de}
 \author*[1]{\fnm{Marc} \sur{Hauer}}\email{s65mhaue@uni-bonn.de}
-% \author*[1]{\fn{Pitt} \sur{Düster}}\email{s15pdues@uni-bonn.de}
+\author*[1]{\fnm{Pitt} \sur{Düster}}\email{s15pdues@uni-bonn.de}
 \affil*[1]{Rheinische Friedrich--Wilhelms--Universität, Bonn}
 
 \maketitle
@@ -131,7 +131,7 @@ We measured the inner diameter of the mesh to be \SI{13.8\pm.2}{\centi\meter}.
   \label{fig:micromegas_base}
 \end{figure}
 
-Below the mesh one can see the anode strips shown in \autoref{fig:micromegas_strips}.
+Below the mesh one can see the anode strips on the PCB wafer shown in \autoref{fig:micromegas_strips}.
 We measured the activ area, so the area covered with anodes, to be \SI{10\pm2.8}{\cm^2} where the uncertainty is calculated by the gaussian propagation of uncertainty.
 One could observe a grid-like structure of the anodes. 
 We measured width and height of one rectangle in this grid structure to be $\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}$.
@@ -316,7 +316,7 @@ The recorded data of the run without scattering material in the beam is shown as
 To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable. Therefore, in the following analysis, only the y-direction is considered.
 
 The collected raw data contains unwanted hits because of different reasons. First of all there is a noise on the detector, which is also read out when the scintillators trigger the system. To filter the noise a charge threshold is used.
-Another unwanted effect are created $\delta$-electrons, which also could hit the detector and leads to multiple hits for one event i.e. one reatout. Moreover, the possibility of inelastic scattering of the beam electorns in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored. The data, filtered as described, is shown in (fig-temp).
+Another unwanted effect are created $\delta$-electrons, which also could hit the detector and leads to multiple hits for one event i.e. one readout. Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored. The data, filtered as described, is shown in (fig-temp).
 
 In order to evaluate the effects of multiple scattering, gaussian curves are fittet to the different histograms of each material. The standard deviation $\sigma_\text{mat}$ of the curves leads to the scattering angle $\theta_\text{exp}$ via \autoref{eq:theta_exp}. To consider the width of the electron distribution without any scattering, the modified standard deviation
 \begin{equation} \label{eq:sigma_mod}
