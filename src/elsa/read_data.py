@@ -190,7 +190,7 @@ def elsa():
                     #hist_ypos_strip_nofilter.Fill(strip)
 
                 if (
-                        (cluster_count < 3) # if there are more than x clusters in total dont use the event
+                        (cluster_count < 100) # if there are more than x clusters in total dont use the event
                         #and (charge > 90)
                         #and (charge < 1500)
                         #True
@@ -423,6 +423,7 @@ def muon():
         #}}}
 
 def stdDevConversion():
+    ##Standard Deviation Arrays in mm
     xArray, yArray = [], []
 
     for j in rArray:
@@ -431,7 +432,8 @@ def stdDevConversion():
             i = 0
             for line in file:
                 parts = line.strip().split(",")
-                ##Reading in the txt data for the runs
+                ##Reading in the txt data for the runs, 
+                ##separated by comma
 
                 parts.pop(0) 
                 ##Deleting the first entry of the vector, 
@@ -444,7 +446,8 @@ def stdDevConversion():
                     parts = [float(x) for x in parts]
                     yArray.append(parts)
                 i += 1
-    #print(xArray)
+
+    ##arrays to store the values of the Standard Deviation in Angle (rad).
     xArrayStdDev, yArrayStdDev = [],[]
     
     xStdDevEmpty = xArray[0][0]/xArray[0][1]
@@ -452,15 +455,21 @@ def stdDevConversion():
     xArrayStdDev.append(xStdDevEmpty)
     yArrayStdDev.append(yStdDevEmpty)
 
-
+    stdDevIndex = 0
+    distanceIndex = 1
+    
     for i in range(1, len(xArray)):
         
+        
+
         xArrayStdDev.append(
-                np.arctan(np.sqrt((xArray[i][0]/xArray[i][1])**2 - 
+                np.arctan(np.sqrt((xArray[i][stdDevIndex]/
+                                   xArray[i][distanceIndex])**2 - 
                                   (xStdDevEmpty)**2))
             )
         yArrayStdDev.append(
-                np.arctan(np.sqrt((yArray[i][0]/yArray[i][1])**2 - 
+                np.arctan(np.sqrt((yArray[i][stdDevIndex]/
+                                   yArray[i][distanceIndex])**2 - 
                                   (yStdDevEmpty)**2))
             )
     print(xArrayStdDev)
