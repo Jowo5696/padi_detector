@@ -58,6 +58,42 @@ In order to observe multiple scattering of electrons in alumnium and copper, a m
 
 
 \section{Theory}
+\subsection{Micromegas detector}
+
+
+The Micromegas detector is a gaseous particle detector primarily used to detect ionizing radiation. As shown in \autoref{fig:readout}, the detecotr consist of two main regions: 
+The first region is the drift region, typically about \SI{5}{\milli\meter} thick.
+A cathode is placed at the top and held at a negative voltage to establish a uniform electric field pointing downward. This field pulls negatively charged particles toward the micromesh. The drift region is filled with a noble gas mixture Ar/C02, which facilitates the ionization of the gas when a cahrged particle passes through. The ioniziation process liberates electrons and because noble gases do not attach electron these freed electrons can travel freely toward the mesh. The second region is the amplification region, which is significantly thinner approximately \SI{128}{\micro\meter}. It is seperated from the drift region by a woven micromesh, am etallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\cm}, resulting in an optical transperency of about 40\%.
+An electric field of about \SI{500}{\volt\per\centi\meter} is applied between the cathode an the mesh, while a much stronger field of around \SI{70000}{\volt\per\centi\meter} is present between the mesh and the anode strips. This high field is due to the small gap and causes incoming electrons to gain enough energy to further ionize the gas, leading to an avalanche multiplication of electrons. The ions on the other hand drift upward the mesh and the electrons are collected by the anode strips, which make up the readout plate and results in a measurable electrical signal. Those regions together with the readout plane from the active area of the detector which is typically about \SI{100}{\centi\meter^2}.
+\begin{figure}
+  \includegraphics[width=\linewidth]{figures/detector_readout.png}
+  \caption{setup of micromegas detector with a two dimensional readout}
+  \label{fig:readout}
+\end{figure}
+\subsection{Mutiplie scattering}
+When a charged particle travels through a material, it undergoes numerous interactions with the nucleus. Each interaction causes a small angular deflection due to the electric field of the nucleus. The result of these many angle deflections is known as multiple scattering. As the particle travels through the medium, these deflections add up. The distribution of the resulting deflection angles is approximately Gaussian in the central region. This statistical treatment of deflections allows us to describe the angular distribution with a root mean square (RMS) scattering angle.
+A used formula to estimate the RMS projected scattering angle is given by the Highland approximation. The Highland formula is expressed as
+\begin{equation}
+    \theta_0 = \frac{13.6\,\text{MeV}}{\beta cp} \, z \, \sqrt{\frac{x}{X_0}} \left[1 + 0.038 \ln\left(\frac{x}{X_0}\right)\right],
+\end{equation}\label{eq:Highland}
+where $\theta_0$ is the RMS scattering angle in the projected plane, $p$ is the momentum of the incident particle, $\beta$ is its velocity divided by the speed of light, $z$ is the charge number of the particle, $x$ is the thickness of the target material, and $X_0$ is the radiation length of the material.
+
+The angular distribution of scattered particles, in the small-angle approximation, follows a Gaussian probability distribution centered around the initial direction of the particle beam:
+\begin{equation}
+P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
+\end{equation}\label{eq:Gauss}
+In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. The scattered beam appears will result broadened results of the detector plots, and the standard deviation $\sigma$ of this lateral beam profile is related to the angular RMS via simple geometric considerations. Specifically, the relation
+\begin{equation}
+    \sigma = d \cdot \theta_0
+\end{equation}\label{eq:sigma}
+connects the physical spread of the beam. From this, the angular spread can be experimentally inferred using the expression
+\begin{equation}
+\theta_{\text{exp}} = \arctan\left( \frac{\sigma}{d} \right).
+\end{equation}\label{eq:theta_exp}
+For small deflection angles. Important to the Gaussian is that the shape and width of the Gaussian angular distribution are sensitive to several physical parameters. Increasing the distance $d$ between the target and the detector results in a proportional increase in the lateral spread in  \autoref{eq:sigma} making the distribution appear wider.
+Changing the thickness $x$ of the target material has a direct impact. Since the RMS angle $\theta_0$ grows with $\sqrt{x}$, a thicker leads to broader angular distributions due to more scattering events. Likewise, decreasing the radiation length $X_0$ increases $\theta_0$, again broadening the Gaussian spread. Therefore, materials with shorter radiation lengths cause more significant angular deflection over the same thickness.
+Since $\theta_0$ scales linearly with $z$, particles with higher electric charge will scatter more strongly. This results in a wider Gaussian distribution.
+
 
 \section{Cosmic Data}
 \subsection{Experimental Setup}
