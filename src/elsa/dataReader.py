@@ -5,6 +5,10 @@ from collections import Counter
 from scipy.optimize import curve_fit
 
 def drawHistograms(file, histogramArray, indexTranslation):
+    
+    #To later calculate the standard deviation from the difference of the no data run and the other runs.
+    standardDevNoData = 0
+
     for i in histogramArray:
 
         mm_strip = file[i]["raw"]["mm_strip"].array(library="np")
@@ -18,7 +22,7 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
 
         #filter out unprecise data to eliminate local jitters
-        valid_events = {eid for eid, count in event_counts.items() if count < 800}
+        valid_events = {eid for eid, count in event_counts.items() if count < 700}
         mask = np.isin(event_id, list(valid_events))
 
         mm_strip = mm_strip[mask]
@@ -27,43 +31,81 @@ def drawHistograms(file, histogramArray, indexTranslation):
         #divide mm strip into x and y data with apv_id
         x_strip = mm_strip[(apv_id == 0) | (apv_id == 1)]
         y_strip = mm_strip[(apv_id == 2) | (apv_id == 3)]
+        
+        #doesn't work because the lengths aren't equal
+        #print(len(x_strip))
+        #print(len(y_strip))
+        #if i == 0:
+        #    twodHist(x_strip,y_strip)
+        
+        #if i == 0:
+        #    plt.hist(y_strip, bins=250, range=(1,250))
+        #    plt.xlabel("y-Detector")
+        #    plt.ylabel("events")
+        #    plt.show()
+
+
 
         #swap out the left and right side to account for weird apv placement
+        x_strip[x_strip >= 126] -= 250
+        x_strip[x_strip >= 1] += 125
+        y_strip[y_strip <=0] += 125
+
         y_strip[y_strip >= 126] -= 250
         y_strip[y_strip >= 1] += 125
         y_strip[y_strip<=0] += 125 
+
+        if i == 0 and False:
+            plt.hist(y_strip, bins=250, range=(1,250))
+            plt.xlabel("y-Detector")
+            plt.ylabel("events")
+            plt.savefig("finished_plots/unfiltered_noMaterial.png")
+            plt.show()
         
         #convert the bin count into mm
         y_strip = y_strip / 2.5  +1
+        x_strip = x_strip / 2.5 +1
+        
+        #if i == 0:
+        #    twodHist(x_strip, y_strip)
 
         #these are now arrays that list the individual counts, such that the size of this array is the amount of data collected.
         #I will transform this into two arrays, both 250 long (the amount of buckets)
         #such that one records the size of the bucket, and the other the bucket number.
-        counts, edges = np.histogram(y_strip, bins=250, range=(1,100))
-        centers = 0.5 * (edges[:-1] + edges[1:])
+        ycounts, yedges = np.histogram(y_strip, bins=250, range=(1,100))
+        ycenters = 0.5 * (yedges[:-1] + yedges[1:])
         
         #mirroring the Array so that the data becomes easier to analyze and the sensitivity difference between apvs is ignored.
-        counts = mirrorArrayLeft(counts)
-
-
-
+        yMirrorcounts = mirrorArrayLeft(ycounts)
 
 
         #Now start a gauss fit by doing an initial guess
         #[amplitude, mean, stddev]
-        p0 = [np.max(counts), centers[np.argmax(counts)], 10, 500]
+        p0 = [np.max(yMirrorcounts), ycenters[np.argmax(yMirrorcounts)], 10, 500]
         
         #fit with scipy
-        popt, pcov = curve_fit(gauss, centers, counts, p0=p0)
+        popt, pcov = curve_fit(gauss, ycenters, yMirrorcounts, p0=p0)
+        
+        if i == 0:
+            standardDevNoData = popt[2] #Saves noData standard deviation
+            
 
-
-        plt.bar(centers, counts, width=edges[1] - edges[0], alpha=0.6, label="Data")
-        plt.plot(centers, gauss(centers, *popt), color='red', label="Gaussian Fit")
+        plt.bar(ycenters, yMirrorcounts, width=yedges[1] - yedges[0], alpha=0.6, label="Data")
+        plt.plot(ycenters, gauss(ycenters, *popt), color='red', label="Gaussian Fit")
         
         plt.xlabel("x [mm]")
         plt.ylabel("Events")
-        plt.text(60,np.max(counts) - np.max(counts)/10, f"μ={popt[1]:.2f}, σ={popt[2]:.2f}", fontsize=15)
-        plt.text(60,np.max(counts) - 1.3*np.max(counts)/10, "θ=" + str(np.round(np.arctan(popt[2]/400), 5)), fontsize=15)
+
+
+        if i == 0:
+            plt.text(60,np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, f"μ={popt[1]:.2f}, σ={popt[2]:.2f}", fontsize=15)
+            plt.text(60,np.max(yMirrorcounts) - 3*np.max(yMirrorcounts)/10, "θ=" + str(np.round(np.arctan(popt[2]/400), 5)), fontsize=15)
+        else:
+            popt[2] = np.sqrt( popt[2]**2 - standardDevNoData**2 )
+            plt.text(60,np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, f"μ={popt[1]:.2f}, σ={popt[2]:.2f}", fontsize=15)
+            plt.text(60, np.max(yMirrorcounts) - 3*np.max(yMirrorcounts)/10, "θ=" + str(np.round(np.arctan(popt[2]/400), 5)), fontsize=15)
+        
+
         plt.title(indexTranslation[i])
         plt.savefig("finished_plots/" + indexTranslation[i] + ".png")
 
@@ -71,6 +113,25 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
         plt.show()
         
+def twodHist(xHist, yHist):
+    xbins, ybins = 250, 250
+    xrange, yrange = (1,100), (1,100)
+
+    H, xedges, yedges = np.histogram2d(
+            xHist, yHist, bins=[xbins, ybins], 
+            range=[xrange, yrange])
+
+
+    plt.figure(figsize=(6, 5))
+    plt.imshow(H.T, origin="lower", aspect="auto",
+           extent=[xedges[0], xedges[-1], yedges[0], yedges[-1]],
+           cmap="viridis")
+
+    plt.colorbar(label="Counts")
+    plt.xlabel("X Strip")
+    plt.ylabel("Y Strip")
+    plt.title("2D Histogram Heatmap")
+    plt.show()
 
 
 def openfile():
