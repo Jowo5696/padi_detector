@@ -11,7 +11,7 @@
 \usepackage{newtxmath}
 \usepackage[onehalfspacing]{setspace}
 
-\usepackage[ngerman]{babel}
+% \usepackage[ngerman]{babel}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{siunitx}
 \usepackage[absolute,overlay]{textpos}
@@ -30,9 +30,9 @@
 
 \newcommand{\highlight}[3]{ \begin{textblock*}{#1}(#2,#3) \begin{tcolorbox} [enhanced,opacityfill=.1,colback=blue] \end{tcolorbox} \end{textblock*} } % \highlight{100pt}{10pt}{25pt}
 
-\title[\thesection]{Das magnetische Moment des Protons}
-\subtitle{Proseminar Präsentationstechnik c \\\tiny Prof.\ Dr.\ Hartmut Schmieden}
-\author{Jonas Wortmann}
+\title[\thesection]{Particle Detectors and Instrumentations}
+\subtitle{Observation of Multiple Scattering}
+\author{Group 1}
 \institute{Universität Bonn}
 \date{\today}
 %\logo{\LaTeX{}}
@@ -49,19 +49,34 @@
                 \titlepage
         \end{frame}
 
-        \begin{frame}{Inhaltsverzeichnis}
-                \tableofcontents
+        % \begin{frame}{Inhaltsverzeichnis}
+        %         \tableofcontents
+        % \end{frame}
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
+                        \includegraphics[trim={5cm 0 5cm 0},clip, width=.9\textwidth]{./figures/detector_setup_elsa.jpg}
+                        \caption{Setup of experimental site at ELSA.}
+                \end{figure}
         \end{frame}
 
-                \end{minipage}
-                \begin{minipage}{.25\textwidth}
-                        \begin{figure}
-                                \centering
-                                \includegraphics[width=.8\textwidth]{prosi_quark_proton.png}
-                                \includegraphics[width=.8\textwidth]{prosi_quark_pion.png}
-                                \caption{Quarkmodell Proton (oben) und Pion (unten).\cite{WikiProton}\cite{WikiPion}}
-                        \end{figure}
-                \end{minipage}
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
+                        \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/unfiltered_noMaterial.png}
+                        \caption{Raw data of the beam without target.}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
+                        \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/no target.png}
+                        \caption{Filtered beam profile without target.}
+                \end{figure}
         \end{frame}
 
 \end{document}
