@@ -92,6 +92,11 @@ def drawHistograms(file, histogramArray, indexTranslation):
         #[amplitude, mean, stddev]
         #p0 = [np.max(yMirrorcounts), ycenters[np.argmax(yMirrorcounts)], 10]
         p0 = [np.max(yMirrorcounts), 10]
+        print(yMirrorcounts)
+        print(ycenters)
+        mask = (yMirrorcounts == 0)
+        print(mask)
+        print(ycenters[mask])
 
         
         #fit with scipy
@@ -177,7 +182,7 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
 
         #plt.title(indexTranslation[i])
-        plt.savefig("finished_plots/Filteredunmirrored" + indexTranslation[i] + ".png")
+        #plt.savefig("finished_plots/Filteredunmirrored" + indexTranslation[i] + ".png")
 
 
         #plt.savefig("finished_plots/filtered_noMaterial.png")
@@ -234,35 +239,54 @@ def gaussMu(x,A,sigma):
     return A * np.exp(-(x - fixmu)**2 / (2*sigma**2))
 
 def fit():
-    yA = np.array([0.00904, 0.01419, 0.02185, 0.02594])
+    yA = np.array([0.00812, 0.01274, 0.01961, 0.02329])
+    yAErr = np.array([0.00343, 0.00198, 0.00593, 0.00632])
+
     xA = np.array([0.0034, 0.00497, 0.00744, 0.00857])
 
-    yC = np.array([0.00866, 0.001322, 0.02223, 0.02371])
+    yC = np.array([0.00778, 0.01187, 0.01995, 0.02129])
+    yCErr = np.array([0.00678, 0.00171, 0.00510, 0.00592])
+
     xC = np.array([0.0031, 0.0047, 0.0069, 0.0085])
     
     p0 = [3,0]
 
-    popt, pcov = curve_fit(linear, xA, yA, p0 = p0)
+    popt, pcov = curve_fit(linear, xA, yA, p0 = p0, sigma = yAErr)
     perr = np.sqrt(np.diag(pcov))
+
+    y_fitted = linear(xA, *popt)
+    chi2 = np.sum((yA - y_fitted)**2 / y_fitted)
 
     
     plt.plot(xA,linear(xA, *popt))
+    plt.scatter(xA, yA, color="orange")
+    plt.errorbar(xA, yA, yerr= yAErr)
     #plt.title("Aluminium")
     plt.xlabel("theoretical value")
     plt.ylabel("experimental value")
 
     plt.text(xA[1], np.max(yA) - np.max(yA)/10, rf"$m={popt[0]:.2f} + {perr[0]:.2f}$", fontsize=10)
+    plt.text(xA[1], np.max(yA) - 2.5*np.max(yA)/10, rf"$\chi^2 = {chi2:.8f}$")
     plt.savefig("finished_plots/Aluminium.png")
     plt.show()
 
-    popt, pcov = curve_fit(linear, xC, yC, p0=p0)
+    popt, pcov = curve_fit(linear, xC, yC, p0=p0, sigma=yCErr)
     perr = np.sqrt(np.diag(pcov))
 
+    perr = np.sqrt(np.diag(pcov))
+
+    y_fitted = linear(xC, *popt)
+    chi2 = np.sum((yC - y_fitted)**2 / y_fitted)
+
+
     plt.plot(xC, linear(xC, *popt))
+    plt.scatter(xC, yC, color="orange")
+    plt.errorbar(xC, yC, yerr= yCErr)
     #plt.title("Copper")
     plt.xlabel("theoretical value")
     plt.ylabel("experimental value")
     plt.text(xC[1], np.max(yC) - np.max(yC)/10, rf"$m={popt[0]:.2f} + {perr[0]:.2f}$", fontsize=10)
+    plt.text(xA[1], np.max(yC) - 2.5*np.max(yC)/10, rf"$\chi^2 = {chi2:.8f}$")
     plt.savefig("finished_plots/Copper.png")
 
     plt.show()
@@ -290,12 +314,12 @@ indexTranslation = [
     "Copper, Two Radiation Lengths, 40cm Distance",
     "Copper, Three Radiation Lengths, 40cm Distance"
         ]
-files = openfile()
+#files = openfile()
 
 #Use this array to show which histograms you want to analyze and plot
 histogramArray = [0,1,2,3,4,5,6,7,8]
-drawHistograms(files, histogramArray, indexTranslation)
-#fit()
+#drawHistograms(files, histogramArray, indexTranslation)
+fit()
 
 
 
