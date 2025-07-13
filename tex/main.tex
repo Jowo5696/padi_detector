@@ -102,12 +102,6 @@ The angular distribution of scattered particles, in the small-angle approximatio
 P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
 \end{equation}
 In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. 
-% The scattered beam is broadened this results in increased width of detector plots, and the standard deviation $\sigma$ of this lateral beam profile is related to the angular RMS via simple geometric considerations. 
-% Specifically, the relation
-% \begin{equation}\label{eq:sigma}
-%     \sigma = d \cdot \theta_0
-% \end{equation}
-% connects the physical spread of the beam. 
 Based on geometrical considerations it follows that
 \begin{equation}\label{eq:theta_exp}
 \sigma = d \cdot \tan\left(\theta_{\text{exp}}\right)\qquad
@@ -207,14 +201,8 @@ By setting the threshold most of the noise is filtered.
 Because the discriminator has a set discrimination time multilpe events in this time will not be registered. 
 For measuring cosmic muon rays this is not relevant because the events are of low frequency.
 
-% \begin{figure}
-%   \includegraphics[width=\linewidth]{figures/discriminator.png}
-%   \caption{Working principle of the Mod. N841 16 Channel Leading Edge Discriminator}
-%   \label{fig:discriminator}
-% \end{figure}
-
 After producing the discriminated signal one wants to check for coincidence between both signals of the scintillators.
-To achieve this a logic unit with an \textsc{and} operation is used on both discriminated signals.
+To achieve this a logic unit with an \texttt{and} operation is used on both discriminated signals.
 This yields only a signal when both scintillators have overlapping discrimination signals as shown in \autoref{fig:disc_signal}.
 Due to the overlap it can be assumed that both scintillator signals stem from the same particle passing though them.
 When there is no overlap it is evident that the scintillators are hit by different particles and there is no trigger signal.
@@ -230,26 +218,34 @@ After setting up the trigger logic data can be taken.
 First a pedestal run is necessary to configure the readout electronics, then over a time of roughly \SI{60}{\minute} cosmic muon rays are captured.
 Extracting the information from the \texttt{.root} file yields the hitmap in \autoref{fig:muon_hitmap}.
 
-% why averaged, and how exactly?
 \begin{figure}
   \includegraphics[width=\linewidth]{../src/elsa/finished_plots/muon_hitmap_avg.png}
   \caption{Averaged hitmap of cosmic muons}
   \label{fig:muon_hitmap}
 \end{figure}
 
-As can be seen our scintillators were orientated parallel to each other and overlapped along their whole length.
-Because of our trigger logic we only register events at places where our scintillators overlap. 
-It is clear that other events may have happened but were not read out because our trigger logic did not register overlapping scintillator signals.
-The muons seem to be evenly distributed over the area of the scintillators which seems logical, because cosmic radiation should be homogeneously distributed.
-We can also see some events which are not in the area of our scintillators. 
-Those can either be explained by noise or other interferences in the data taking process.
-It can also be possible that the detector readout was triggered by an event in the area of the scintillators while another event happened at a different place in the detector.
-Because one event triggered the detector readout another event which happened may have been read out as well.
+% As can be seen our scintillators were orientated parallel to each other and overlapped along their whole length.
+% Because of our trigger logic we only register events at places where our scintillators overlap. 
+% It is clear that other events may have happened but were not read out because our trigger logic did not register overlapping scintillator signals.
+% The muons seem to be evenly distributed over the area of the scintillators which seems logical, because cosmic radiation should be homogeneously distributed.
+% We can also see some events which are not in the area of our scintillators. 
+% Those can either be explained by noise or other interferences in the data taking process.
+% It can also be possible that the detector readout was triggered by an event in the area of the scintillators while another event happened at a different place in the detector.
+% Because one event triggered the detector readout another event which happened may have been read out as well.
 
-% Questions:
-% picture of modules after setting up trigger logic?
-% working principle of scintillators? 
-% description of readout system and DAQ?
+As can can be seen events occur only in the area where the scintillators overlap, resulting in a rectangular shape.
+This is explained by the trigger logic, which only triggers detector readout when a particle passes through both scintillators.
+Some events are observed outside of the area covered by the scintillators, which can be explained by two particles simultaneously hitting the detector, where one triggeres the readout.
+Aside from another particle detector noise may be captured.
+Over a time of roughly \SI{60}{\minute} 195 events are captured, which is equivalent to a rate of \SI{3.25}{\text{µ}\per\minute}.
+Muons arrive at sea level with an average flux of \SI{1}{\text{µ}\per\centi\meter\squared\per\min} \cite{muons}.
+According to the hitmap the scintillators covered an area of approximately \SI{35}{\centi\meter\squared}, which should correspond to a count of 2100 events after \SI{60}{\min}.
+The lower count of registered events is explained by muons coming at an angle and thus not triggering the readout system.
+Another explanation is the location at which the experiment is set up. 
+The detector is placed in the basement below the ROT building. 
+Therefore muons are already absorbed by passing through the building and the rate of detected muons is lowered.
+With these considerations the measured rate of \SI{3.25}{\text{µ}\per\min} or \SI{0.09}{\text{µ}\per\centi\meter\squared\per\min} is realistic.
+The measured rate is one order of magnitude smaller than the average muon flux at sea level which is justified by the mentioned circumstances. 
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
@@ -491,6 +487,6 @@ To evaluate the theory, $$\theta _\text{exp}=\arctan\left(\dfrac{\sigma }{d}\rig
 This should give a linear correlation between these two values thus verifying the proportionality i.e.\ the theory.
 \textbf{Currently there is no correlation at all between these two so WIP.}
 
-%\bibliography{refs}
+\bibliography{refs}
 
 \end{document}
