@@ -377,7 +377,7 @@ This is due to the way the strips are converted to millimetre.
 To do this, one has to multiply the strip by the length of the detector (in the corresponding direction) and divide by the number of strips.
 This will lead to rounding issues, where it is possible that one millimetre is left out, because a bin can only be of type integer.
 
-Moreover, the number of events increase gaussian like from low to higher values of $x$ before suddenly fall close after the maximum and starts decreasing again gaussian. This behaviour is observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. After doing the latter, the fitted curve can be seen for alumnium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
+In general, the number of events increase gaussian like from lower to higher y-positions before suddenly fall close after the maximum and starts decreasing again gaussian. This behaviour is differnently intensive observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. After doing the latter, the fitted curve can be seen for alumnium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}
@@ -385,32 +385,32 @@ Moreover, the number of events increase gaussian like from low to higher values 
   \label{fig:2alu}
 \end{figure}
 
-Additionally on the continuous side of the gaussian distribution, another little unevenness is observed.
+On the continuous side of the gaussian distribution, another little unevenness is observed.
 It could be the continuation of the gaussian curve after the sharp edge, so instead of the differences beween the two APV's, in the middle of the distribution one counts too many events. (Begründung)
 
 
 It is noticeable, that in a very regularly pattern the gaussian distribution contains dips in the event counter. (Begründung)
 %The distance between two dips is $\SI{5}{mm}$, which matches exactly the height of one rectangle of the grid structure in the detector described in \autoref{subsec:detector_specific}. This indicates the possible reason for the dips, that every $n$-th strip in one rectangle has a lower sensitivity than the others, leading to the observed effect.
 
-The standard deviation $\sigma_\text{mat}$ of the curves, available through the parameters of the fit, leads to the scattering angle $\theta_\text{exp}$ via \autoref{eq:theta_exp}. To consider the width of the electron distribution without any scattering, the modified standard deviation
+To calculate the RMS of the deflection angle $\theta_\text{exp}$, the standard deviation $\sigma_\text{mat}$ of the curves, available through the parameters of the fit, is used. To consider the width of the electron distribution without any scattering, it is replaced by the modified standard deviation
 \begin{equation} \label{eq:sigma_mod}
-  \sigma = \sqrt{\sigma_\text{mat}^2 - \sigma_\text{0}^2}
+  \sigma = \sqrt{\sigma_\text{mat}^2 - \sigma_\text{0}^2},
 \end{equation}
-is used, where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam shown in \autoref{fis:hist_notarget}.
+where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam shown in \autoref{fis:hist_notarget}. 
+Via \autoref{eq:theta_exp} this leads to the experimental value.
 
-To compare this experimental results with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}.
-As shown in \autoref{fig:correlation}.
+To compare this experimental results with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}, as shown in for alumnium in \autoref{fig:correlation_alu} and copper in \autoref{fig:correlation_cop}.
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Copper.png}
   \caption{Correlation between experimental and theoreticle RMS scattering angle of copper.}
-  \label{fig:correlation}  
+  \label{fig:correlation_cop}  
 \end{figure}
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium.png}
   \caption{Correlation between experimental and theoreticle RMS scattering angle of alumnium.}
-  \label{fig:correlation}  
+  \label{fig:correlation_alu}  
 \end{figure}
 
 
