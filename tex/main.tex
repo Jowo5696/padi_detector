@@ -301,11 +301,12 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 
 \subsection{Experimental Procedure}
 After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program.
-Afterwards, multiple runs are recorded for both materials. 
+Afterwards, multiple runs are recorded for both materials.
 The thicknesses $x$ of the targets are changed by placing different blocks of one material in a row. 
 $x$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
-The distance $d$ between the scintillator and the leading edge of the material is always $d=\SI{40\pm0.5}{cm}$. 
-Overall eight runs, one for each $m$ and both materials, are recorded. 
+The distance $d$ between the scintillator and the leading edge of the material is always $d=\SI{40\pm0.5}{cm}$.
+To include the distance from the scintillator to the middle of the drift chamber in the detector, an additional spacing of $\SI{5\pm2}{cm}$ is assumed, leading to an overall distance of $d'=\SI{45\pm2}{cm}$.
+In total eight runs, one for each $m$ and both materials, are recorded. 
 The exact configurations for the different measurements are listed in \autoref{tab:config_materials}.
 
 \begin{table}\centering
@@ -349,14 +350,24 @@ The exact configurations for the different measurements are listed in \autoref{t
 
 \subsection{Data Analysis}
 The recorded data of the run without scattering material in the beam is shown as a hitmap in \autoref{fig:hitmap_notarget}. The distribution of the electrons in the x-direction is wider as in y-direction, resulting in an oval-shaped beam.
-To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable. Moreover, \autoref{fig:x_hist_notarget} shows, that one APV of the detector positioned in x-direction contains multiple defect strips in the region of interest. Therefore, in the following analysis, only the y-direction is considered.
 
-The collected raw data counts unwanted hits because of different reasons. First of all, there is a noise on the detector, which is also read out when the scintillators trigger the system. To filter the noise a charge threshold is used.
-Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout. Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clusters, the event is ignored.
+To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable.
+Moreover, \autoref{fig:x_hist_notarget} shows, that one APV of the detector positioned in x-direction contains multiple defect stips in the region of interest.
+Therefore, in the following analysis, only the y-direction is considered.
+
+
+
+
+
+The collected raw data counts unwanted hits because of different reasons.
+First of all, there is a noise on the detector, which is also read out when the scintillators trigger the system. To filter the noise a charge threshold is used.
+Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout. Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored.
 
 The data, filtered as described, is shown for (???) in (fig-temp).
-One notice, that at one specific point i.e one specific strip in the detector, no event is counted, which is observed for all runs. This indicates, that this strip do not work properly. Because the observation applies only for the one distinct strip, it does not effect the overall results and can be ignored.
-Moreover, the number of events increase Gaussian like from low to higher values of $x$ before suddenly fall close after the maximum and starts decreasing again Gaussian. This behaviour is also observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a Gaussian distribution is fitted to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. To do latter, the data of one APV is mirrored, while the other one is ignored. The fitted curve to this modified data can be seen for aluminum as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
+
+At one specific point i.e one specific strip in the detector, no event seems to be counted, which is observed for all runs. This indicates, that this strip do not work properly. Because the oberservation applies only for the one distinct strip, it does not effect the overall results and can be ignored.
+
+Moreover, the number of events increase gaussian like from low to higher values of $x$ before suddenly fall close after the maximum and starts decreasing again gaussian. This behaviour is observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. After doing the latter, the fitted curve can be seen for alumnium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
 
 Beyond the one defect strip, which is now additional mirrored to the other side, it is noticeable, that in a very regularly pattern the Gaussian distribution contains dips in the event counter. The distance between two dips is $\SI{5}{mm}$, which matches exactly the height of one rectangle of the grid structure in the detector described in \autoref{subsec:detector_specific}. This indicates the possible reason for the dips, that every $n$-th strip in one rectangle has a lower sensitivity than the others, leading to the observed effect.
 
@@ -364,9 +375,10 @@ The standard deviation $\sigma_\text{mat}$ of the curves, available through the 
 \begin{equation} \label{eq:sigma_mod}
   \sigma = \sqrt{\sigma_\text{mat}^2 - \sigma_\text{0}^2}
 \end{equation}
-is used, where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam.
+is used, where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam shown in \autoref{fis:hist_notarget}.
 
-To compare this experimental results with the theoretical description, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}.
+To compare this experimental results with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}.
+As shown in %\autoref{fig:correlation}, the (...).
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/xy_hitmap_0.png}
@@ -374,11 +386,11 @@ To compare this experimental results with the theoretical description, $\theta_\
   \label{fig:hitmap_notarget}
 \end{figure}
 
-% \begin{figure}
-%   \includegraphics[width=0.9\linewidth]{../src/elsa/x_position_strip_histogram_0.png}
-%   \caption{Counted hits in x-direction without scattering material.}
-%   \label{fig:x_hist_notarget}
-% \end{figure}
+\begin{figure}
+  \includegraphics[width=0.9\linewidth]{../src/elsa/x_position_strip_histogram_0.png}
+  \caption{Counted hits in x-direction without scattering material.}
+  \label{fig:x_hist_notarget}
+\end{figure}
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}
@@ -386,12 +398,17 @@ To compare this experimental results with the theoretical description, $\theta_\
   \label{fig:2alu}
 \end{figure}
 
+%\begin{figure}
+%  \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/}
+%  \caption{Correlation between experimental and theoreticle RMS scattering angle.}
+%  \label{fig:correlation}  
+%\end{figure}
 
 
 
 
 
-
+% c = 45(?) statt 40
 % heatmap, hitmap
 % sources for X_0 
 % x and y hist for no material
@@ -457,21 +474,21 @@ This value is explained by the absorption of muons while passing through the bui
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Aluminium, Half Radiation Length, 40cm Distance.png}
-        \caption{$D\approx\frac{X_0}{2}$}
+        \caption{$x\approx\frac{X_0}{2}$}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Aluminium, One Radiation Length, 40cm Distance.png}
-        \caption{$D\approx X_0$}
+        \caption{$x\approx X_0$}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}
-        \caption{$D\approx2\cdot X_0$}
+        \caption{$x\approx2\cdot X_0$}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Aluminium, Three Radiation Lengths, 40cm Distance.png}
-        \caption{$D\approx3\cdot X_0$}
+        \caption{$x\approx3\cdot X_0$}
     \end{subfigure}
-    \caption{Counted hits for aluminum of different thicknesses $D$.}
+    \caption{Counted hits for alumnium of different thicknisses $x$.}
     \label{fig:alu_gaus}
 \end{figure}
 
@@ -479,21 +496,21 @@ This value is explained by the absorption of muons while passing through the bui
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Copper, Half Radiation Length, 40cm Distance.png}
-        \caption{$D\approx\frac{X_0}{2}$}
+        \caption{$x\approx\frac{X_0}{2}$}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Copper, One Radiation Length, 40cm Distance.png}
-        \caption{$D\approx X_0$}
+        \caption{$x\approx X_0$}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Copper, Two Radiation Lengths, 40cm Distance.png}
-        \caption{$D\approx2\cdot X_0$}
+        \caption{$x\approx2\cdot X_0$}
     \end{subfigure}
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Copper, Three Radiation Lengths, 40cm Distance.png}
-        \caption{$D\approx3\cdot X_0$}
+        \caption{$x\approx3\cdot X_0$}
     \end{subfigure}
-    \caption{Counted hits for copper of different thicknesses $D$.}
+    \caption{Counted hits for copper of different thicknisses $x$.}
     \label{fig:cop_gaus}
 \end{figure}
 
