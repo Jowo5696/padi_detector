@@ -57,13 +57,13 @@
 \maketitle
 
 \section{Introduction}
-In order to observe multiple scattering of electrons in alumnium and copper, a micromegas detector is used and tested with cosmic muon rays. Therefore a trigger logic is build with scintillators to select significant events.
-For a detailed observation of the multiple scattering, an electron beam provided by the ELSA accelerator will be used. This allows to compare the scattering behavior of electrons as they travel through aluminum and copper targets. To extend the analysis, targets of different thicknesses and a fixed distance between detector and target will be studied.  
+% In order to observe multiple scattering of electrons in aluminium and copper, a micromegas detector is used and tested with cosmic muon rays. Therefore a trigger logic is build with scintillators to select significant events.
+% For a detailed observation of the multiple scattering, an electron beam provided by the ELSA accelerator will be used. This allows to compare the scattering behavior of electrons as they travel through aluminium and copper targets. To extend the analysis, targets of different thicknesses and a fixed distance between detector and target will be studied.  
 
 When electrons pass through a material they undergo multiple scattering.
 This process is observed with a micromegas detector for an electron beam hitting different materials with varying thicknesses.
 To only count valid events a trigger logic is set up via two scintillators and logic modules, which is then tested with cosmic radiation.
-The theoretical basis of the Highland formula for the angle deviation in multiple scattering is verified with a straight fit to show the correlation between the experimentally and theoretically calculated values.
+The theoretical basis of the Highland formula for the angle deviation in multiple scattering is verified with a linear regression to show the correlation between the experimentally and theoretically calculated values.
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ The angular distribution of scattered particles, in the small-angle approximatio
 P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
 \end{equation}
 In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. 
-Based on geometrical considerations it follows that \cite{Higland2
+Based on geometrical considerations it follows that \cite{Higland2}
 \begin{equation}\label{eq:theta_exp}
 \sigma = d \cdot \tan\left(\theta_{\text{exp}}\right)\qquad
 \theta_{\text{exp}} = \arctan\left( \frac{\sigma}{d} \right).
@@ -274,7 +274,7 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 \begin{table}\centering
   \renewcommand*{\arraystretch}{1.1}
   \begin{tabular}{c|c||c|c}
-    \multicolumn{2}{c||}{Aluminum} & \multicolumn{2}{c}{Copper} \\
+    \multicolumn{2}{c||}{aluminium} & \multicolumn{2}{c}{Copper} \\
     {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
     \num{1.22\pm 0.01} & 2 & \num{0.2\pm 0.01} & 3 \\
     \num{2.5\pm 0.01} & 1 & \num{0.5\pm 0.01} & 2 \\
@@ -311,7 +311,7 @@ The exact configurations for the different measurements are listed in \autoref{t
 \begin{table}\centering
   \renewcommand*{\arraystretch}{1.15}
   \begin{tabular}{c|c|c}
-    & Aluminum & Copper \\
+    & aluminium & copper \\
     & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline
     $m$ & $\sum x_i/cm = x /cm$ & $\sum x_i/cm = x /cm$ \\\hline\hline\rule{0pt}{6ex}
     $0.5$ & \num{5\pm 0.01} & $\begin{array}{r}
@@ -379,11 +379,17 @@ This is due to the way the strips are converted to millimetre.
 To do this, one has to multiply the strip by the length of the detector (in the corresponding direction) and divide by the number of strips.
 This will lead to rounding issues, where it is possible that one millimetre is left out, because a bin can only be of type integer.
 
-In general, the number of events increase gaussian like from lower to higher y-positions before suddenly fall close after the maximum and starts decreasing again gaussian. This behaviour is differnently intensive observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. After doing the latter, the fitted curve can be seen for alumnium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
+In general, the number of events increase gaussian from lower to higher y-positions before suddenly falling close after the maximum and start decreasing again gaussian. 
+This behaviour is observed for every run though with different intensity. 
+Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the readout of one direction. 
+Apparently, one has a higher charge sensitivity so its probability to count events is higher than the other, which results in an asymmetrical image. 
+
+In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. 
+This is done by fitting only to one side of the curve due to the asymmetry, which can be seen for aluminium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}
-  \caption{Counted hits for aluminum with $x\approx2\cdot X_0$.}
+  \caption{Counted hits for aluminium with $x\approx2\cdot X_0$.}
   \label{fig:2alu}
 \end{figure}
 
@@ -401,8 +407,6 @@ To calculate the RMS of the deflection angle $\theta_\text{exp}$, the standard d
 where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam shown in \autoref{fis:hist_notarget}. 
 Via \autoref{eq:theta_exp} this leads to the experimental value.
 
-To compare this experimental results with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}, as shown in for alumnium in \autoref{fig:correlation_alu} and copper in \autoref{fig:correlation_cop}.
-
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Copper.png}
   \caption{Correlation between experimental and theoreticle RMS scattering angle of copper.}
@@ -411,7 +415,7 @@ To compare this experimental results with the theoretical discription, $\theta_\
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium.png}
-  \caption{Correlation between experimental and theoreticle RMS scattering angle of alumnium.}
+  \caption{Correlation between experimental and theoreticle RMS scattering angle of aluminium.}
   \label{fig:correlation_alu}  
 \end{figure}
 
@@ -435,9 +439,10 @@ To compare this experimental results with the theoretical discription, $\theta_\
   \caption{An overview of the experimentally and theoretically calculated angles; aluminium top and copper bottom. 
   The relative error and standard deviation from the theoretical values is given in the square brackets.}
 \end{table}
-Note that the following discussion can be applied to both aluminium and copper.
+To compare this experimental result with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}, as shown for copper in \autoref{fig:correlation_cop} and aluminium in \autoref{fig:correlation_alu}.
+Note that the following discussion can be applied to both.
 
-The relative error for the deflection angle of $\tfrac{x}{X_0}=1/2$ is very high compared to the other thicknesses, for both alunimium and copper.
+The relative error for the deflection angle of $\tfrac{x}{X_0}=1/2$ is very large compared to the other thicknesses, for both aluminium and copper.
 This is due to the overall broad shape of the data compared to the small width making the fit unprecise.
 The resulting deviation is thus small and close to one sigma, but only due to the large relative error.
 
@@ -540,7 +545,7 @@ This value is explained by the absorption of muons while passing through the bui
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Aluminium, Three Radiation Lengths, 40cm Distance.png}
         \caption{$x\approx3\cdot X_0$}
     \end{subfigure}
-    \caption{Counted hits for alumnium of different thicknesses $x$.}
+    \caption{Counted hits for aluminium of different thicknesses $x$.}
     \label{fig:alu_gaus}
 \end{figure}
 
@@ -625,7 +630,7 @@ Havard University: Multiplie Scattering:
 EBSCO: Scintillators – Research Starter on Physics: 
 \href{https://www.ebsco.com/research-starters/physics/scintillators}{https://www.ebsco.com/research-starters/...}
 \bibitem{Micromega}
-Dr. Saime Gürbüz & Dr. Kristof Schmieden: Micromegas-Setup: 
+Dr. Saime Gürbüz \& Dr. Kristof Schmieden: Micromegas-Setup: 
 \href{https://ecampus.uni-bonn.de/ilias.php?baseClass=ilrepositorygui&cmd=sendfile&ref_id=3786906}{https://ecampus.uni-bonn.de/...}
 \bibitem{APV}
 Lichtenberg Research Group: Micromegas Introduction: 
