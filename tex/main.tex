@@ -99,7 +99,7 @@ The overall effect of those deflections is known as multiple scattering.
 
 The distribution of the resulting deflection angles is approximately Gaussian in the central region. 
 This statistical treatment of deflections allows one to describe the angular distribution with a root mean square (RMS) scattering angle.
-A formula to estimate the RMS projected scattering angle is given by the Highland approximation \cite{Highland}:
+A formula to estimate the RMS projected scattering angle is given by the Highland approximation \cite{Highland}
 \begin{equation}\label{eq:Highland}
     \theta_0 = \frac{13.6\,\text{MeV}}{\beta cp} \, z \, \sqrt{\frac{x}{X_0}} \left[1 + 0.038 \ln\left(\frac{x}{X_0}\right)\right],
 \end{equation}
@@ -110,7 +110,7 @@ The angular distribution of scattered particles, in the small-angle approximatio
 P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
 \end{equation}
 In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. 
-Based on geometrical considerations it follows that \cite{Higland2}
+Based on geometrical considerations it follows that \cite{Highland2}
 \begin{equation}\label{eq:theta_exp}
 \sigma = d \cdot \tan\left(\theta_{\text{exp}}\right)\qquad
 \theta_{\text{exp}} = \arctan\left( \frac{\sigma}{d} \right).
@@ -175,7 +175,7 @@ These scintillators are overlapping and positioned as shown in \autoref{fig:setu
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/setup_ROT.jpeg}
-  \caption{Used setup of micromegas detector and scintillators at ROT to measure cosmic muon events \cite{Micromega}.}
+  \caption{Used setup of micromegas detector and scintillators at ROT to measure cosmic muon events.}
   \label{fig:setup_ROT}
 \end{figure}
 
@@ -288,13 +288,13 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/beam_setup_elsa.jpg}
-  \caption{Exit of ELSA. \cite{ELSA}}
+  \caption{Exit of ELSA.}
   \label{fig:beam_setup_elsa}
 \end{figure}
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_setup_elsa.jpg}
-  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the laser. \cite{ELSA}}
+  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the laser.}
   \label{fig:detector_setup_elsa}
 \end{figure}
 
@@ -576,44 +576,44 @@ This value is explained by the absorption of muons while passing through the bui
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \clearpage
-\section{Analysis ELSA (\textbf{temporary information})}
-Here is a quick rundown of how the analysis for ELSA works.
+% \section{Analysis ELSA (\textbf{temporary information})}
+% Here is a quick rundown of how the analysis for ELSA works.
 
-The way that the data taking works is that the detector triggers about every $\SI{25}{ns}$ and reads all strips.
-It needs some time to reset and then does it again.
-For ELSA data will be lost at downtime and the detector will basically trigger continuously because of the steady electron beam.
+% The way that the data taking works is that the detector triggers about every $\SI{25}{ns}$ and reads all strips.
+% It needs some time to reset and then does it again.
+% For ELSA data will be lost at downtime and the detector will basically trigger continuously because of the steady electron beam.
 
-The data will be such that one event (i.e.\ one trigger) contains (most probably) multiple hits (i.e.\ multiple strips fire / register a hit).
-Ideally, one would like only a single electron registered as a single hit.
-This poses a problem because there are many different reasons for the undesired multiple hits.
-\begin{enumerate}[label=\arabic*)]
-  \item There is a certain noise on the detector, which will be registered as a hit, but this only deposits very little charge.
-    To filter these events there is a certain charge threshold.
-  \item It is possible, that a beam-electron creates a $\delta $-electron in the material and both hit the detector.
-    This will be seen as two separate hits.
-  \item The electron has a very high energy and as it travels through the air, it is possible that it interacts with the air molecules.
-    This interaction could be inelastic scattering, which would result in a Hadron shower (most likely pions) on the detector.
-    This is seen (often) as a single hit (which is the electron; this hit can be very far from the expected distribution because it scattered under a higher angle) and a bunch of hits close together (Hadrons).
-    To filter these events one can count the number of independent strip(s) that fired.
-    Independence here means a strip or multiple strips next to each other give a signal and the adjacent strips to the left and right give none.
-    These strips are called clusters.
-    For example: \\\texttt{...|...||......||||..|.||.|..}\\
-    would be 6 clusters.
-    If the number of clusters in a single event is greater than a certain number $x$ (currently $x=2$), then this event will be left out.
-\end{enumerate}
-There will be a number of histograms, this includes: x and y strip events, clusters, cluster size, xy hitman etc.\
+% The data will be such that one event (i.e.\ one trigger) contains (most probably) multiple hits (i.e.\ multiple strips fire / register a hit).
+% Ideally, one would like only a single electron registered as a single hit.
+% This poses a problem because there are many different reasons for the undesired multiple hits.
+% \begin{enumerate}[label=\arabic*)]
+%   \item There is a certain noise on the detector, which will be registered as a hit, but this only deposits very little charge.
+%     To filter these events there is a certain charge threshold.
+%   \item It is possible, that a beam-electron creates a $\delta $-electron in the material and both hit the detector.
+%     This will be seen as two separate hits.
+%   \item The electron has a very high energy and as it travels through the air, it is possible that it interacts with the air molecules.
+%     This interaction could be inelastic scattering, which would result in a Hadron shower (most likely pions) on the detector.
+%     This is seen (often) as a single hit (which is the electron; this hit can be very far from the expected distribution because it scattered under a higher angle) and a bunch of hits close together (Hadrons).
+%     To filter these events one can count the number of independent strip(s) that fired.
+%     Independence here means a strip or multiple strips next to each other give a signal and the adjacent strips to the left and right give none.
+%     These strips are called clusters.
+%     For example: \\\texttt{...|...||......||||..|.||.|..}\\
+%     would be 6 clusters.
+%     If the number of clusters in a single event is greater than a certain number $x$ (currently $x=2$), then this event will be left out.
+% \end{enumerate}
+% There will be a number of histograms, this includes: x and y strip events, clusters, cluster size, xy hitman etc.\
 
-For the analysis a Gaussian curve is fitted to the histogram: y strip events.
-The x strips don't work well (probably detector issue and the beam has an elliptic profile).
-The standard deviation of the curve is related to $\theta $ via $\tan \theta =\tfrac{\sigma }{d}$ with $d$ the distance between the target and the detector.
-First calculations with this formula are in the right order of magnitude.
-This will probably work better with a more precise filtering of the available data.
+% For the analysis a Gaussian curve is fitted to the histogram: y strip events.
+% The x strips don't work well (probably detector issue and the beam has an elliptic profile).
+% The standard deviation of the curve is related to $\theta $ via $\tan \theta =\tfrac{\sigma }{d}$ with $d$ the distance between the target and the detector.
+% First calculations with this formula are in the right order of magnitude.
+% This will probably work better with a more precise filtering of the available data.
 
-To evaluate the theory, $$\theta _\text{exp}=\arctan\left(\dfrac{\sigma }{d}\right)$$ is plotted against $$\theta _\text{theo}=\text{const}\,\sqrt[]{\dfrac{x}{x_0}}\left(1+0.038\ln\left(\dfrac{x}{x_0}\right)\right).$$
-This should give a linear correlation between these two values thus verifying the proportionality i.e.\ the theory.
-\textbf{Currently there is no correlation at all between these two so WIP.}
+% To evaluate the theory, $$\theta _\text{exp}=\arctan\left(\dfrac{\sigma }{d}\right)$$ is plotted against $$\theta _\text{theo}=\text{const}\,\sqrt[]{\dfrac{x}{x_0}}\left(1+0.038\ln\left(\dfrac{x}{x_0}\right)\right).$$
+% This should give a linear correlation between these two values thus verifying the proportionality i.e.\ the theory.
+% \textbf{Currently there is no correlation at all between these two so WIP.}
 
-\bibliography{refs}
+% \bibliography{refs}
 \newpage
 \begin{thebibliography}{9}
 
