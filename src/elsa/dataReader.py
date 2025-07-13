@@ -32,7 +32,7 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
 
         #filter out unprecise data to eliminate local jitters
-        valid_events = {eid for eid, count in event_counts.items() if count >0}
+        valid_events = {eid for eid, count in event_counts.items() if count < 700}
         mask = np.isin(event_id, list(valid_events))
 
         mm_strip = mm_strip[mask]
@@ -57,10 +57,6 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
 
         #swap out the left and right side to account for weird apv placement
-        #x_strip[x_strip >= 128] -= 256
-        #x_strip[x_strip >= 1] += 127
-        #y_strip[y_strip <=0] += 127
-
         y_strip[y_strip > 128] -= 256
         y_strip[y_strip >= 1] += 128
         y_strip[y_strip<=0] += 128
@@ -70,21 +66,14 @@ def drawHistograms(file, histogramArray, indexTranslation):
         x_strip = x_strip / 2.54
 
 
-        if i == 0 and True:
+        if i == 0 and False:
             plt.hist(x_strip, bins=250, range=(1,100))
             plt.xlabel("x [mm]")
             plt.ylabel("events")
             plt.savefig("finished_plots/UnfilteredNoMaterialX.png")
             plt.show()
         
-        #plt.hist(x_strip, bins = 250, range=(1,100))
-        #plt.xlabel("x-Position")
-        #plt.ylabel("Counts")
 
-        #plt.show()
-
-        #if i == 0:
-        #    twodHist(x_strip, y_strip)
 
         #these are now arrays that list the individual counts, such that the size of this array is the amount of data collected.
         #I will transform this into two arrays, both 250 long (the amount of buckets)
@@ -118,7 +107,9 @@ def drawHistograms(file, histogramArray, indexTranslation):
             popt, pcov = curve_fit(gaussMu, fitx, fity, p0=p0)
             perr = np.sqrt(np.diag(pcov))
             print(perr)
-
+            
+            y_fitted = gaussMu(fitx, *popt)
+            chi2 = np.sum((fity - y_fitted)**2 / y_fitted)
             
         if False:
             if i == 0:
@@ -163,6 +154,7 @@ def drawHistograms(file, histogramArray, indexTranslation):
 #                        ((popt[1]/(450**2))*(1/(1-(popt[1]/450)**2)))**2 * 20**2
 #                       )
 #                plt.text(60, np.max(yMirrorcounts) -3*np.max(yMirrorcounts)/10, rf"$\theta = {p:.5f} \pm {thetaErr:.5f} $" , fontsize=10)
+#                plt.text(60, np.max(yMirrorcounts) -5*np.max(yMirrorcounts)/10, rf"$\chi^2={chi2:.2f}$", fontsize=10)
 #            else:
 #                popt[1] = np.sqrt( popt[1]**2 - standardDevNoData**2 )
 #                perr[1] = np.sqrt(
@@ -181,14 +173,15 @@ def drawHistograms(file, histogramArray, indexTranslation):
 #                plt.text(60, np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, rf"$\mu = {fixmu:.2f}$, $\sigma={popt[1]:.2f} + {perr[1]:.2f}$", fontsize=10)
 #                np.round(np.arctan(popt[1]/450), 5)                                 
 #                plt.text(60, np.max(yMirrorcounts) -3*np.max(yMirrorcounts)/10, rf"$\theta={p:.5f} \pm {thetaErr:.5f}$", fontsize=10)
-#
-#
-#        #plt.title(indexTranslation[i])
-#        #plt.savefig("finished_plots/" + indexTranslation[i] + ".png")
+#                plt.text(60, np.max(yMirrorcounts) -5*np.max(yMirrorcounts)/10, rf"$\chi^2={chi2:.2f}$", fontsize=10)
+
+
+        #plt.title(indexTranslation[i])
+        plt.savefig("finished_plots/Filteredunmirrored" + indexTranslation[i] + ".png")
 
 
         #plt.savefig("finished_plots/filtered_noMaterial.png")
-        #plt.show()
+        plt.show()
         
 def twodHist(xHist, yHist):
     xbins, ybins = 250, 250
@@ -300,7 +293,7 @@ indexTranslation = [
 files = openfile()
 
 #Use this array to show which histograms you want to analyze and plot
-histogramArray = [0]
+histogramArray = [0,1,2,3,4,5,6,7,8]
 drawHistograms(files, histogramArray, indexTranslation)
 #fit()
 
