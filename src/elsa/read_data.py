@@ -75,7 +75,7 @@ c = ROOT.TCanvas("c", "Canvas", 800, 600)
 #}}}
 
 ## gives the array for the runs that are analyzed and which std deviations are then converted to angles 
-rArray = [0,1,3]
+rArray = [1,2,6,9]
 
 #{{{ elsa
 def elsa():
