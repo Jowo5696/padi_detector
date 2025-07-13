@@ -69,13 +69,14 @@ hist_cluster_count = ROOT.TH1F("hist_cluster_count", "Cluster count", 25, 1, 26)
 hist_cluster_size = ROOT.TH1F("hist_cluster_size", "Cluster size", 25, 1, 26)
 
 # Create 2D histogram: average X vs average Y
+hist_xy_strip = ROOT.TH2F("hist_xy_strip", "Average X vs Average Y;x position [strip];y position [strip]", 256, 0, 257, 256, 0, 257)
 hist_xy = ROOT.TH2F("hist_xy", "Average X vs Average Y;x position [mm];y position [mm]", 100, 0, 101, 100, 0, 101)
 
 c = ROOT.TCanvas("c", "Canvas", 800, 600)
 #}}}
 
 ## gives the array for the runs that are analyzed and which std deviations are then converted to angles 
-rArray = [1,2,6,9]
+rArray = [0, 1, 2, 6, 9]
 
 #{{{ elsa
 def elsa():
@@ -96,6 +97,7 @@ def elsa():
         hist_cluster_count.Reset("ICES")
         hist_cluster_size.Reset("ICES")
 
+        hist_xy_strip.Reset("ICES")
         hist_xy.Reset("ICES")
 
         # Read the 'raw' tree
@@ -127,10 +129,12 @@ def elsa():
             num_hits = len(entry_raw.apv_id)
 
             x_pos = 0
+            sum_x_strip = 0
             sum_x = 0
             num_hits_x = 0
 
             y_pos = 0
+            sum_y_strip = 0
             sum_y = 0
             num_hits_y = 0
 
@@ -190,9 +194,10 @@ def elsa():
                     #hist_ypos_strip_nofilter.Fill(strip)
 
                 if (
-                        (cluster_count < 100) # if there are more than x clusters in total dont use the event
+                        (cluster_count < 3) # if there are more than x clusters in total dont use the event
                         #and (charge > 90)
-                        #and (charge < 1500)
+                        #(charge < 700)
+                        or (r == 0)
                         #True
                         ):
             
@@ -200,6 +205,8 @@ def elsa():
                     # x
                     if apv_id in [0,1]:
                         hist_xpos_strip.Fill(strip)
+
+                        sum_x_strip += strip
 
                         x_pos = strip * 100. / 256. # 10cm long and 128 channels, 256 strips
                         hist_xpos.Fill(x_pos) # counts events that happen at a certain x position
@@ -212,19 +219,25 @@ def elsa():
                         # when using % 256 there will be a blank strip because 256 % 256 = 0 -> 255
                         hist_ypos_strip.Fill((strip + 128) % 256)
 
+                        sum_y_strip += (strip + 128) % 256
+
                         y_pos = ((strip + 128) % 256) * 100. / 256.
                         hist_ypos.Fill(y_pos)
 
                         sum_y += y_pos
                         num_hits_y += 1
 
-            hist_cluster_count.Fill(cluster_count)
 
             # average over all events
             # TODO weigh hits 
             # weigh with charge seems to make not much of a difference
             if num_hits_x > 0 and num_hits_y > 0:
                 # average position which is hit, i.e. hit at 2 and hit at 10 will be hit at 6 = (2+10)/2
+                average_x_strip = sum_x_strip / num_hits_x
+                average_y_strip = sum_y_strip / num_hits_y
+
+                hist_xy_strip.Fill(average_x_strip, average_y_strip)
+
                 average_x = sum_x / num_hits_x
                 average_y = sum_y / num_hits_y
 
@@ -233,6 +246,7 @@ def elsa():
                 hist_xpos_avg.Fill(average_x)
                 hist_ypos_avg.Fill(average_y)
             #break
+            hist_cluster_count.Fill(cluster_count)
 
         # fits
         #fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
@@ -283,6 +297,9 @@ def elsa():
         # 2D hit map
         hist_xy.Draw("COLZ")
         c.SaveAs(f"xy_hitmap_{r}.png")
+
+        hist_xy_strip.Draw("COLZ")
+        c.SaveAs(f"xy_hitmap_strip_{r}.png")
 
         # save bin centers, contents, and errors to file
         with open(f"run_{r}.txt", "w") as f:
@@ -478,5 +495,5 @@ def stdDevConversion():
 
 
 elsa()
-stdDevConversion()
+#stdDevConversion()
 #muon()

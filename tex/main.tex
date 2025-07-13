@@ -24,6 +24,7 @@
 \usepackage{enumitem}
 \usepackage{appendix}
 \usepackage{subcaption}
+\usepackage{afterpage}
 
 \theoremstyle{thmstyleone}
 \newtheorem{theorem}{Theorem}
@@ -55,7 +56,7 @@
 
 \section{Introduction}
 In order to observe multiple scattering of electrons in alumnium and copper, a micromegas detector is used and tested with cosmic muon rays. Therefore a trigger logic is build with scintillators to select significant events.
-
+For a detailed observation of the multiple scattering, an electron beam provided by the ELSA accelerator will be used. This allows to compare the scattering behavior of electrons as they travel through aluminum and copper targets. To extend the analysis, targets of different thicknesses and a fixed distance between detector and target will be studied.  
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
@@ -68,28 +69,28 @@ The first region is the drift region, typically about \SI{5}{\milli\meter} thick
 A cathode is placed at the top and held at a negative voltage to establish a uniform electric field.
 %pointing downward.
 This field pulls negatively charged particles toward the micromesh. 
-The drift region is filled with a noble gas mixture Ar/CO2, which facilitates the ionization of the gas when a charged particle passes through. 
-The ioniziation process liberates electrons. 
+The drift region is filled with a noble gas mixture Ar/CO$_2$, which facilitates the ionization of the gas when a charged particle passes through. 
+The ionization process liberates electrons. 
 Because they do not attach to noble gases they can travel freely toward the mesh. 
 
 The second region is the amplification region, which is significantly thinner, approximately \SI{128}{\micro\meter}. 
-It is seperated from the drift region by a woven micromesh, a metallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transperency of about 40\%.
+It is separated from the drift region by a woven micromesh, a metallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transparency of about 40\%.
 An electric field of about \SI{500}{\volt\per\centi\meter} is applied between the cathode an the mesh, while a much stronger field of around \SI{70000}{\volt\per\centi\meter} is present between the mesh and the anode strips. 
 This high field is due to the small gap and causes incoming electrons to gain enough energy to further ionize the gas, leading to an avalanche multiplication of electrons. 
 The ions, on the other hand, drift upward the mesh. 
 The electrons are collected by the anode strips, which make up the readout plate and results in a measurable electrical signal. 
-Those regions together with the readout plane form the active area of the detector which is about \SI{10}{\centi\meter^2}.
+Those regions together with the readout plane form the active area of the detector which is about \SI{100}{\centi\meter^2}.
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_readout.png}
   \caption{Setup of micromegas detector with a two dimensional readout}
   \label{fig:readout}
 \end{figure}
 
-\subsection{Mutiplie Scattering}\label{subsec:theory_scattering}
-When a charged particle travels through a material, it undergoes numerous interactions with the Coulomb potential of the nucleus resulting in small angle defleftions.
+\subsection{Multiple Scattering}\label{subsec:theory_scattering}
+When a charged particle travels through a material, it undergoes numerous interactions with the Coulomb potential of the nucleus resulting in small angle deflections.
 The overall effect of those deflections is known as multiple scattering. 
 
-The distribution of the resulting deflection angles is approximately gaussian in the central region. 
+The distribution of the resulting deflection angles is approximately Gaussian in the central region. 
 This statistical treatment of deflections allows one to describe the angular distribution with a root mean square (RMS) scattering angle.
 A formula to estimate the RMS projected scattering angle is given by the Highland approximation
 \begin{equation}\label{eq:Highland}
@@ -97,7 +98,7 @@ A formula to estimate the RMS projected scattering angle is given by the Highlan
 \end{equation}
 where $\theta_0$ is the RMS scattering angle in the projected plane, $p$ is the momentum of the incident particle, $\beta$ is its velocity divided by the speed of light, $z$ is the charge number of the particle, $x$ is the thickness of the target material, and $X_0$ is the radiation length of the material.
 
-The angular distribution of scattered particles, in the small-angle approximation, follows a gaussian probability distribution centered around the initial direction of the particle beam
+The angular distribution of scattered particles, in the small-angle approximation, follows a Gaussian probability distribution centered around the initial direction of the particle beam
 \begin{equation}\label{eq:Gauss}
 P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
 \end{equation}
@@ -110,56 +111,56 @@ Based on geometrical considerations it follows that
 Increasing the distance $d$ between the target and the detector results in a proportional increase in the lateral spread making the distribution wider.
 Changing the thickness $x$ of the target material has a direct impact. 
 Since the RMS angle $\theta_0$ grows with $\sqrt{x}$, a thicker target leads to broader angular distributions due to more scattering events. 
-Likewise, decreasing the radiation length $X_0$ increases $\theta_0$, again broadening the gaussian spread. 
+Likewise, decreasing the radiation length $X_0$ increases $\theta_0$, again broadening the Gaussian spread. 
 Therefore, materials with shorter radiation lengths cause more significant angular deflection over the same thickness.
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Cosmic Data}
 \subsection{Measuring of Detector Specifications} \label{subsec:detector_specific} % structure? 
-For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} is disassambled.
+For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} is disassembled.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
-  \caption{Front of the spare micromegas detector.}
-  \label{fig:micromegas_closed}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
+%  \caption{Front of the spare micromegas detector}
+%  \label{fig:micromegas_closed}
+%\end{figure}
 
 To access the inner part of the micromegas detector the screws on the top, and the upper part are removed.
-Attached to the upper metal part is a mesh which is held by four plasic pillars as can be seen in \autoref{fig:micromegas_cover}.
+Attached to the upper metal part is a mesh which is held by four plastic pillars as can be seen in \autoref{fig:micromegas_cover}.
 This mesh is used as the cathode of the detector. 
 The distance between the entry window and the cathode is measured to be \SI{1.0\pm.1}{\centi\meter} and the diameter of the cathode to be \SI{11\pm.1}{\centi\meter}.
-These measurements were done with a ruler and we therefore assumed an uncertaincy of \SI{.1}{\centi\meter} on all measurements.
+These measurements were done with a ruler and we therefore assumed an uncertainly of \SI{.1}{\centi\meter} on all measurements.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
-  \caption{Cathode mesh on the upper part of the micromegas.}
-  \label{fig:micromegas_cover}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
+%  \caption{Cathode mesh on the upper part of the micromegas}
+%  \label{fig:micromegas_cover}
+%\end{figure}
 
 In \autoref{fig:micromegas_base} the inside of the detector is shown. 
 The cathode was placed in the center gap.
-At the bottom one can see the mesh of the detector, which is responsible for gasamplification as explained in \autoref{subsec:theory_micromegas}.
+At the bottom one can see the mesh of the detector, which is responsible for gas amplification as explained in \autoref{subsec:theory_micromegas}.
 The inner diameter of the mesh is \SI{13.8\pm.1}{\centi\meter}.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
-  \caption{Bottom part of the micromegas with the mesh.}
-  \label{fig:micromegas_base}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
+%  \caption{Bottom part of the micromegas with the mesh}
+%  \label{fig:micromegas_base}
+%\end{figure}
 
 Below the mesh one can see the anode strips on the PCB wafer shown in \autoref{fig:micromegas_strips}.
-The active area is measured to be \SI{10\pm1.4}{\cm^2} where the uncertainty is calculated by the gaussian propagation of uncertainty.
+The active area is measured to be \SI{10\pm1.4}{\cm^2} where the uncertainty is calculated by the Gaussian propagation of uncertainty.
 One observes a grid-like structure of the anodes with width and height of one rectangle of $\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}$.
 One rectangle in this structure is connected with 10 wires.
 This indicates that there are 10 strips per rectangle.
 Therefore the true dimensions of one strip is $\SI{400\pm100}{\micro\meter}\times\SI{500\pm100}{\micro\meter}$.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
-  \caption{Grid-like structure of the anode strips.}
-  \label{fig:micromegas_strips}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
+%  \caption{Grid-like structure of the anode strips}
+%  \label{fig:micromegas_strips}
+%\end{figure}
 
 \subsection{Experimental Setup}
 To observe cosmic muon rays, a micromegas detector is set up horizontally between two scintillators.
@@ -172,20 +173,21 @@ These scintillators are overlapping and positioned as shown in \autoref{fig:setu
 \end{figure}
 
 As can be seen, one of the scintillators is covered up by a cloth. 
-This is because the particular scintillator did not seem to be sealed correctely and thus is covered to increase its efficiency.
+This is because the particular scintillator did not seem to be sealed correctly and thus is covered to increase its efficiency.
 The scintillators are provided with voltages of \SI{1700}{\volt} and \SI{1250}{\volt}. 
 They are provided by a high voltage module along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt}.
 
 Additionally, more modules are used to set up the trigger logic of the detector.
 The trigger logic ensures, that the detector only counts hits when both scintillators register an event so noise is minimized and only particles which pass through the detector are counted.
 
-The readout system of the detector consists of four APVs, two for each axis, and a minicrate, which are triggered by the trigger logic and then send the received data to a PC where the data readout is handeled by the mmDAQ software.
+The readout system of the detector consists of four APVs, two for each axis, and a minicrate, which are triggered by the trigger logic and then send the received data to a PC where the data readout is handled by the mmDAQ software.
+
 
 \subsection{Experimental Procedure}
 To set up the trigger logic the scintillators are placed directly on top of each other, so events would be registered at both of them at a higher rate.
 This positioning is only used for first setting up the trigger logic.
 For data taking the scintillators are returned to their original positions above and below the micromegas detector.
-Looking at the scintillator signal directly with an oscilloscope one could obseve a signal as shown in \autoref{fig:scintillator_signal}.
+Looking at the scintillator signal directly with an oscilloscope one could observe a signal as shown in \autoref{fig:scintillator_signal}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/DS1Z_QuickPrint5_cropped.png}
@@ -193,12 +195,12 @@ Looking at the scintillator signal directly with an oscilloscope one could obsev
   \label{fig:scintillator_signal}
 \end{figure}
 
-The signals are quite weak, so they are amplified using the 12-channel photomultiplier amplifier module which has a gain of 10.
+The signals are quite weak, so they are amplified using the 12-channel photo-multiplier amplifier module which has a gain of 10.
 After amplifying the signal it is discriminated to search for coinciding scintillator signals.
-The discriminator only triggeres when a certain signal threshold is reached. 
+The discriminator only triggers when a certain signal threshold is reached. 
 When triggered the discriminator outputs a constant signal over a given discrimination time.
 By setting the threshold most of the noise is filtered.
-Because the discriminator has a set discrimination time multilpe events in this time will not be registered. 
+Because the discriminator has a set discrimination time multiple events in this time will not be registered. 
 For measuring cosmic muon rays this is not relevant because the events are of low frequency.
 
 After producing the discriminated signal one wants to check for coincidence between both signals of the scintillators.
@@ -235,16 +237,16 @@ Extracting the information from the \texttt{.root} file yields the hitmap in \au
 
 As can can be seen events occur only in the area where the scintillators overlap, resulting in a rectangular shape.
 This is explained by the trigger logic, which only triggers detector readout when a particle passes through both scintillators.
-Some events are observed outside of the area covered by the scintillators, which can be explained by two particles simultaneously hitting the detector, where one triggeres the readout.
+Some events are observed outside of the area covered by the scintillators, which can be explained by two particles simultaneously hitting the detector, where one triggers the readout.
 Aside from another particle detector noise may be captured.
 Over a time of roughly \SI{60}{\minute} 195 events are captured, which is equivalent to a rate of \SI{3.25}{\text{µ}\per\minute}.
 Muons arrive at sea level with an average flux of \SI{1}{\text{µ}\per\centi\meter\squared\per\min} \cite{muons}.
-According to the hitmap the scintillators covered an area of approximately \SI{35}{\centi\meter\squared}, which should correspond to a count of 2100 events after \SI{60}{\min}.
-The lower count of registered events is explained by muons coming at an angle and thus not triggering the readout system.
+According to the hitmap the scintillators covered an area of approximately $\SI{7}{\centi\meter}\cdot\SI{5}{\centi\meter}=\SI{35}{\centi\meter\squared}$, which should correspond to a count of 2100 events after \SI{60}{\min}.
+The reduced amount of registered events is explained by muons coming at an angle and thus not triggering the readout system.
 Another explanation is the location at which the experiment is set up. 
 The detector is placed in the basement below the ROT building. 
-Therefore muons are already absorbed by passing through the building and the rate of detected muons is lowered.
-With these considerations the measured rate of \SI{3.25}{\text{µ}\per\min} or \SI{0.09}{\text{µ}\per\centi\meter\squared\per\min} is realistic.
+Therefore some muons are already absorbed by passing through the building and the rate of detected muons is lowered.
+With these considerations the measured rate of \SI{3.25}{\text{µ}\per\min} over an area of \SI{35}{\centi\meter\squared} or \SI{0.09}{\text{µ}\per\centi\meter\squared\per\min} is realistic.
 The measured rate is one order of magnitude smaller than the average muon flux at sea level which is justified by the mentioned circumstances. 
 
 %-----------------------------------------------------------------------------------------------------------------------------
@@ -266,14 +268,14 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
   \renewcommand*{\arraystretch}{1.1}
   \begin{tabular}{c|c||c|c}
     \multicolumn{2}{c||}{Aluminum} & \multicolumn{2}{c}{Copper} \\
-    {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
+    {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
     \num{1.22\pm 0.01} & 2 & \num{0.2\pm 0.01} & 3 \\
     \num{2.5\pm 0.01} & 1 & \num{0.5\pm 0.01} & 2 \\
     \num{5\pm 0.01} & 1 & \num{1.48\pm 0.01} & 2 \\
     \num{9.96\pm 0.01} & 1 & & \\
     \num{9.93\pm 0.01} & 1 & & \\
   \end{tabular}\vspace{3mm}
-  \caption{Available scattering materials of thickness $d$ and quantity $\#$.}
+  \caption{Available scattering materials of thickness $x_i$ and quantity $\#$.}
   \label{tab:available_materials}
 \end{table}
 
@@ -292,9 +294,9 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 \subsection{Experimental Procedure}
 After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program.
 Afterwards, multiple runs are recorded for both materials. 
-Thereby, the thicknesses $D$ of the targets are changed by placing different blocks of one material in a row. 
-$D$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
-The distance $z$ between the scintillator and the leading edge of the material is always $z=\SI{40\pm0.5}{cm}$. 
+The thicknesses $x$ of the targets are changed by placing different blocks of one material in a row. 
+$x$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
+The distance $d$ between the scintillator and the leading edge of the material is always $d=\SI{40\pm0.5}{cm}$. 
 Overall eight runs, one for each $m$ and both materials, are recorded. 
 The exact configurations for the different measurements are listed in \autoref{tab:config_materials}.
 
@@ -303,7 +305,7 @@ The exact configurations for the different measurements are listed in \autoref{t
   \begin{tabular}{c|c|c}
     & Aluminum & Copper \\
     & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline
-    $m$ & $\sum d/cm = D /cm$ & $\sum d/cm = D /cm$ \\\hline\hline\rule{0pt}{6ex}
+    $m$ & $\sum x_i/cm = x /cm$ & $\sum x_i/cm = x /cm$ \\\hline\hline\rule{0pt}{6ex}
     $0.5$ & \num{5\pm 0.01} & $\begin{array}{r}
                 \num{0.5\pm 0.01} \\
                 +\,\num{0.2\pm 0.01} \\\hline
@@ -339,24 +341,24 @@ The exact configurations for the different measurements are listed in \autoref{t
 
 \subsection{Data Analysis}
 The recorded data of the run without scattering material in the beam is shown as a hitmap in \autoref{fig:hitmap_notarget}. The distribution of the electrons in the x-direction is wider as in y-direction, resulting in an oval-shaped beam.
-To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable. Moreover, \autoref{fig:x_hist_notarget} shows, that one APV of the detector positioned in x-direction contains multiple defect stips in the region of interest. Therefore, in the following analysis, only the y-direction is considered.
+To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable. Moreover, \autoref{fig:x_hist_notarget} shows, that one APV of the detector positioned in x-direction contains multiple defect strips in the region of interest. Therefore, in the following analysis, only the y-direction is considered.
 
 The collected raw data counts unwanted hits because of different reasons. First of all, there is a noise on the detector, which is also read out when the scintillators trigger the system. To filter the noise a charge threshold is used.
-Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout. Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored.
+Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout. Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clusters, the event is ignored.
 
 The data, filtered as described, is shown for (???) in (fig-temp).
-One notice, that at one specific point i.e one specific strip in the detector, no event is counted, which is observed for all runs. This indicates, that this strip do not work properly. Because the oberservation applies only for the one distinct strip, it does not effect the overall results and can be ignored.
-Moreover, the number of events increase gaussian like from low to higher values of $x$ before suddenly fall close after the maximum and starts decreasing again gaussian. This behaviour is also observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. To do latter, the data of one APV is mirrored, while the other one is ignored. The fitted curve to this modified data can be seen for alumnium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
+One notice, that at one specific point i.e one specific strip in the detector, no event is counted, which is observed for all runs. This indicates, that this strip do not work properly. Because the observation applies only for the one distinct strip, it does not effect the overall results and can be ignored.
+Moreover, the number of events increase Gaussian like from low to higher values of $x$ before suddenly fall close after the maximum and starts decreasing again Gaussian. This behaviour is also observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a Gaussian distribution is fitted to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. To do latter, the data of one APV is mirrored, while the other one is ignored. The fitted curve to this modified data can be seen for aluminum as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
 
-Beyond the one defect strip, which is now additional mirrored to the other side, it is noticeable, that in a very regulary pattern the gaussian distribution contains dips in the event counter. The distance between two dips is $\SI{5}{mm}$, which matches exactly the height of one rectangle of the grid structure in the detector described in \autoref{subsec:detector_specific}. This indicates the possible reason for the dips, that every $n$-th strip in one rectangle has a lower sensitivity than the others, leading to the observed effect.
+Beyond the one defect strip, which is now additional mirrored to the other side, it is noticeable, that in a very regularly pattern the Gaussian distribution contains dips in the event counter. The distance between two dips is $\SI{5}{mm}$, which matches exactly the height of one rectangle of the grid structure in the detector described in \autoref{subsec:detector_specific}. This indicates the possible reason for the dips, that every $n$-th strip in one rectangle has a lower sensitivity than the others, leading to the observed effect.
 
 The standard deviation $\sigma_\text{mat}$ of the curves, available through the parameters of the fit, leads to the scattering angle $\theta_\text{exp}$ via \autoref{eq:theta_exp}. To consider the width of the electron distribution without any scattering, the modified standard deviation
 \begin{equation} \label{eq:sigma_mod}
-  \sigma = \sqrt{\sigma_\text{mat}^2 + \sigma_\text{0}^2}
+  \sigma = \sqrt{\sigma_\text{mat}^2 - \sigma_\text{0}^2}
 \end{equation}
 is used, where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam.
 
-To compare this experimental results with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}.
+To compare this experimental results with the theoretical description, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}.
 
 
 
@@ -374,7 +376,7 @@ To compare this experimental results with the theoretical discription, $\theta_\
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}
-  \caption{Counted hits for alumnium with $D\approx2\cdot X_0$.}
+  \caption{Counted hits for aluminum with $D\approx2\cdot X_0$.}
   \label{fig:2alu}
 \end{figure}
 
@@ -393,15 +395,57 @@ To compare this experimental results with the theoretical discription, $\theta_\
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Summary}
-At ROT the measurements of the spare micromegas are taken while it is disassambled.
-The data of the cosmic muons leads to a muon flux of approximately \SI{.09}{\text{muon}\per\centi\meter\squared\per\min} which is by a factor 10 smaller than the value from literature.
-This value is explained by the absorption of muons while passing through the building, aswell as muons coming at an angle and thus not beeing detected.
+At ROT the measurements of the spare micromegas are taken while it is disassembled.
+The captured data of the cosmic muons leads to a muon flux of approximately \SI{.09}{\text{µ}\per\centi\meter\squared\per\min} which is by a factor 10 smaller than the value from literature.
+This value is explained by the absorption of muons while passing through the building, as well as muons coming at an angle and thus not being detected.
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
-\begin{appendices}\onecolumn
+\clearpage\appendix\onecolumn
 
-\section{Gaussian Distributions of Multiple Scattering for Ovserved Materials}
+
+\section{Disassembled Micromegas Detector}
+\renewcommand{\thefigure}{\Alph{section}\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+\setcounter{table}{0}
+
+
+\begin{figure}[h]
+  \centering
+    \begin{subfigure}{0.47\textwidth}
+        \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
+        \caption{Front of the spare micromegas detector.}
+        \label{fig:micromegas_closed}
+    \end{subfigure}
+    \begin{subfigure}{0.51\textwidth}
+        \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
+        \caption{Cathode mesh on the upper part of the micromegas.}
+        \label{fig:micromegas_cover}
+    \end{subfigure}
+    \begin{subfigure}{0.62\textwidth}
+      \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
+      \caption{Bottom part of the micromegas with the mesh.}
+      \label{fig:micromegas_base}
+    \end{subfigure}
+    \begin{subfigure}{0.36\textwidth}
+        \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
+        \caption{Grid structure of the anode strips.}
+        \label{fig:micromegas_strips}
+    \end{subfigure}
+    \caption{Pictures of the disassembled micromegas detector.}
+    \label{fig:mircro_wow}
+\end{figure}
+
+
+
+\clearpage
+\section{Gaussian Distributions of Multiple Scattering for Observed Materials}
+\renewcommand{\thefigure}{\Alph{section}\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+\setcounter{table}{0}
+
 
 \begin{figure}[h]
     \centering
@@ -421,7 +465,7 @@ This value is explained by the absorption of muons while passing through the bui
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Aluminium, Three Radiation Lengths, 40cm Distance.png}
         \caption{$D\approx3\cdot X_0$}
     \end{subfigure}
-    \caption{Counted hits for alumnium of different thicknisses $D$.}
+    \caption{Counted hits for aluminum of different thicknesses $D$.}
     \label{fig:alu_gaus}
 \end{figure}
 
@@ -443,17 +487,16 @@ This value is explained by the absorption of muons while passing through the bui
         \includegraphics[width=\textwidth]{../src/elsa/finished_plots/Copper, Three Radiation Lengths, 40cm Distance.png}
         \caption{$D\approx3\cdot X_0$}
     \end{subfigure}
-    \caption{Counted hits for copper of different thicknisses $D$.}
+    \caption{Counted hits for copper of different thicknesses $D$.}
     \label{fig:cop_gaus}
 \end{figure}
 
 
-\end{appendices}
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \clearpage
-\section{Analysis ELSA (\textbf{temporary informations})}
+\section{Analysis ELSA (\textbf{temporary information})}
 Here is a quick rundown of how the analysis for ELSA works.
 
 The way that the data taking works is that the detector triggers about every $\SI{25}{ns}$ and reads all strips.
@@ -468,11 +511,11 @@ This poses a problem because there are many different reasons for the undesired 
     To filter these events there is a certain charge threshold.
   \item It is possible, that a beam-electron creates a $\delta $-electron in the material and both hit the detector.
     This will be seen as two separate hits.
-  \item The electron has a very high energy and as it traveles through the air, it is possible that it interacts with the air molecules.
+  \item The electron has a very high energy and as it travels through the air, it is possible that it interacts with the air molecules.
     This interaction could be inelastic scattering, which would result in a Hadron shower (most likely pions) on the detector.
     This is seen (often) as a single hit (which is the electron; this hit can be very far from the expected distribution because it scattered under a higher angle) and a bunch of hits close together (Hadrons).
     To filter these events one can count the number of independent strip(s) that fired.
-    Independes here means a strip or multiple strips next to each other give a signal and the adjacent strips to the left and right give none.
+    Independence here means a strip or multiple strips next to each other give a signal and the adjacent strips to the left and right give none.
     These strips are called clusters.
     For example: \\\texttt{...|...||......||||..|.||.|..}\\
     would be 6 clusters.
@@ -480,7 +523,7 @@ This poses a problem because there are many different reasons for the undesired 
 \end{enumerate}
 There will be a number of histograms, this includes: x and y strip events, clusters, cluster size, xy hitman etc.\
 
-For the analysis a gaussian curve is fittet to the histogram: y strip events.
+For the analysis a Gaussian curve is fitted to the histogram: y strip events.
 The x strips don't work well (probably detector issue and the beam has an elliptic profile).
 The standard deviation of the curve is related to $\theta $ via $\tan \theta =\tfrac{\sigma }{d}$ with $d$ the distance between the target and the detector.
 First calculations with this formula are in the right order of magnitude.
@@ -493,3 +536,4 @@ This should give a linear correlation between these two values thus verifying th
 \bibliography{refs}
 
 \end{document}
+

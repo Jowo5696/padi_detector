@@ -12,3 +12,6 @@ tex/*
 !tex/*.bst
 !tex/*.bib
 !tex/figures
+
+src/elsa/*.png
+src/elsa/*.txt
