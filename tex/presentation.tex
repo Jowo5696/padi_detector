@@ -17,6 +17,7 @@
 \usepackage[absolute,overlay]{textpos}
 \usepackage{bookmark}
 \usepackage{csquotes}
+\usepackage{subcaption}
 
 \usepackage{caption}
 \usepackage{svg}
@@ -52,7 +53,7 @@
         % \begin{frame}{Inhaltsverzeichnis}
         %         \tableofcontents
         % \end{frame}
-        
+
         \begin{frame}
                 \vfill
                 \begin{figure}
@@ -66,8 +67,26 @@
                 \vfill
                 \begin{figure}
                         \centering
+                        \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/xy_hitmap_0.png}
+                        \caption{Hitmap of the beam without target.}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
+                        \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/UnfilteredNoMaterialX.png}
+                        \caption{Raw data of the beam along the x-axis without target.}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
                         \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/unfiltered_noMaterial.png}
-                        \caption{Raw data of the beam without target.}
+                        \caption{Raw data of the beam along the y-axis without target.}
                 \end{figure}
         \end{frame}
 
@@ -76,7 +95,52 @@
                 \begin{figure}
                         \centering
                         \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/no target.png}
-                        \caption{Filtered beam profile without target.}
+                        \caption{Filtered beam profile along y-axis without target.}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \begin{figure}
+                        \centering
+                        \begin{tikzpicture}
+                                \node (img1) {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Aluminium, Half Radiation Length, 40cm Distance.png}};
+                                \node (img2) at (img1.east) [xshift = 3cm] {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Aluminium, One Radiation Length, 40cm Distance.png}};
+                                \node (img3) at (img1.south) [yshift = -2cm] {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}};
+                                \node (img4) at (img3.east) [xshift = 3cm] {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Aluminium, Three Radiation Lengths, 40cm Distance.png}};
+                        \end{tikzpicture}
+                        \caption{Counted hits for alumnium of different thicknesses $x$.}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
+                        \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/Aluminium.png}
+                        \caption{Fit of experimental $\theta_{\text{exp}}$ values against theoretical values of $\theta_{0}$ for aluminum}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \begin{figure}
+                        \centering
+                        \begin{tikzpicture}
+                                \node (img1) {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Copper, Half Radiation Length, 40cm Distance.png}};
+                                \node (img2) at (img1.east) [xshift = 3cm] {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Copper, One Radiation Length, 40cm Distance.png}};
+                                \node (img3) at (img1.south) [yshift = -2cm] {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Copper, Two Radiation Lengths, 40cm Distance.png}};
+                                \node (img4) at (img3.east) [xshift = 3cm] {\includegraphics[width=.4\textwidth]{../src/elsa/finished_plots/Copper, Three Radiation Lengths, 40cm Distance.png}};
+                                \node (capt1) at (img1.south) {$x\approx\frac{X_0}{2}$};
+                        \end{tikzpicture}
+                        \caption{Counted hits for copper of different thicknesses $x$.}
+                \end{figure}
+        \end{frame}
+
+        \begin{frame}
+                \vfill
+                \begin{figure}
+                        \centering
+                        \includegraphics[width=.8\textwidth]{../src/elsa/finished_plots/Copper.png}
+                        \caption{Fit of experimental $\theta_{\text{exp}}$ values against theoretical values of $\theta_{0}$ for copper}
                 \end{figure}
         \end{frame}
 
