@@ -369,9 +369,13 @@ Therefore, in the following analysis, only the y-direction is considered. The co
   \label{fig:y_hist_notarget}
 \end{figure}
 
-Both, the distribution in x and in y direction, contains additionaly to the gaussian curve other peaks in the foothills of the distribution, which is also observed for all recorded runs.
-By cutting away events of large charge deposition, these artifacts disappear. A possible reason is, that the detector is more sensitive at these strips which leads to more counted events.
-Additionally one observe, that at one specific point i.e one specific strip in the detector, no event seems to be counted. (Begründung -> Jonas)
+Both the distribution in x and in y direction contain, additionally to the gaussian curve, other peaks in the foothills of the distribution, which is also observed for all recorded runs.
+By cutting away events of large charge deposition, these artifacts disappear. 
+A possible reason is that the detector is more sensitive at these strips which leads to more counted events.
+Additionally one observes, that at one specific point i.e.\ one specific strip in the detector, no event seems to be counted.
+This is due to the way the strips are converted to millimetre.
+To do this, one has to multiply the strip by the length of the detector (in the corresponding direction) and divide by the number of strips.
+This will lead to rounding issues, where it is possible that one millimetre is left out, because a bin can only be of type integer.
 
 In general, the number of events increase gaussian like from lower to higher y-positions before suddenly fall close after the maximum and starts decreasing again gaussian. This behaviour is differnently intensive observed for every recorded run. Because the sharp edge is localized exactly in the middle of the detector, it is evidently caused by a different behaviour of the two APVs, used for the read out of one direction. Apparently, one have a higher charge sensitive so it counts events more likely than the other one, which results in such a shifted image. In order to evaluate the effects of multiple scattering, a gaussian distribution is fittet to the data. Thereby, the behaviour of the two different curves can either be adjusted by shifting the curves manually on a equal level, or including only one side of the distribution to the fit. After doing the latter, the fitted curve can be seen for alumnium as the scattering target with a thickness of approximately two times the radiation length in \autoref{fig:2alu} and collected for all runs in \autoref{fig:alu_gaus}.
 
