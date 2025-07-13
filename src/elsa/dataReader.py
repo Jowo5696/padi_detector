@@ -10,7 +10,7 @@ def drawHistograms(file, histogramArray, indexTranslation):
     
     #To later calculate the standard deviation from the difference of the no data run and the other runs.
     standardDevNoData = 0
-
+    standardDevNoDataErr = 0
     for i in histogramArray:
 
         mm_strip = file[i]["raw"]["mm_strip"].array(library="np")
@@ -32,7 +32,7 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
 
         #filter out unprecise data to eliminate local jitters
-        valid_events = {eid for eid, count in event_counts.items() if count <700}
+        valid_events = {eid for eid, count in event_counts.items() if count < 700}
         mask = np.isin(event_id, list(valid_events))
 
         mm_strip = mm_strip[mask]
@@ -57,11 +57,11 @@ def drawHistograms(file, histogramArray, indexTranslation):
 
 
         #swap out the left and right side to account for weird apv placement
-        x_strip[x_strip >= 128] -= 256
-        x_strip[x_strip >= 1] += 127
-        y_strip[y_strip <=0] += 127
+        #x_strip[x_strip >= 128] -= 256
+        #x_strip[x_strip >= 1] += 127
+        #y_strip[y_strip <=0] += 127
 
-        y_strip[y_strip >= 128] -= 256
+        y_strip[y_strip > 128] -= 256
         y_strip[y_strip >= 1] += 128
         y_strip[y_strip<=0] += 128
 
@@ -76,20 +76,26 @@ def drawHistograms(file, histogramArray, indexTranslation):
         y_strip = y_strip / 2.54
         x_strip = x_strip / 2.54
         
+        #plt.hist(x_strip, bins = 250, range=(1,100))
+        #plt.xlabel("x-Position")
+        #plt.ylabel("Counts")
+
+        #plt.show()
+
         #if i == 0:
         #    twodHist(x_strip, y_strip)
 
         #these are now arrays that list the individual counts, such that the size of this array is the amount of data collected.
         #I will transform this into two arrays, both 250 long (the amount of buckets)
         #such that one records the size of the bucket, and the other the bucket number.
-        ycounts, yedges = np.histogram(y_strip, bins=256, range=(1,100))
+        ycounts, yedges = np.histogram(y_strip, bins=254, range=(1,100))
         ycenters = 0.5 * (yedges[:-1] + yedges[1:])
         
         #mirroring the Array so that the data becomes easier to analyze and the sensitivity difference between apvs is ignored.
-        yMirrorcounts = mirrorArrayLeft(ycounts)
-        for k in range(round(len(yMirrorcounts)/2), len(yMirrorcounts)):
-            yMirrorcounts[k]=0
-        #yMirrorcounts = ycounts
+        #yMirrorcounts = mirrorArrayLeft(ycounts)
+        #for k in range(round(len(yMirrorcounts)/2), len(yMirrorcounts)):
+        #    yMirrorcounts[k]=0
+        yMirrorcounts = ycounts
         #yMirrorcounts = mirrorArrayRight(ycounts)
 
         #Now start a gauss fit by doing an initial guess
@@ -119,33 +125,64 @@ def drawHistograms(file, histogramArray, indexTranslation):
         else:
             if i == 0:
                 standardDevNoData = popt[1]
+                standardDevNoDataErr = perr[1]
 
 
-        plt.bar(ycenters, yMirrorcounts, width=yedges[1] - yedges[0], alpha=0.6, label="Data")
+        plt.bar(ycenters, yMirrorcounts, width=yedges[1] - yedges[0], alpha=1, label="Data")
         plt.plot(ycenters, gaussMu(ycenters, *popt), color='red', label="Gaussian Fit")
         
-        plt.xlabel("x [mm]")
-        plt.ylabel("Events")
-        
+        plt.xlabel("y-Position [mm]")
+        plt.ylabel("Counts")
+       
         if False:
             if i == 0:
-                plt.text(60,np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, f"μ={popt[1]:.2f}, σ={popt[2]:.2f}", fontsize=15)
-                plt.text(60,np.max(yMirrorcounts) - 3*np.max(yMirrorcounts)/10, "θ=" + str(np.round(np.arctan(popt[2]/400), 5)), fontsize=15)
+                
+                plt.text(60,np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, rf"$\mu={popt[1]:.2f} \pm {perr[1]:.3f}$, $\sigma={popt[2]:.2f} \pm {perr[2]:.3f}$", fontsize=15)
+                p = np.round(np.arctan(popt[2]/450), 5)
+                thetaErr = np.sqrt(
+                        (1/(1-(popt[1]/450)**2))**2 * perr[1]**2 +
+                        (1/(1-(popt[1]/450)**2)) * 20**2
+                        )
+                plt.text(60,np.max(yMirrorcounts) - 3*np.max(yMirrorcounts)/10, rf"$\theta= {p:.5f}$", fontsize=15)
             else:
                 popt[2] = np.sqrt( popt[2]**2 - standardDevNoData**2 )
-                plt.text(60,np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, f"μ={popt[1]:.2f}, σ={popt[2]:.2f}", fontsize=15)
-                plt.text(60, np.max(yMirrorcounts) - 3*np.max(yMirrorcounts)/10, "θ=" + str(np.round(np.arctan(popt[2]/400), 5)), fontsize=15)
+                plt.text(60,np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, rf"$\mu={popt[1]:.2f}$, $\sigma={popt[2]:.2f}$", fontsize=15)
+                p = np.round(np.arctan(popt[2]/450),5)
+                thetaErr = np.sqrt(
+                        (1/(1-(popt[1]/450)**2))**2 * perr[1]**2 +
+                        (1/(1-(popt[1]/450)**2)) * 20**2
+                        )
+                plt.text(60, np.max(yMirrorcounts) - 3*np.max(yMirrorcounts)/10, rf"$\theta= {p:.5f}$", fontsize=15)
         else:
             if i == 0:
-                plt.text(60, np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, f"mu ={fixmu:.2f}, sigma= {popt[1]:.2f}", fontsize=15)
-                plt.text(60, np.max(yMirrorcounts) -3*np.max(yMirrorcounts)/10, "theta=" + str(np.round(np.arctan(popt[1]/400), 5)), fontsize=15)
+                plt.text(60, np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, rf"$\mu= ={fixmu:.2f}$, $\sigma= {popt[1]:.2f}\pm {perr[1]:.3f}$", fontsize=10)
+                p = np.round(np.arctan(popt[1]/450), 5)
+                thetaErr = np.sqrt(
+                        ((1/450)*(1/(1-(popt[1]/450)**2)))**2 * perr[1]**2 +
+                        ((popt[1]/(450**2))*(1/(1-(popt[1]/450)**2)))**2 * 20**2
+                        )
+                plt.text(60, np.max(yMirrorcounts) -3*np.max(yMirrorcounts)/10, rf"$\theta = {p:.5f} \pm {thetaErr:.5f} $" , fontsize=10)
             else:
                 popt[1] = np.sqrt( popt[1]**2 - standardDevNoData**2 )
-                plt.text(60, np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, f"mu = {fixmu:.2f}, sigma={popt[1]:.2f}", fontsize=15)
-                plt.text(60, np.max(yMirrorcounts) -3*np.max(yMirrorcounts)/10, "theta=" + str(np.round(np.arctan(popt[1]/400), 5)), fontsize=15)
+                perr[1] = np.sqrt(
+                            ((2*popt[1])/(np.sqrt(
+                                    popt[1]**2 - standardDevNoData**2
+                                )))**2 * perr[1]**2 +
+                            ((2*standardDevNoData**2)/(np.sqrt(
+                                    popt[1]**2 - standardDevNoData**2
+                                )))**2 * standardDevNoDataErr**2
+                        )
+                thetaErr = np.sqrt(
+                        ((1/450)*(1/(1-(popt[1]/450)**2)))**2 * perr[1]**2 +
+                        ((popt[1]/(450**2))*(1/(1-(popt[1]/450)**2)))**2 * 20**2
+                        )
+                p = np.round(np.arctan(popt[1]/450), 5)
+                plt.text(60, np.max(yMirrorcounts) - np.max(yMirrorcounts)/10, rf"$\mu = {fixmu:.2f}$, $\sigma={popt[1]:.2f} + {perr[1]:.2f}$", fontsize=10)
+                np.round(np.arctan(popt[1]/450), 5)                                 
+                plt.text(60, np.max(yMirrorcounts) -3*np.max(yMirrorcounts)/10, rf"$\theta={p:.5f} \pm {thetaErr:.5f}$", fontsize=10)
 
 
-        plt.title(indexTranslation[i])
+        #plt.title(indexTranslation[i])
         plt.savefig("finished_plots/" + indexTranslation[i] + ".png")
 
 
@@ -199,28 +236,47 @@ def mirrorArrayRight(Array):
 def gauss(x, A, mu, sigma):
     return A * np.exp(-(x - mu)**2 / (2 * sigma**2))
 
-def gaussMu(x,A,sigma,b):
+def gaussMu(x,A,sigma):
     return A * np.exp(-(x - fixmu)**2 / (2*sigma**2))
 
 def fit():
-    yA = [0.00904, 0.1419, 0.02185, 0.02594]
-    xA = [0.0034, 0.00497, 0.00744, 0.00857]
+    yA = np.array([0.00904, 0.01419, 0.02185, 0.02594])
+    xA = np.array([0.0034, 0.00497, 0.00744, 0.00857])
 
-    yC = [0.00866, 0.001322, 0.02223, 0.02371]
-    xC = [0.0031, 0.0047, 0.0069, 0.0085]
+    yC = np.array([0.00866, 0.001322, 0.02223, 0.02371])
+    xC = np.array([0.0031, 0.0047, 0.0069, 0.0085])
     
     p0 = [3,0]
 
     popt, pcov = curve_fit(linear, xA, yA, p0 = p0)
+    perr = np.sqrt(np.diag(pcov))
+
     
     plt.plot(xA,linear(xA, *popt))
-    plt.title(popt[0] + "+" + popt[1])
+    #plt.title("Aluminium")
+    plt.xlabel("theoretical value")
+    plt.ylabel("experimental value")
+
+    plt.text(xA[1], np.max(yA) - np.max(yA)/10, rf"$m={popt[0]:.2f} + {perr[0]:.2f}$", fontsize=10)
+    plt.savefig("finished_plots/Aluminium.png")
+    plt.show()
+
+    popt, pcov = curve_fit(linear, xC, yC, p0=p0)
+    perr = np.sqrt(np.diag(pcov))
+
+    plt.plot(xC, linear(xC, *popt))
+    #plt.title("Copper")
+    plt.xlabel("theoretical value")
+    plt.ylabel("experimental value")
+    plt.text(xC[1], np.max(yC) - np.max(yC)/10, rf"$m={popt[0]:.2f} + {perr[0]:.2f}$", fontsize=10)
+    plt.savefig("finished_plots/Copper.png")
+
     plt.show()
 
 
 
 def linear(x, m, b):
-    return m*x, b
+    return m*x + b
 
 
 
@@ -240,12 +296,12 @@ indexTranslation = [
     "Copper, Two Radiation Lengths, 40cm Distance",
     "Copper, Three Radiation Lengths, 40cm Distance"
         ]
-#files = openfile()
+files = openfile()
 
 #Use this array to show which histograms you want to analyze and plot
 histogramArray = [0,1,2,3,4,5,6,7,8]
-#drawHistograms(files, histogramArray, indexTranslation)
-fit()
+drawHistograms(files, histogramArray, indexTranslation)
+#fit()
 
 
 
