@@ -25,6 +25,7 @@
 \usepackage{appendix}
 \usepackage{subcaption}
 \usepackage{afterpage}
+\usepackage{hyperref} 
 
 \theoremstyle{thmstyleone}
 \newtheorem{theorem}{Theorem}
@@ -50,6 +51,7 @@
 \author*[1]{\fnm{Jonas} \sur{Wortmann}}\email{s02jwort@uni-bonn.de}
 \author*[1]{\fnm{Marc} \sur{Hauer}}\email{s65mhaue@uni-bonn.de}
 \author*[1]{\fnm{Pitt} \sur{Düster}}\email{s15pdues@uni-bonn.de}
+\author*[1]{\fnm{Pouya} \sur{Dehghanfar}}\email{s28pdehg@uni-bonn.de}
 \affil*[1]{Rheinische Friedrich--Wilhelms--Universität, Bonn}
 
 \maketitle
@@ -87,7 +89,7 @@ The electrons are collected by the anode strips, which make up the readout plate
 Those regions together with the readout plane form the active area of the detector which is about \SI{100}{\centi\meter^2}.
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_readout.png}
-  \caption{Setup of micromegas detector with a two dimensional readout}
+  \caption{Setup of micromegas detector with a two dimensional readout \cite{Micromegas}}
   \label{fig:readout}
 \end{figure}
 
@@ -97,18 +99,18 @@ The overall effect of those deflections is known as multiple scattering.
 
 The distribution of the resulting deflection angles is approximately Gaussian in the central region. 
 This statistical treatment of deflections allows one to describe the angular distribution with a root mean square (RMS) scattering angle.
-A formula to estimate the RMS projected scattering angle is given by the Highland approximation
+A formula to estimate the RMS projected scattering angle is given by the Highland approximation \cite{Highland}:
 \begin{equation}\label{eq:Highland}
     \theta_0 = \frac{13.6\,\text{MeV}}{\beta cp} \, z \, \sqrt{\frac{x}{X_0}} \left[1 + 0.038 \ln\left(\frac{x}{X_0}\right)\right],
 \end{equation}
 where $\theta_0$ is the RMS scattering angle in the projected plane, $p$ is the momentum of the incident particle, $\beta$ is its velocity divided by the speed of light, $z$ is the charge number of the particle, $x$ is the thickness of the target material, and $X_0$ is the radiation length of the material.
 
-The angular distribution of scattered particles, in the small-angle approximation, follows a Gaussian probability distribution centered around the initial direction of the particle beam
+The angular distribution of scattered particles, in the small-angle approximation, follows a Gaussian probability distribution centered around the initial direction of the particle beam \cite{Highland2}
 \begin{equation}\label{eq:Gauss}
 P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
 \end{equation}
 In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. 
-Based on geometrical considerations it follows that
+Based on geometrical considerations it follows that \cite{Higland2
 \begin{equation}\label{eq:theta_exp}
 \sigma = d \cdot \tan\left(\theta_{\text{exp}}\right)\qquad
 \theta_{\text{exp}} = \arctan\left( \frac{\sigma}{d} \right).
@@ -123,7 +125,7 @@ Therefore, materials with shorter radiation lengths cause more significant angul
 
 \section{Cosmic Data}
 \subsection{Measuring of Detector Specifications} \label{subsec:detector_specific} % structure? 
-For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} is disassembled.
+For a deeper understanding of the structure of a micromegas detector \cite{Micromega} the spare detector depicted in \autoref{fig:micromegas_closed} is disassembled.
 
 %\begin{figure}
 %  \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
@@ -168,24 +170,24 @@ Therefore the true dimensions of one strip is $\SI{400\pm100}{\micro\meter}\time
 %\end{figure}
 
 \subsection{Experimental Setup}
-To observe cosmic muon rays, a micromegas detector is set up horizontally between two scintillators.
+To observe cosmic muon rays, a micromegas detector is set up horizontally between two scintillators \cite{Scint}.
 These scintillators are overlapping and positioned as shown in \autoref{fig:setup_ROT}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/setup_ROT.jpeg}
-  \caption{Used setup of micromegas detector and scintillators at ROT to measure cosmic muon events.}
+  \caption{Used setup of micromegas detector and scintillators at ROT to measure cosmic muon events \cite{Micromega}.}
   \label{fig:setup_ROT}
 \end{figure}
 
 As can be seen, one of the scintillators is covered up by a cloth. 
 This is because the particular scintillator did not seem to be sealed correctly and thus is covered to increase its efficiency.
 The scintillators are provided with voltages of \SI{1700}{\volt} and \SI{1250}{\volt}. 
-They are provided by a high voltage module along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt}.
+They are provided by a high voltage module \cite{Micromega} along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt}.
 
-Additionally, more modules are used to set up the trigger logic of the detector.
+Additionally, more modules \cite{Micromega} are used to set up the trigger logic of the detector.
 The trigger logic ensures, that the detector only counts hits when both scintillators register an event so noise is minimized and only particles which pass through the detector are counted.
 
-The readout system of the detector consists of four APVs, two for each axis, and a minicrate, which are triggered by the trigger logic and then send the received data to a PC where the data readout is handled by the mmDAQ software.
+The readout system of the detector consists of four APVs \cite{APV}, two for each axis, and a minicrate, which are triggered by the trigger logic and then send the received data to a PC where the data readout is handled by the mmDAQ software \cite{mmDAQ}.
 
 
 \subsection{Experimental Procedure}
@@ -245,20 +247,20 @@ This is explained by the trigger logic, which only triggers detector readout whe
 Some events are observed outside of the area covered by the scintillators, which can be explained by two particles simultaneously hitting the detector, where one triggers the readout.
 Aside from another particle detector noise may be captured.
 Over a time of roughly \SI{60}{\minute} 195 events are captured, which is equivalent to a rate of \SI{3.25}{\text{µ}\per\minute}.
-Muons arrive at sea level with an average flux of \SI{1}{\text{µ}\per\centi\meter\squared\per\min} \cite{muons}.
+Muons arrive at sea level with an average flux of \SI{1}{\text{µ}\per\centi\meter\squared\per\min} \cite{muon}.
 According to the hitmap the scintillators covered an area of approximately $\SI{7}{\centi\meter}\cdot\SI{5}{\centi\meter}=\SI{35}{\centi\meter\squared}$, which should correspond to a count of 2100 events after \SI{60}{\min}.
 The reduced amount of registered events is explained by muons coming at an angle and thus not triggering the readout system.
 Another explanation is the location at which the experiment is set up. 
 The detector is placed in the basement below the ROT building. 
 Therefore some muons are already absorbed by passing through the building and the rate of detected muons is lowered.
 With these considerations the measured rate of \SI{3.25}{\text{µ}\per\min} over an area of \SI{35}{\centi\meter\squared} or \SI{0.09}{\text{µ}\per\centi\meter\squared\per\min} is realistic.
-The measured rate is one order of magnitude smaller than the average muon flux at sea level which is justified by the mentioned circumstances. 
+The measured rate is one order of magnitude smaller than the average muon flux at sea level \cite{muonsea} which is justified by the mentioned circumstances. 
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Multiple Scattering}
 \subsection{Experimental Setup}
-To observe multiple scattering, an electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA, whose beam exit is shown in \autoref{fig:beam_setup_elsa}. 
+To observe multiple scattering, an electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA \cite{ELSA}, whose beam exit is shown in \autoref{fig:beam_setup_elsa}. 
 The setup of the micromegas detector with the scintillators and the trigger logic, used and tested with the cosmic data, is placed a few metres in front of the output of the accelerator, such that the beam hits the detector as seen in \autoref{fig:detector_setup_elsa}. 
 This is ensured by a laser, build in at the end of the accelerator, which could be slid into the middle of the opening to point along the beam line. 
 However, it is known that the laser points a few centimetres lower than the actual beam. 
@@ -286,13 +288,13 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/beam_setup_elsa.jpg}
-  \caption{Exit of ELSA.}
+  \caption{Exit of ELSA. \cite{ELSA}}
   \label{fig:beam_setup_elsa}
 \end{figure}
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_setup_elsa.jpg}
-  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the laser.}
+  \caption{Setup of the detector and the metal bar, to place the targets on it and align them with the laser. \cite{ELSA}}
   \label{fig:detector_setup_elsa}
 \end{figure}
 
@@ -300,7 +302,7 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program.
 Afterwards, multiple runs are recorded for both materials.
 The thicknesses $x$ of the targets are changed by placing different blocks of one material in a row. 
-$x$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
+$x$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ \cite{radlength} of the material, with $m\in\{0.5,1,2,3\}$. 
 The distance $d$ between the scintillator and the leading edge of the material is always $d=\SI{40\pm0.5}{cm}$.
 To include the distance from the scintillator to the middle of the drift chamber in the detector, an additional spacing of $\SI{5\pm2}{cm}$ is assumed, leading to an overall distance of $d'=\SI{45\pm2}{cm}$.
 In total eight runs, one for each $m$ and both materials, are recorded. 
@@ -607,7 +609,45 @@ This should give a linear correlation between these two values thus verifying th
 \textbf{Currently there is no correlation at all between these two so WIP.}
 
 \bibliography{refs}
+\newpage
+\begin{thebibliography}{9}
 
+\bibitem{Micromegas}
+LMU München: Micromegas and GEMs: 
+\href{https://www.etp.physik.uni-muenchen.de/research/detector-development/mm-and-gems/index.html}{https://www.etp.physik.uni-muenchen.de/...}
+\bibitem{Highland}
+Timothy Carlisle Oxford: Multiplie Scattering: 
+\href{https://indico.cern.ch/event/190654/contributions/345614/attachments/270741/378860/CM33_ScatteringOverview.pdf}{https://indico.cern.ch/...}
+\bibitem{Highland2}
+Havard University: Multiplie Scattering: 
+\href{https://gray.mgh.harvard.edu/media/com_dpattachments/attachments/com_content.article/Techniques-of-Proton-Radiotherapy-06-Multiple-Scattering.pdf}{https://gray.mgh.harvard.edu/...}
+\bibitem{Scint}
+EBSCO: Scintillators – Research Starter on Physics: 
+\href{https://www.ebsco.com/research-starters/physics/scintillators}{https://www.ebsco.com/research-starters/...}
+\bibitem{Micromega}
+Dr. Saime Gürbüz & Dr. Kristof Schmieden: Micromegas-Setup: 
+\href{https://ecampus.uni-bonn.de/ilias.php?baseClass=ilrepositorygui&cmd=sendfile&ref_id=3786906}{https://ecampus.uni-bonn.de/...}
+\bibitem{APV}
+Lichtenberg Research Group: Micromegas Introduction: 
+\href{https://ecampus.uni-bonn.de/ilias.php?baseClass=ilrepositorygui&cmd=sendfile&ref_id=3787243}{https://ecampus.uni-bonn.de/...}
+\bibitem{mmDAQ}
+CERN Indico: mmDAQ: 
+\href{https://indico.cern.ch/event/240381/contributions/1554638/attachments/406597/564873/20130307-mmdaq1-flow-review-1.pdf}{https://indico.cern.ch/...}
+\bibitem{muon}
+Particle Data Group: Muon Properties: 
+\href{https://pdg.lbl.gov/2023/listings/rpp2023-list-muon.pdf}{https://pdg.lbl.gov/...}
+\bibitem{muonsea}
+Steve Kliewer: Cosmic Ray Experiment:
+\href{https://cosmic.lbl.gov/SKliewer/Cosmic_Rays/Muons.htm}{https://cosmic.lbl.gov/SKliewer/Cosmic\_Rays/Muons.htm}
+\bibitem{ELSA}
+Universität Bonn, PI: ELSA:
+\href{https://www-elsa.physik.uni-bonn.de/}{https://www-elsa.physik.uni-bonn.de/}
+\bibitem{radlength}
+CERN: Radiationlength:
+\href{https://cds.cern.ch/record/1279627/files/PH-EP-Tech-Note-2010-013.pdf}{https://cds.cern.ch/record/1279627/files/PH-EP-Tech-Note-2010-013.pdf}
+
+
+\end{thebibliography}
 
 \end{document}
 
