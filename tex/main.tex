@@ -24,6 +24,7 @@
 \usepackage{enumitem}
 \usepackage{appendix}
 \usepackage{subcaption}
+\usepackage{afterpage}
 
 \theoremstyle{thmstyleone}
 \newtheorem{theorem}{Theorem}
@@ -125,11 +126,11 @@ Therefore, materials with shorter radiation lengths cause more significant angul
 \subsection{Measuring of Detector Specifications} \label{subsec:detector_specific} % structure? 
 For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} is disassambled.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
-  \caption{Front of the spare micromegas detector}
-  \label{fig:micromegas_closed}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
+%  \caption{Front of the spare micromegas detector}
+%  \label{fig:micromegas_closed}
+%\end{figure}
 
 To access the inner part of the micromegas detector the screws on the top, and the upper part are removed.
 Attached to the upper metal part is a mesh which is held by four plasic pillars as can be seen in \autoref{fig:micromegas_cover}.
@@ -137,22 +138,22 @@ This mesh is used as the cathode of the detector.
 The distance between the entry window and the cathode is measured to be \SI{1.0\pm.1}{\centi\meter} and the diameter of the cathode to be \SI{11\pm.1}{\centi\meter}.
 These measurements were done with a ruler and we therefore assumed an uncertaincy of \SI{.1}{\centi\meter} on all measurements.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
-  \caption{Cathode mesh on the upper part of the micromegas}
-  \label{fig:micromegas_cover}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
+%  \caption{Cathode mesh on the upper part of the micromegas}
+%  \label{fig:micromegas_cover}
+%\end{figure}
 
 In \autoref{fig:micromegas_base} the inside of the detector is shown. 
 The cathode was placed in the center gap.
 At the bottom one can see the mesh of the detector, which is responsible for gasamplification as explained in \autoref{subsec:theory_micromegas}.
 The inner diameter of the mesh is \SI{13.8\pm.1}{\centi\meter}.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
-  \caption{Bottom part of the micromegas with the mesh}
-  \label{fig:micromegas_base}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
+%  \caption{Bottom part of the micromegas with the mesh}
+%  \label{fig:micromegas_base}
+%\end{figure}
 
 Below the mesh one can see the anode strips on the PCB wafer shown in \autoref{fig:micromegas_strips}.
 The active area is measured to be \SI{10\pm1.4}{\cm^2} where the uncertainty is calculated by the gaussian propagation of uncertainty.
@@ -161,11 +162,11 @@ One rectangle in this structure is connected with 10 wires.
 This indicates that there are 10 strips per rectangle.
 Therefore the true dimensions of one strip is $\SI{400\pm100}{\micro\meter}\times\SI{500\pm100}{\micro\meter}$.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
-  \caption{Grid-like structure of the anode strips}
-  \label{fig:micromegas_strips}
-\end{figure}
+%\begin{figure}
+%  \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
+%  \caption{Grid-like structure of the anode strips}
+%  \label{fig:micromegas_strips}
+%\end{figure}
 
 \subsection{Experimental Setup}
 To observe cosmic muon rays, a micromegas detector is set up horizontally between two scintillators.
@@ -186,6 +187,41 @@ Additionally, more modules are used to set up the trigger logic of the detector.
 The trigger logic ensures, that the detector only counts hits when both scintillators register an event so noise is minimized and only particles which pass through the detector are counted.
 
 The readout system of the detector consists of four APVs, two for each axis, and a minicrate, which are triggered by the trigger logic and then send the received data to a PC where the data readout is handeled by the mmDAQ software.
+
+
+
+
+%\afterpage{\clearpage
+%\begin{figure}\onecolumn
+%  \centering
+%    \begin{subfigure}{0.49\textwidth}
+%        \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
+%        \caption{Front of the spare micromegas detector}
+%        \label{fig:micromegas_closed}
+%    \end{subfigure}
+%    \begin{subfigure}{0.49\textwidth}
+%        \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
+%        \caption{Cathode mesh on the upper part of the micromegas}
+%        \label{fig:micromegas_cover}
+%    \end{subfigure}
+%    \begin{subfigure}{0.49\textwidth}
+%      \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
+%      \caption{Bottom part of the micromegas with the mesh}
+%      \label{fig:micromegas_base}
+%    \end{subfigure}
+%    \begin{subfigure}{0.3\textwidth}
+%        \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
+%        \caption{Grid-like structure of the anode strips}
+%        \label{fig:micromegas_strips}
+%    \end{subfigure}
+%    \caption{}
+%    \label{fig:mircro_wow}
+%\end{figure}\twocolumn
+%}
+
+
+
+
 
 \subsection{Experimental Procedure}
 To set up the trigger logic the scintillators are placed directly on top of each other, so events would be registered at both of them at a higher rate.
@@ -270,14 +306,14 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
   \renewcommand*{\arraystretch}{1.1}
   \begin{tabular}{c|c||c|c}
     \multicolumn{2}{c||}{Aluminum} & \multicolumn{2}{c}{Copper} \\
-    {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $d/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
+    {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
     \num{1.22\pm 0.01} & 2 & \num{0.2\pm 0.01} & 3 \\
     \num{2.5\pm 0.01} & 1 & \num{0.5\pm 0.01} & 2 \\
     \num{5\pm 0.01} & 1 & \num{1.48\pm 0.01} & 2 \\
     \num{9.96\pm 0.01} & 1 & & \\
     \num{9.93\pm 0.01} & 1 & & \\
   \end{tabular}\vspace{3mm}
-  \caption{Available scattering materials of thickness $d$ and quantity $\#$.}
+  \caption{Available scattering materials of thickness $x_i$ and quantity $\#$.}
   \label{tab:available_materials}
 \end{table}
 
@@ -296,9 +332,9 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 \subsection{Experimental Procedure}
 After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program.
 Afterwards, multiple runs are recorded for both materials. 
-Thereby, the thicknesses $D$ of the targets are changed by placing different blocks of one material in a row. 
-$D$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
-The distance $z$ between the scintillator and the leading edge of the material is always $z=\SI{40\pm0.5}{cm}$. 
+The thicknesses $x$ of the targets are changed by placing different blocks of one material in a row. 
+$x$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
+The distance $d$ between the scintillator and the leading edge of the material is always $d=\SI{40\pm0.5}{cm}$. 
 Overall eight runs, one for each $m$ and both materials, are recorded. 
 The exact configurations for the different measurements are listed in \autoref{tab:config_materials}.
 
@@ -307,7 +343,7 @@ The exact configurations for the different measurements are listed in \autoref{t
   \begin{tabular}{c|c|c}
     & Aluminum & Copper \\
     & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline
-    $m$ & $\sum d/cm = D /cm$ & $\sum d/cm = D /cm$ \\\hline\hline\rule{0pt}{6ex}
+    $m$ & $\sum x_i/cm = x /cm$ & $\sum x_i/cm = x /cm$ \\\hline\hline\rule{0pt}{6ex}
     $0.5$ & \num{5\pm 0.01} & $\begin{array}{r}
                 \num{0.5\pm 0.01} \\
                 +\,\num{0.2\pm 0.01} \\\hline
@@ -356,7 +392,7 @@ Beyond the one defect strip, which is now additional mirrored to the other side,
 
 The standard deviation $\sigma_\text{mat}$ of the curves, available through the parameters of the fit, leads to the scattering angle $\theta_\text{exp}$ via \autoref{eq:theta_exp}. To consider the width of the electron distribution without any scattering, the modified standard deviation
 \begin{equation} \label{eq:sigma_mod}
-  \sigma = \sqrt{\sigma_\text{mat}^2 + \sigma_\text{0}^2}
+  \sigma = \sqrt{\sigma_\text{mat}^2 - \sigma_\text{0}^2}
 \end{equation}
 is used, where $\sigma_\text{0}$ is the standard deviation of the distribution without any scattering material in the beam.
 
@@ -400,9 +436,51 @@ To compare this experimental results with the theoretical discription, $\theta_\
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
-\begin{appendices}\onecolumn
+\clearpage\appendix\onecolumn
 
+
+\section{Disassambled Micromegas Detector}
+\renewcommand{\thefigure}{\Alph{section}\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+\setcounter{table}{0}
+
+
+\begin{figure}[h]
+  \centering
+    \begin{subfigure}{0.47\textwidth}
+        \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
+        \caption{Front of the spare micromegas detector.}
+        \label{fig:micromegas_closed}
+    \end{subfigure}
+    \begin{subfigure}{0.51\textwidth}
+        \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
+        \caption{Cathode mesh on the upper part of the micromegas.}
+        \label{fig:micromegas_cover}
+    \end{subfigure}
+    \begin{subfigure}{0.62\textwidth}
+      \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
+      \caption{Bottom part of the micromegas with the mesh.}
+      \label{fig:micromegas_base}
+    \end{subfigure}
+    \begin{subfigure}{0.36\textwidth}
+        \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
+        \caption{Grid structure of the anode strips.}
+        \label{fig:micromegas_strips}
+    \end{subfigure}
+    \caption{Pictures of the disassambled micromegas detector.}
+    \label{fig:mircro_wow}
+\end{figure}
+
+
+
+\clearpage
 \section{Gaussian Distributions of Multiple Scattering for Ovserved Materials}
+\renewcommand{\thefigure}{\Alph{section}\arabic{figure}}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{\Alph{section}\arabic{table}}
+\setcounter{table}{0}
+
 
 \begin{figure}[h]
     \centering
@@ -449,7 +527,6 @@ To compare this experimental results with the theoretical discription, $\theta_\
 \end{figure}
 
 
-\end{appendices}
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
