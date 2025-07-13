@@ -393,10 +393,6 @@ This is done by fitting only to one side of the curve due to the asymmetry, whic
   \label{fig:2alu}
 \end{figure}
 
-On the continuous side of the gaussian distribution, another little unevenness is observed.
-It could be the continuation of the gaussian curve after the sharp edge, so instead of the differences beween the two APV's, in the middle of the distribution one counts too many events. (Begründung)
-
-
 It is noticeable, that in a very regularly pattern the gaussian distribution contains dips in the event counter. (Begründung)
 %The distance between two dips is $\SI{5}{mm}$, which matches exactly the height of one rectangle of the grid structure in the detector described in \autoref{subsec:detector_specific}. This indicates the possible reason for the dips, that every $n$-th strip in one rectangle has a lower sensitivity than the others, leading to the observed effect.
 
@@ -454,23 +450,26 @@ For $\tfrac{x}{X_0} \in \left\{2,3\right\}$ the relative error stays the same of
 These values are the most consistent experimental values but with such a deviation also not compatible with the theory.
 
 
+(To beeee or not to beeeee)
 
-%Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout.
-%Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists.
-%This also results in multiple hits for one event.
-%Because these (...)
+When plotting $\theta _\text{exp}$ against $\theta _\text{theo}$ one can see a clear linear relation between these two quantities.
+The slope of the straight is $m_\text{Cu}=3$ and $m_\text{Al}=3$ (TODO GENAUER WERT).
+
+$\chi ^2_\text{Cu}=TODO$ and $\chi ^2_\text{Al}=TODO$ which is ...
+1)... close enough to one for it to be a good fit, thus modelling the data well.
+2)... too small for an appropriate fit, thus unable to model the data in a predictive manner.
+
+There is a systematic error for all data, which results in all angles to be three times larger than $\theta _\text{theo}$.
+This can have numerous sources, some of which are discussed now.
 
 
+On the continuous side of the gaussian distribution, another little unevenness is observed, as seen in (???).
+It could be the continuation of the gaussian curve after the sharp edge, so instead of the assumed differences in sensitive beween the two APV's, in the middle of the distribution one counts too many events. (Begründung)
 
+Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout.
+Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists.
+This also results in multiple hits for one event.
 
-
-
-% c = 45(?) statt 40
-% heatmap, hitmap
-% sources for X_0 
-% x and y hist for no material
-% explanations of each plot
-% more reasons for ignoring the x data
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
@@ -578,7 +577,7 @@ This value is explained by the absorption of muons while passing through the bui
 \clearpage
 % \section{Analysis ELSA (\textbf{temporary information})}
 % Here is a quick rundown of how the analysis for ELSA works.
-
+ 
 % The way that the data taking works is that the detector triggers about every $\SI{25}{ns}$ and reads all strips.
 % It needs some time to reset and then does it again.
 % For ELSA data will be lost at downtime and the detector will basically trigger continuously because of the steady electron beam.
@@ -602,17 +601,17 @@ This value is explained by the absorption of muons while passing through the bui
 %     If the number of clusters in a single event is greater than a certain number $x$ (currently $x=2$), then this event will be left out.
 % \end{enumerate}
 % There will be a number of histograms, this includes: x and y strip events, clusters, cluster size, xy hitman etc.\
-
+ 
 % For the analysis a Gaussian curve is fitted to the histogram: y strip events.
 % The x strips don't work well (probably detector issue and the beam has an elliptic profile).
 % The standard deviation of the curve is related to $\theta $ via $\tan \theta =\tfrac{\sigma }{d}$ with $d$ the distance between the target and the detector.
 % First calculations with this formula are in the right order of magnitude.
 % This will probably work better with a more precise filtering of the available data.
-
+ 
 % To evaluate the theory, $$\theta _\text{exp}=\arctan\left(\dfrac{\sigma }{d}\right)$$ is plotted against $$\theta _\text{theo}=\text{const}\,\sqrt[]{\dfrac{x}{x_0}}\left(1+0.038\ln\left(\dfrac{x}{x_0}\right)\right).$$
 % This should give a linear correlation between these two values thus verifying the proportionality i.e.\ the theory.
 % \textbf{Currently there is no correlation at all between these two so WIP.}
-
+ 
 % \bibliography{refs}
 \newpage
 \begin{thebibliography}{9}
@@ -655,13 +654,3 @@ CERN: Radiationlength:
 \end{thebibliography}
 
 \end{document}
-
-When plotting $\theta _\text{theo}$ against $\theta _\text{exp}$ (TODO ODER ANDERSRUM) one can see a clear linear relation between these two quantities.
-The slope of the straight is $m_\text{Cu}=3$ and $m_\text{Al}=3$ (TODO GENAUER WERT).
-
-$\chi ^2_\text{Cu}=TODO$ and $\chi ^2_\text{Al}=TODO$ which is ...
-1)... close enough to one for it to be a good fit, thus modelling the data well.
-2)... too small for an appropriate fit, thus unable to model the data in a predictive manner.
-
-There is a systematic error for all data, which results in all angles to be three times larger than $\theta _\text{theo}$.
-This can have numerous sources, some of which are discussed now.
