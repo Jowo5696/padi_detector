@@ -68,16 +68,24 @@ array theta[12]
 # in mm
 array c[12]
 
-do for [i = 1:12] {
+array indx[5]
+indx[1] = 1
+indx[2] = 2
+indx[3] = 3
+indx[4] = 7
+indx[5] = 10 
+
+#do for [i = 1:12] {
+do for [i = 1:|indx|] {
   set terminal epslatex color
-  set output 'output_'.i.'.tex'
+  set output 'output_'.indx[i].'.tex'
   set notitle
   set xlabel 'position/mm'
   set ylabel 'events/\#'
   set grid
   set key box top left width -4 # 'samplen x' sets how much space the symbol takes
 
-  files = '../../src/elsa/run_'.(i-1).'.txt'
+  files = '../../src/elsa/run_'.(indx[i] - 1).'.txt'
 
   f(x) = a * exp( -(x - b)**n / S**n ) + g
   n = 2 
@@ -89,14 +97,14 @@ do for [i = 1:12] {
   # might need to adjust the taken data
   #every ::30::70
   fit f(x) files u 1:2:3 every ::1::97 yerrors via a,b,S,g
-  c[i] = S
+  c[indx[i]] = S
   chi2 = (FIT_STDFIT*FIT_STDFIT)
   set label sprintf("$\\chi^2 = %.5f$", chi2) at 10,700
-  set label sprintf("$\\sigma = %.5f$", c[i]) at 70,700
+  set label sprintf("$\\sigma = %.5f$", c[indx[i]]) at 70,700
 
-  theta[i] = atan(c[i]/d[i])
+  theta[indx[i]] = atan(c[indx[i]]/d[indx[i]])
 
-  plot files u 1:2 with lines,\
+  plot files u 1:2 with boxes,\
     f(x)
   reset
 }
@@ -123,18 +131,24 @@ print sprintf("%.2f %.5f", sqrt(th[1]/x0[1]) * (1 + .038 * log(th[1] / x0[1])), 
 print sprintf("%.2f %.5f", sqrt(th[2]/x0[2]) * (1 + .038 * log(th[2] / x0[2])), theta[2])
 print sprintf("%.2f %.5f", sqrt(th[6]/x0[6]) * (1 + .038 * log(th[6] / x0[6])), theta[6])
 print sprintf("%.2f %.5f", sqrt(th[9]/x0[9]) * (1 + .038 * log(th[9] / x0[9])), theta[9])
-print sprintf("%.2f %.5f", sqrt(th[11]/x0[11]) * (1 + .038 * log(th[11] / x0[11])), theta[11])
+#print sprintf("%.2f %.5f", sqrt(th[11]/x0[11]) * (1 + .038 * log(th[11] / x0[11])), theta[11])
 set print
 print sprintf("%.2f %.5f", sqrt(th[1]/x0[1]) * (1 + .038 * log(th[1] / x0[1])), theta[1])
 print sprintf("%.2f %.5f", sqrt(th[2]/x0[2]) * (1 + .038 * log(th[2] / x0[2])), theta[2])
 print sprintf("%.2f %.5f", sqrt(th[6]/x0[6]) * (1 + .038 * log(th[6] / x0[6])), theta[6])
 print sprintf("%.2f %.5f", sqrt(th[9]/x0[9]) * (1 + .038 * log(th[9] / x0[9])), theta[9])
-print sprintf("%.2f %.5f", sqrt(th[11]/x0[11]) * (1 + .038 * log(th[11] / x0[11])), theta[11])
+#print sprintf("%.2f %.5f", sqrt(th[11]/x0[11]) * (1 + .038 * log(th[11] / x0[11])), theta[11])
 
-#h(x) = m * x + b
-#fit h(x) "correlation.dat" u 1:2:(1) yerrors via m,b
+h(x) = m * x + b
+fit h(x) "correlation.dat" u 1:2:(1) yerrors via m,b
 plot "correlation.dat" ls 1
 #  h(x)
+
+set output "asdf.tex"
+h(x) = m * x + b
+fit h(x) "scattering" u 2:1:(1) yerrors via m,b
+plot "scattering" u 2:1 ls 1,\
+  h(x)
 
 # NaN with points / lines title '' ls 1 # fake legend
 

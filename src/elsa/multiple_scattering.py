@@ -28,7 +28,7 @@ material = ["Copper", "Aluminium"]
 # formula for multiple scattering
 # first Cu second Al
 for i in range(2):
-    theta[i] = .0136 * 1./beta_c * 1./p * Z[i] * np.sqrt(x[i] / x0[i]) * (1. + 0.038 * np.log(x[i] / x0[i]))
+    theta[i] = .0136 * 1./beta_c * 1./p * 1 * np.sqrt(x[i] / x0[i]) * (1. + 0.038 * np.log(x[i] / x0[i]))
 
     print(material[i], x[i], "[cm]")
 
