@@ -60,49 +60,70 @@ In order to observe multiple scattering of electrons in alumnium and copper, a m
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Theory}\label{sec:theory}
-\subsection{Micromegas detector}\label{subsec:theory_micromegas}
-The Micromegas detector is a gaseous particle detector primarily used to detect ionizing radiation. As shown in \autoref{fig:readout}, the detector consist of two main regions: 
+\subsection{Micromegas Detector}\label{subsec:theory_micromegas}
+The Micromegas detector is a gaseous particle detector primarily used to detect ionizing radiation.
+As shown in \autoref{fig:readout}, the detector consists of two main regions. 
+
 The first region is the drift region, typically about \SI{5}{\milli\meter} thick.
 A cathode is placed at the top and held at a negative voltage to establish a uniform electric field.
 %pointing downward.
-This field pulls negatively charged particles toward the micromesh. The drift region is filled with a noble gas mixture Ar/C02, which facilitates the ionization of the gas when a charged particle passes through. The ioniziation process liberates electrons and because noble gases do not attach electron these freed electrons can travel freely toward the mesh. The second region is the amplification region, which is significantly thinner approximately \SI{128}{\micro\meter}. It is seperated from the drift region by a woven micromesh, a metallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transperency of about 40\%.
-An electric field of about \SI{500}{\volt\per\centi\meter} is applied between the cathode an the mesh, while a much stronger field of around \SI{70000}{\volt\per\centi\meter} is present between the mesh and the anode strips. This high field is due to the small gap and causes incoming electrons to gain enough energy to further ionize the gas, leading to an avalanche multiplication of electrons. The ions on the other hand drift upward the mesh and the electrons are collected by the anode strips, which make up the readout plate and results in a measurable electrical signal. Those regions together with the readout plane from the active area of the detector which is typically about \SI{10}{\centi\meter^2}.
+This field pulls negatively charged particles toward the micromesh. 
+The drift region is filled with a noble gas mixture Ar/CO2, which facilitates the ionization of the gas when a charged particle passes through. 
+The ioniziation process liberates electrons. 
+Because they do not attach to noble gases they can travel freely toward the mesh. 
+
+The second region is the amplification region, which is significantly thinner, approximately \SI{128}{\micro\meter}. 
+It is seperated from the drift region by a woven micromesh, a metallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transperency of about 40\%.
+An electric field of about \SI{500}{\volt\per\centi\meter} is applied between the cathode an the mesh, while a much stronger field of around \SI{70000}{\volt\per\centi\meter} is present between the mesh and the anode strips. 
+This high field is due to the small gap and causes incoming electrons to gain enough energy to further ionize the gas, leading to an avalanche multiplication of electrons. 
+The ions, on the other hand, drift upward the mesh. 
+The electrons are collected by the anode strips, which make up the readout plate and results in a measurable electrical signal. 
+Those regions together with the readout plane form the active area of the detector which is about \SI{10}{\centi\meter^2}.
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/detector_readout.png}
-  \caption{setup of micromegas detector with a two dimensional readout}
+  \caption{Setup of micromegas detector with a two dimensional readout}
   \label{fig:readout}
 \end{figure}
 
-\subsection{Mutiplie scattering}\label{subsec:theory_scattering}
-When a charged particle travels through a material, it undergoes numerous interactions with the nucleus. Each interaction causes a small angular deflection due to the electric field of the nucleus. The result of these many angle deflections is known as multiple scattering. As the particle travels through the medium, these deflections add up. The distribution of the resulting deflection angles is approximately Gaussian in the central region. This statistical treatment of deflections allows us to describe the angular distribution with a root mean square (RMS) scattering angle.
-A used formula to estimate the RMS projected scattering angle is given by the Highland approximation. The Highland formula is expressed as
+\subsection{Mutiplie Scattering}\label{subsec:theory_scattering}
+When a charged particle travels through a material, it undergoes numerous interactions with the Coulomb potential of the nucleus resulting in small angle defleftions.
+The overall effect of those deflections is known as multiple scattering. 
+
+The distribution of the resulting deflection angles is approximately gaussian in the central region. 
+This statistical treatment of deflections allows one to describe the angular distribution with a root mean square (RMS) scattering angle.
+A formula to estimate the RMS projected scattering angle is given by the Highland approximation
 \begin{equation}\label{eq:Highland}
     \theta_0 = \frac{13.6\,\text{MeV}}{\beta cp} \, z \, \sqrt{\frac{x}{X_0}} \left[1 + 0.038 \ln\left(\frac{x}{X_0}\right)\right],
 \end{equation}
 where $\theta_0$ is the RMS scattering angle in the projected plane, $p$ is the momentum of the incident particle, $\beta$ is its velocity divided by the speed of light, $z$ is the charge number of the particle, $x$ is the thickness of the target material, and $X_0$ is the radiation length of the material.
 
-The angular distribution of scattered particles, in the small-angle approximation, follows a Gaussian probability distribution centered around the initial direction of the particle beam:
+The angular distribution of scattered particles, in the small-angle approximation, follows a gaussian probability distribution centered around the initial direction of the particle beam
 \begin{equation}\label{eq:Gauss}
 P(\theta) = \frac{1}{\sqrt{2\pi} \, \theta_0} \exp\left( -\frac{\theta^2}{2\theta_0^2} \right).
 \end{equation}
-In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. The scattered beam appears will result broadened results of the detector plots, and the standard deviation $\sigma$ of this lateral beam profile is related to the angular RMS via simple geometric considerations. Specifically, the relation
-\begin{equation}\label{eq:sigma}
-    \sigma = d \cdot \theta_0
-\end{equation}
-connects the physical spread of the beam. From this, the angular spread can be experimentally inferred using the expression
+In experimental setups, the angular spread caused by multiple scattering can be observed by placing a detector at a known distance $d$ from the target. 
+% The scattered beam is broadened this results in increased width of detector plots, and the standard deviation $\sigma$ of this lateral beam profile is related to the angular RMS via simple geometric considerations. 
+% Specifically, the relation
+% \begin{equation}\label{eq:sigma}
+%     \sigma = d \cdot \theta_0
+% \end{equation}
+% connects the physical spread of the beam. 
+Based on geometrical considerations it follows that
 \begin{equation}\label{eq:theta_exp}
+\sigma = d \cdot \tan\left(\theta_{\text{exp}}\right)\qquad
 \theta_{\text{exp}} = \arctan\left( \frac{\sigma}{d} \right).
 \end{equation}
-for small deflection angles. Important to the Gaussian is that the shape and width of the Gaussian angular distribution are sensitive to several physical parameters. Increasing the distance $d$ between the target and the detector results in a proportional increase in the lateral spread in  \autoref{eq:sigma} making the distribution appear wider.
-Changing the thickness $x$ of the target material has a direct impact. Since the RMS angle $\theta_0$ grows with $\sqrt{x}$, a thicker leads to broader angular distributions due to more scattering events. Likewise, decreasing the radiation length $X_0$ increases $\theta_0$, again broadening the Gaussian spread. Therefore, materials with shorter radiation lengths cause more significant angular deflection over the same thickness.
-Since $\theta_0$ scales linearly with $z$, particles with higher electric charge will scatter more strongly. This results in a wider Gaussian distribution.
+Increasing the distance $d$ between the target and the detector results in a proportional increase in the lateral spread making the distribution wider.
+Changing the thickness $x$ of the target material has a direct impact. 
+Since the RMS angle $\theta_0$ grows with $\sqrt{x}$, a thicker target leads to broader angular distributions due to more scattering events. 
+Likewise, decreasing the radiation length $X_0$ increases $\theta_0$, again broadening the gaussian spread. 
+Therefore, materials with shorter radiation lengths cause more significant angular deflection over the same thickness.
 
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Cosmic Data}
 \subsection{Measuring of Detector Specifications} \label{subsec:detector_specific} % structure? 
-For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} was disassambled.
-While disassambling the detector we measured some specifications of the given device.
+For a deeper understanding of the structure of a micromegas detector the spare detector depicted in \autoref{fig:micromegas_closed} is disassambled.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/micromegas_closed.jpeg}
@@ -110,10 +131,11 @@ While disassambling the detector we measured some specifications of the given de
   \label{fig:micromegas_closed}
 \end{figure}
 
-To access the inner part of the micromegas detector the screws on the top need to be removed.
-After that the upper part is removed. Attached to the upper metal part is a mesh which is held by four plasic pillars as can be seen in \autoref{fig:micromegas_cover}.
-This mesh is functioning as the cathode of our detector. We measured the distance between the entry window and the cathode to be \SI{1.0\pm.2}{\centi\meter} aswell as the diameter of the cathode to be \SI{11\pm.2}{\centi\meter}.
-Our measurements were done with the help of a lineal and we therefore assumed an uncertaincy of \SI{.2}{\centi\meter} on all measurements.
+To access the inner part of the micromegas detector the screws on the top, and the upper part are removed.
+Attached to the upper metal part is a mesh which is held by four plasic pillars as can be seen in \autoref{fig:micromegas_cover}.
+This mesh is used as the cathode of the detector. 
+The distance between the entry window and the cathode is measured to be \SI{1.0\pm.1}{\centi\meter} and the diameter of the cathode to be \SI{11\pm.1}{\centi\meter}.
+These measurements were done with a ruler and we therefore assumed an uncertaincy of \SI{.1}{\centi\meter} on all measurements.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/micromegas_cover.jpeg}
@@ -121,10 +143,10 @@ Our measurements were done with the help of a lineal and we therefore assumed an
   \label{fig:micromegas_cover}
 \end{figure}
 
-More interesting is not the cover of the micromegas but what lies underneath.
-In \autoref{fig:micromegas_base} we can see the inside of our detector. The cathode was placed in the center gap.
-At the bottom we can see the mesh of the detector, which is responsible for gasamplification like explained in \autoref{subsec:theory_micromegas}.
-We measured the inner diameter of the mesh to be \SI{13.8\pm.2}{\centi\meter}.
+In \autoref{fig:micromegas_base} the inside of the detector is shown. 
+The cathode was placed in the center gap.
+At the bottom one can see the mesh of the detector, which is responsible for gasamplification as explained in \autoref{subsec:theory_micromegas}.
+The inner diameter of the mesh is \SI{13.8\pm.1}{\centi\meter}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/micromegas_base_top.jpeg}
@@ -133,15 +155,11 @@ We measured the inner diameter of the mesh to be \SI{13.8\pm.2}{\centi\meter}.
 \end{figure}
 
 Below the mesh one can see the anode strips on the PCB wafer shown in \autoref{fig:micromegas_strips}.
-We measured the activ area, so the area covered with anodes, to be \SI{10\pm2.8}{\cm^2} where the uncertainty is calculated by the gaussian propagation of uncertainty.
-One could observe a grid-like structure of the anodes. 
-We measured width and height of one rectangle in this grid structure to be $\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}$.
-By further inspection we noticed that one rectangle in this structure is connected with 10 wires.
+The active area is measured to be \SI{10\pm1.4}{\cm^2} where the uncertainty is calculated by the gaussian propagation of uncertainty.
+One observes a grid-like structure of the anodes with width and height of one rectangle of $\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}$.
+One rectangle in this structure is connected with 10 wires.
 This indicates that there are 10 strips per rectangle.
-Therefore we concluded that the true dimensions of one strip can be calculated as in \autoref{eq:dimensions}.
-\begin{equation}\label{eq:dimensions}
-  \frac{\SI{4\pm1}{\mm}\times\SI{5\pm1}{\mm}}{10}=\SI{400\pm100}{\micro\meter}\times\SI{500\pm100}{\micro\meter}  
-\end{equation}
+Therefore the true dimensions of one strip is $\SI{400\pm100}{\micro\meter}\times\SI{500\pm100}{\micro\meter}$.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/micromegas_strips.jpeg}
@@ -150,8 +168,8 @@ Therefore we concluded that the true dimensions of one strip can be calculated a
 \end{figure}
 
 \subsection{Experimental Setup}
-To observe cosmic muon rays, a micromegas detector was setup horizontally between two scintillators.
-These scintillators are overlapping and positioned like shown in \autoref{fig:setup_ROT}.
+To observe cosmic muon rays, a micromegas detector is set up horizontally between two scintillators.
+These scintillators are overlapping and positioned as shown in \autoref{fig:setup_ROT}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/setup_ROT.jpeg}
@@ -159,18 +177,21 @@ These scintillators are overlapping and positioned like shown in \autoref{fig:se
   \label{fig:setup_ROT}
 \end{figure}
 
-As can be seen, one of the scintillators is covered up by a cloth. This is because a previous group noticed that this particular scintillator did not seem to be sealed correctely and thus covered it to increase its efficiency.
-The scintillators are provided with voltages of \SI{1700}{\volt} and \SI{1250}{\volt}. These voltages along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt} are provided by a high voltage module.
-Additionally to the high voltage module more modules are used to set up the trigger logic of the detector.
-The trigger logic ensures, that the detector only counts events when both scintillators register an event so noise is minimized and only particles which pass through the detector are counted.
-The readout system of the detector consists of four APVs and a minicrate, which are triggered by the trigger logic and send the received data to a PC where the data readout is handeled by the DAQ software.
-(...) % explanation and handling of DAQ? 
+As can be seen, one of the scintillators is covered up by a cloth. 
+This is because the particular scintillator did not seem to be sealed correctely and thus is covered to increase its efficiency.
+The scintillators are provided with voltages of \SI{1700}{\volt} and \SI{1250}{\volt}. 
+They are provided by a high voltage module along with the voltages for the micromegas detector of \SI{-300}{\volt} and \SI{510}{\volt}.
+
+Additionally, more modules are used to set up the trigger logic of the detector.
+The trigger logic ensures, that the detector only counts hits when both scintillators register an event so noise is minimized and only particles which pass through the detector are counted.
+
+The readout system of the detector consists of four APVs, two for each axis, and a minicrate, which are triggered by the trigger logic and then send the received data to a PC where the data readout is handeled by the mmDAQ software.
 
 \subsection{Experimental Procedure}
-To set up the trigger logic we first put the scintillators directly on top of each other, so events would be registered at both of them at a higher rate.
-This positioning was only used in first setting up the trigger logic.
-For data taking we returned the scintillators to their original positions above and below the micromegas detector.
-Looking at the scintillator signal directly with an oscilloscope we could obseve a signal like shown in \autoref{fig:scintillator_signal}.
+To set up the trigger logic the scintillators are placed directly on top of each other, so events would be registered at both of them at a higher rate.
+This positioning is only used for first setting up the trigger logic.
+For data taking the scintillators are returned to their original positions above and below the micromegas detector.
+Looking at the scintillator signal directly with an oscilloscope one could obseve a signal as shown in \autoref{fig:scintillator_signal}.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/DS1Z_QuickPrint5_cropped.png}
@@ -178,28 +199,26 @@ Looking at the scintillator signal directly with an oscilloscope we could obseve
   \label{fig:scintillator_signal}
 \end{figure}
 
-The signals are quite weak, so we first amplified them using the 12-channel photomultiplier amplifier module which has a gain of 10.
-After amplifying the signal we want to discriminate it, so we can more easily look for coincidence of both scintillator signals.
-The discriminator only triggeres when a certain signal threshold is reached like depicted in \autoref{fig:discriminator}. 
-When triggered the discriminator outputs a signal over a given discrimination time.
-By setting the threshold we can filter out most of the noise.
+The signals are quite weak, so they are amplified using the 12-channel photomultiplier amplifier module which has a gain of 10.
+After amplifying the signal it is discriminated to search for coinciding scintillator signals.
+The discriminator only triggeres when a certain signal threshold is reached. 
+When triggered the discriminator outputs a constant signal over a given discrimination time.
+By setting the threshold most of the noise is filtered.
 Because the discriminator has a set discrimination time multilpe events in this time will not be registered. 
-For measuring cosmic muon rays this is not relevant because the events are of low enough frequency.
+For measuring cosmic muon rays this is not relevant because the events are of low frequency.
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{figures/discriminator.png}
-  \caption{Working principle of the Mod. N841 16 Channel Leading Edge Discriminator}
-  \label{fig:discriminator}
-\end{figure}
+% \begin{figure}
+%   \includegraphics[width=\linewidth]{figures/discriminator.png}
+%   \caption{Working principle of the Mod. N841 16 Channel Leading Edge Discriminator}
+%   \label{fig:discriminator}
+% \end{figure}
 
-After we produced the discriminated signal we want to check for coincidence between both signals of the scintillators.
-To achieve this we use a logic unit with an \textsc{and} operation on both discriminated signals.
-This yields only a signal when both scintillators have overlapping discrimination signals like shown in \autoref{fig:disc_signal}.
-Because of the overlap it can be assumed that both scintillator signals stem from the same particle passing though them.
-When there is no overlap we assume that the scintillators are hit by different particles and we get no trigger signal.
-At last we count the registered events with a simple counter module to check if our trigger is registering events at a realistic rate.
-Now we have finished our trigger logic and we only trigger the detector readout when both scintillators register an overlapping signal.
-This means that a particle has hit both of the scintillators and thus has passed through our micromegas detector.
+After producing the discriminated signal one wants to check for coincidence between both signals of the scintillators.
+To achieve this a logic unit with an \textsc{and} operation is used on both discriminated signals.
+This yields only a signal when both scintillators have overlapping discrimination signals as shown in \autoref{fig:disc_signal}.
+Due to the overlap it can be assumed that both scintillator signals stem from the same particle passing though them.
+When there is no overlap it is evident that the scintillators are hit by different particles and there is no trigger signal.
+At last the registered events are counted with a simple counter module to check if the trigger is registering events at a realistic rate.
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/DS1Z_QuickPrint2_cropped.png}
@@ -207,9 +226,9 @@ This means that a particle has hit both of the scintillators and thus has passed
   \label{fig:disc_signal}
 \end{figure}
 
-After setting up the trigger logic we are ready to take data. First we need to take a pedestal run in the DAQ to configure the readout electronics.
-When the pedestal run is finished the real data taking can start. 
-We took data over a time of roughly \SI{30}{\minute} and then extracted the informations from the root file which yields the hitmap in \autoref{fig:muon_hitmap}. (???) % time correct?
+After setting up the trigger logic data can be taken. 
+First a pedestal run is necessary to configure the readout electronics, then over a time of roughly \SI{60}{\minute} cosmic muon rays are captured.
+Extracting the information from the \texttt{.root} file yields the hitmap in \autoref{fig:muon_hitmap}.
 
 % why averaged, and how exactly?
 \begin{figure}
@@ -226,7 +245,6 @@ We can also see some events which are not in the area of our scintillators.
 Those can either be explained by noise or other interferences in the data taking process.
 It can also be possible that the detector readout was triggered by an event in the area of the scintillators while another event happened at a different place in the detector.
 Because one event triggered the detector readout another event which happened may have been read out as well.
-(???)
 
 % Questions:
 % picture of modules after setting up trigger logic?
@@ -237,9 +255,15 @@ Because one event triggered the detector readout another event which happened ma
 
 \section{Multiple Scattering}
 \subsection{Experimental Setup}
-To observe multiple scattering, a electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA, whose exit is shown in \autoref{fig:beam_setup_elsa}. The setup of the micromegas detector with the scintillators and the trigger logic, used and tested with the cosmic data, is placed a few meters in front of the output of the accelerator, such that the beam hits the detector as seen in \autoref{fig:detector_setup_elsa}. This is ensured by a laser, build in at the end of the accelerator, which could be slid into the middle of the opening to point along the beam line. However, it is known that the laser points a few centimeters too low compared to the actual beam. This must be note by constructing the setup and while placing the targets.
-To do latter, a metal bar is mounted close to the detector thus the targets could be placed in a distance between $\SI{5.5\pm 0.5}{cm}$ and $\SI{105.5\pm 0.5}{cm}$ to the first scintillator into the beam, where the uncertainties come from the measuring tape used to evaluate these distances. Thereby, the laser is used to adjust the bar and to ensure a free beam path up to the detector or the placed material.
-The available materials with their thicknesses are listed in \autoref{tab:available_materials}. These were measured by a previous group with a caliper, so uncertainties of $\SI{0.1}{mm}$ are assumed, which is roughly checked with the maesuring tape.
+To observe multiple scattering, an electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA, whose beam exit is shown in \autoref{fig:beam_setup_elsa}. 
+The setup of the micromegas detector with the scintillators and the trigger logic, used and tested with the cosmic data, is placed a few metres in front of the output of the accelerator, such that the beam hits the detector as seen in \autoref{fig:detector_setup_elsa}. 
+This is ensured by a laser, build in at the end of the accelerator, which could be slid into the middle of the opening to point along the beam line. 
+However, it is known that the laser points a few centimetres lower than the actual beam. 
+This must be considered while placing the targets.
+A metal bar is mounted close to the detector thus the targets can be placed in a distance between $\SI{5.5\pm 0.5}{cm}$ and $\SI{105.5\pm 0.5}{cm}$ to the first scintillator into the beam, where the uncertainties come from the measuring tape used to evaluate these distances. 
+The laser is used to adjust the bar and to ensure a free beam path up to the detector or the placed material.
+The available materials with their thicknesses are listed in \autoref{tab:available_materials}. 
+These were measured by a previous group with a caliper, so uncertainties of $\SI{0.1}{mm}$ are assumed, which is roughly checked with the maesuring tape.
 
 
 \begin{table}\centering
@@ -270,8 +294,13 @@ The available materials with their thicknesses are listed in \autoref{tab:availa
 \end{figure}
 
 \subsection{Experimental Procedure}
-After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program DAQ.
-Afterwards, for both materials multiple runs are recorded. Thereby, the thicknesses $D$ of the targets are changed by placing different blocks of one material in a row. $D$ is approximately always chosen to be different multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. The distance $z$ between the scintillator and the leading edge of the material is always $z=\SI{40\pm0.5}{cm}$. Overall eight runs, one for each $m$ and both materials, are recorded. The exact configurations for the different recordings are listed in \autoref{tab:config_materials}.
+After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program.
+Afterwards, multiple runs are recorded for both materials. 
+Thereby, the thicknesses $D$ of the targets are changed by placing different blocks of one material in a row. 
+$D$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ of the material, with $m\in\{0.5,1,2,3\}$. 
+The distance $z$ between the scintillator and the leading edge of the material is always $z=\SI{40\pm0.5}{cm}$. 
+Overall eight runs, one for each $m$ and both materials, are recorded. 
+The exact configurations for the different measurements are listed in \autoref{tab:config_materials}.
 
 \begin{table}\centering
   \renewcommand*{\arraystretch}{1.15}
@@ -341,11 +370,11 @@ To compare this experimental results with the theoretical discription, $\theta_\
   \label{fig:hitmap_notarget}
 \end{figure}
 
-\begin{figure}
-  \includegraphics[width=0.9\linewidth]{../src/elsa/x_position_strip_histogram_0.png}
-  \caption{Counted hits in x-direction without scattering material.}
-  \label{fig:x_hist_notarget}
-\end{figure}
+% \begin{figure}
+%   \includegraphics[width=0.9\linewidth]{../src/elsa/x_position_strip_histogram_0.png}
+%   \caption{Counted hits in x-direction without scattering material.}
+%   \label{fig:x_hist_notarget}
+% \end{figure}
 
 \begin{figure}
   \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/Aluminium, Two Radiation Lengths, 40cm Distance.png}
