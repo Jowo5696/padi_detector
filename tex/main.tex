@@ -55,11 +55,8 @@
 \maketitle
 
 \section{Introduction}
-In order to observe multiple scattering of electrons in alumnium and copper, a micromegas detector is used and tested with cosmic muon rays. 
-Therefore a trigger logic is build with scintillators to select significant events.
-For a detailed observation of the multiple scattering, an electron beam provided by the ELSA accelerator will be used. 
-This allows to compare the scattering behavior of electrons as they travel through aluminum and copper targets. 
-To extend the analysis, targets of different thicknesses at a fixed distance between detector and target will be studied.  
+In order to observe multiple scattering of electrons in alumnium and copper, a micromegas detector is used and tested with cosmic muon rays. Therefore a trigger logic is build with scintillators to select significant events.
+For a detailed observation of the multiple scattering, an electron beam provided by the ELSA accelerator will be used. This allows to compare the scattering behavior of electrons as they travel through aluminum and copper targets. To extend the analysis, targets of different thicknesses and a fixed distance between detector and target will be studied.  
 
 When electrons pass through a material they undergo multiple scattering.
 This process is observed with a micromegas detector for an electron beam hitting different materials with varying thicknesses.
@@ -81,7 +78,7 @@ The drift region is filled with a noble gas mixture Ar/CO$_2$, which facilitates
 The ionization process liberates electrons. 
 Because they do not attach to noble gases they can travel freely toward the mesh. 
 
-The second region is the amplification region, which is significantly thinner, approximately \SI{128}{\micro\meter}.
+The second region is the amplification region, which is significantly thinner, approximately \SI{128}{\micro\meter}. 
 It is separated from the drift region by a woven micromesh, a metallic grid made of \SI{18}{\micro\meter} diameter stainless steel wires, with a density of \SI{157}{wires\per\cm}, resulting in an optical transparency of about 40\%.
 An electric field of about \SI{500}{\volt\per\centi\meter} is applied between the cathode an the mesh, while a much stronger field of around \SI{70000}{\volt\per\centi\meter} is present between the mesh and the anode strips. 
 This high field is due to the small gap and causes incoming electrons to gain enough energy to further ionize the gas, leading to an avalanche multiplication of electrons. 
@@ -350,18 +347,22 @@ The exact configurations for the different measurements are listed in \autoref{t
 
 \subsection{Data Analysis}
 The recorded data of the run without scattering material in the beam is shown as a hitmap in \autoref{fig:hitmap_notarget}. The distribution of the electrons in the x-direction is wider as in y-direction, resulting in an oval-shaped beam.
-
 To analyse the influence of a material in order to observe multiple scattering effects, a narrower beam width is advantageous, as the additional broadening due to scattering becomes more distinguishable.
 Moreover, \autoref{fig:x_hist_notarget} shows, that one APV of the detector positioned in x-direction contains multiple defect stips in the region of interest.
-Therefore, in the following analysis, only the y-direction is considered.
+Therefore, in the following analysis, only the y-direction is considered. The counted events whithout scattering material are shown in \autoref{fig:y_hist_notarget}.
+
+Both, the distribution in x and in y direction, contains additionaly to the gaussian curve other peaks in the foothills of that distribution.
+By filtering events of large charge deposition, these artifacts 
 
 
 
+%The collected raw data counts unwanted hits because of different reasons.
+%First of all, there is a noise on the detector, which is also read out when the scintillators trigger the system. To filter the noise a charge threshold is used.
 
 
-The collected raw data counts unwanted hits because of different reasons.
-First of all, there is a noise on the detector, which is also read out when the scintillators trigger the system. To filter the noise a charge threshold is used.
-Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout. Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists. This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored.
+Another unwanted effect are created $\delta$-electrons, which also could hit the detector and lead to multiple hits for one event i.e. one readout.
+Moreover, the possibility of inelastic scattering of the beam electrons in the air, leading to electromagnetic or hadronic showers, exists.
+This also results in multiple hits for one event. To separate these effects, one counts the number of different hits or clusters, which are contiguous hits, of one event. If there are more then two clousters, the event is ignored.
 
 The data, filtered as described, is shown for (???) in (fig-temp).
 
@@ -380,16 +381,24 @@ is used, where $\sigma_\text{0}$ is the standard deviation of the distribution w
 To compare this experimental results with the theoretical discription, $\theta_\text{exp}$ is plotted against $\theta_\text{theo} = \theta_0$ evaluated via \autoref{eq:Highland}.
 As shown in %\autoref{fig:correlation}, the (...).
 
+
+
 \begin{figure}
-  \includegraphics[width=0.9\linewidth]{../src/elsa/xy_hitmap_0.png}
+  \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/xy_hitmap_0.png}
   \caption{Hitmap for the electron beam on the detector without scattering material.}
   \label{fig:hitmap_notarget}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=0.9\linewidth]{../src/elsa/x_position_strip_histogram_0.png}
+  \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/UnfilteredNoMaterialX.png}
   \caption{Counted hits in x-direction without scattering material.}
   \label{fig:x_hist_notarget}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\linewidth]{../src/elsa/finished_plots/unfiltered_noMaterial.png}
+  \caption{Counted hits in y-direction without scattering material.}
+  \label{fig:y_hist_notarget}
 \end{figure}
 
 \begin{figure}
@@ -558,5 +567,25 @@ This should give a linear correlation between these two values thus verifying th
 
 \bibliography{refs}
 
+
 \end{document}
 
+\begin{table}
+  \begin{tabular}{ccc}
+    \toprule
+    $\tfrac{x}{X_0}$ & $\theta _\text{exp}$/rad & $\theta _\text{theo}$/rad \\
+    \midrule
+    1/2 & \num{.00812+-.00343}[42\%,1.3$\sigma$] & 0.0343\\
+    1 & \num{.01274+-.00198}[16\%,3.9$\sigma$] & 0.00497\\
+    2 & \num{.01961+-.00593}[30\%,2$\sigma$] & 0.00744\\
+    3 & \num{.02329+-.00632}[27\%,2.3$\sigma$] & 0.0858\\
+    \midrule
+    1/2 & \num{.00778+-.00678}[87\%,0.7$\sigma$] & 0.00318\\
+    1 & \num{.01187+-.00171}[14\%,4.2$\sigma$] & 0.00476\\
+    2 & \num{.01995+-.00510}[26\%,2.6$\sigma$] & 0.00692\\
+    3 & \num{.02129+-.00592}[28\%,2.2$\sigma$] & 0.00851\\
+    \bottomrule
+  \end{tabular}
+  \caption{An overview of the experimentally and theoretically calculated angles; aluminium top and copper bottom. 
+  The relative error and standard deviation from the theoretical values is given in the square brackets.}
+\end{table}
