@@ -1,0 +1,3 @@
+Run, StdDeviation[mm], distance[cm], thickness[cm] 
+x_run_1, 22.142723233920723, 40, 18.65
+y_run_1, 21.00515295835836, 40, 18.65
