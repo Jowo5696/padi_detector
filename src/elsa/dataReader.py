@@ -92,10 +92,10 @@ def drawHistograms(file, histogramArray, indexTranslation):
         ycenters = 0.5 * (yedges[:-1] + yedges[1:])
         
         #mirroring the Array so that the data becomes easier to analyze and the sensitivity difference between apvs is ignored.
-        #yMirrorcounts = mirrorArrayLeft(ycounts)
-        #for k in range(round(len(yMirrorcounts)/2), len(yMirrorcounts)):
-        #    yMirrorcounts[k]=0
-        yMirrorcounts = ycounts
+        yMirrorcounts = mirrorArrayLeft(ycounts)
+        for k in range(round(len(yMirrorcounts)/2), len(yMirrorcounts)):
+            yMirrorcounts[k]=0
+        #yMirrorcounts = ycounts
         #yMirrorcounts = mirrorArrayRight(ycounts)
 
         #Now start a gauss fit by doing an initial guess
