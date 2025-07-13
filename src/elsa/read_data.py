@@ -194,9 +194,9 @@ def elsa():
                     #hist_ypos_strip_nofilter.Fill(strip)
 
                 if (
-                        #(cluster_count < 100) # if there are more than x clusters in total dont use the event
+                        (cluster_count < 3) # if there are more than x clusters in total dont use the event
                         #and (charge > 90)
-                        (charge < 700)
+                        #(charge < 700)
                         or (r == 0)
                         #True
                         ):
@@ -227,7 +227,6 @@ def elsa():
                         sum_y += y_pos
                         num_hits_y += 1
 
-            hist_cluster_count.Fill(cluster_count)
 
             # average over all events
             # TODO weigh hits 
@@ -247,6 +246,7 @@ def elsa():
                 hist_xpos_avg.Fill(average_x)
                 hist_ypos_avg.Fill(average_y)
             #break
+            hist_cluster_count.Fill(cluster_count)
 
         # fits
         #fit_x = ROOT.TF1("fit_x", "gaus", 0, 100)
