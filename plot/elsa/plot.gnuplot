@@ -143,13 +143,14 @@ h(x) = m * x + b
 fit h(x) "correlation.dat" u 1:2:(1) yerrors via m,b
 plot "correlation.dat" ls 1
 #  h(x)
-
 set output "asdf.tex"
-h(x) = m * x + b
-fit h(x) "scattering" u 2:1:(1) yerrors via m,b
-plot "scattering" u 2:1 ls 1,\
-  h(x)
 
+file = "asdf"
+h(x) = m * x + b
+fit h(x) "asdf" u 1:2:(1) yerrors via m,b
+plot "asdf" ls 1,\
+  h(x)
+  
 # NaN with points / lines title '' ls 1 # fake legend
 
 # pt 0 pixel
