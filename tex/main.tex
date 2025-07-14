@@ -500,10 +500,30 @@ Those events are not filtered and influence the data increasing the spread and l
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Summary}
-At ROT the measurements of the spare micromegas are taken while it is disassembled.
-The captured data of the cosmic muons leads to a muon flux of approximately \SI{.09}{\text{µ}\per\centi\meter\squared\per\min} which is by a factor 10 smaller than the value from literature.
-This value is explained by the absorption of muons while passing through the building, as well as muons coming at an angle and thus not being detected.
-
+At ROT, the measurements of the spare micromegas detector were taken while it was disassembled.
+The recorded data of cosmic muons yielded a muon flux of approximately \SI{0.09}{\micro\per\centi\meter\squared\per\minute}, which is about a factor of 10 smaller than the value in the literature. 
+This value can be explained by the absorption of muons while passing through the building, as well as muons arriving at an angle that prevents their detection.
+At ELSA, multiple scattering was studied by providing a \SI{2.9}{GeV} electron beam through various thicknesses of aluminum and copper. 
+A micromegas detector with a calibrated trigger logic was used to analyze the lateral broadening of the electron beam. 
+For both targets, a fixed distance of \SI{40}{\centi\meter} between the target and detector was set. 
+Target thicknesses corresponding to approximately $\tfrac{x}{X_0} = 1/2,\ 1,\ 2,\ 3$. Then a Gaussian fit was applied to the $y$-coordinate of the detected hits. 
+The $x$-coordinate data was corrupted due to defects in the strips.
+From the fits, the standard deviations were extracted, and the actual scattering widths were calculated by subtracting the deviation of the beam without a target. 
+This allowed for the determination of the experimental RMS scattering angle $\theta_{\text{exp}}$, which was compared to the theoretical scattering angle $\theta_{\text{theo}}$.
+The comparison showed linearity between $\theta_{\text{exp}}$ and $\theta_{\text{theo}}$ with fit slopes of $m = 2.90 \pm 0.04$ for aluminum and $m = 2.80 \pm 0.39$ for copper. 
+These are larger slopes compared to the ideal value of 1 indicating a systematic error of the scattering angles and corresponding to a multiplicative constant in the measurements.
+The error for the deflection angle at $\tfrac{x}{X_0}=1/2$ is too large for both materials due to the broad shape of the distribution, which will make the Gaussian fit unreliable. 
+At $\tfrac{x}{X_0} = 1$, the relative error is around 10\%, and the Gaussian shape is the most reliable fit and result. 
+The measured value still differ from the theoretical prediction by 4 standard deviations. For $\tfrac{x}{X_0} = 2$ and 3, the error remains around 30\%, and the deviations from the theoretical values are approximately 2.2 $\sigma$. 
+These measurements are consistent but still incompatible with the theoretical predictions.
+The linear fits for aluminum and copper have very small \(\chi^2\) values (\(\chi^2_{\text{Cu}} = 270 \cdot 10^{-6}\), \(\chi^2_{\text{Al}} = 4.59 \cdot 10^{-6}\)). 
+It results from the uncertainties in the measured scattering angles, so that it reduces the statistical significance of the fit. 
+This can be because of various factors, such as deviations from an ideal Gaussian distribution, systematic uncertainties, the beam setup, or the readout electronics. 
+Effects like the production of \(\delta\)-electrons or inelastic scattering of electrons in air could result in multiple hits per event, so that artificially broadening the measured distributions leads to an increased scattering angle \(\theta_{\text{exp}}\).
+\\
+All along, while the experimental results confirm the general idea of multiple scattering and indeed show a linear correlation between measured 
+and theoretical scattering angles the significant systematic errors and measurement limitations such as detector imperfections, beam setup, 
+and electron interactions lead to deviations from theoretical expectations and reduced precision in the analyzed values. 
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \clearpage\appendix\onecolumn
