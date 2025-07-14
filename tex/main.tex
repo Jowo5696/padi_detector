@@ -275,7 +275,7 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 \begin{table}\centering
   \renewcommand*{\arraystretch}{1.1}
   \begin{tabular}{c|c||c|c}
-    \multicolumn{2}{c||}{aluminium} & \multicolumn{2}{c}{Copper} \\
+    \multicolumn{2}{c||}{aluminium} & \multicolumn{2}{c}{copper} \\
     {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \#} & {\fontsize{8}{3}\selectfont $x_i/\si{cm}$} & {\fontsize{8}{3}\selectfont \# } \\\hline \rule{0pt}{3ex}
     \num{1.22\pm 0.01} & 2 & \num{0.2\pm 0.01} & 3 \\
     \num{2.5\pm 0.01} & 1 & \num{0.5\pm 0.01} & 2 \\
@@ -289,7 +289,7 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 
 \begin{figure}
   \includegraphics[width=\linewidth]{figures/beam_setup_elsa.jpg}
-  \caption{Exit of ELSA.}
+  \caption{Beam exit of ELSA.}
   \label{fig:beam_setup_elsa}
 \end{figure}
 
@@ -303,10 +303,10 @@ These were measured by a previous group with a caliper, so uncertainties of $\SI
 After controlling the setup of the detector including the trigger logic and the right adjustment of the metal bar, a test run without any target in the beam is performed, to ensure the functionality of the setup and the data taking program.
 Afterwards, multiple runs are recorded for both materials.
 The thicknesses $x$ of the targets are changed by placing different blocks of one material in a row. 
-$x$ is always chosen to be approximately multiples $m$ of the radiation length $X_0$ \cite{radlength} of the material, with $m\in\{0.5,1,2,3\}$. 
+$x$ is always chosen to be approximately multiples of the radiation length $X_0$ \cite{radlength} of the material, with $\tfrac{x}{X_0}\in\{0.5,1,2,3\}$. 
 The distance $d$ between the scintillator and the leading edge of the material is always $d=\SI{40\pm0.5}{cm}$.
 To include the distance from the scintillator to the middle of the drift chamber in the detector, an additional spacing of $\SI{5\pm2}{cm}$ is assumed, leading to an overall distance of $d'=\SI{45\pm2}{cm}$.
-In total eight runs, one for each $m$ and both materials, are recorded. 
+In total eight runs, one for each multiple and both materials, are recorded. 
 The exact configurations for the different measurements are listed in \autoref{tab:config_materials}.
 
 \begin{table}\centering
@@ -314,7 +314,7 @@ The exact configurations for the different measurements are listed in \autoref{t
   \begin{tabular}{c|c|c}
     & aluminium & copper \\
     & {\fontsize{7}{5}\selectfont ($X_0=\SI{8.897}{cm}$)} & {\fontsize{7}{5}\selectfont ($X_0=\SI{1.436}{cm}$)} \\\hline
-    $m$ & $\sum x_i/cm = x /cm$ & $\sum x_i/cm = x /cm$ \\\hline\hline\rule{0pt}{6ex}
+    $\tfrac{x}{X_0}$ & $\sum x_i/cm = x /cm$ & $\sum x_i/cm = x /cm$ \\\hline\hline\rule{0pt}{6ex}
     $0.5$ & \num{5\pm 0.01} & $\begin{array}{r}
                 \num{0.5\pm 0.01} \\
                 +\,\num{0.2\pm 0.01} \\\hline
@@ -344,7 +344,7 @@ The exact configurations for the different measurements are listed in \autoref{t
                       =\,\num{4.36\pm 0.02}
                     \end{array}$ \\\hline
   \end{tabular}\vspace{3mm}
-  \caption{Specific configurations of used materials with radiation length $X_0$ and overall thicknesses $D$ for different multiples $m$ of $X_0$.}
+  \caption{Specific configurations of used materials with radiation length $X_0$ and overall thicknesses $x$ for different multiples of $X_0$.}
   \label{tab:config_materials}
 \end{table}
 
@@ -404,11 +404,14 @@ This is done by fitting only to one side of the curve due to the asymmetry, whic
 
 It is noticeable, that in a very regularly pattern the gaussian distribution contains dips in the event counter. %(Begründung)
 This phenomenon is present in the raw data but is intensified by the filtering method.
-While filtering events which cross a certain charge threshold are discarded.
-It is apperent that the pattern is caused by a pattern of higher charge values.
+While filtering, events which cross a certain charge threshold are discarded; it is apperent that the pattern is caused by a pattern of higher charge values.
 Because the regular pattern is also observed in the raw data its origin has to be a systematical error. 
 The distance between two dips is $\SI{5}{mm}$, which matches exactly the height of one rectangle of the grid structure in the detector described in \autoref{subsec:detector_specific}. 
 This indicates the possible reason for the dips, that every $n$-th strip in one rectangle has a lower sensitivity than the others, leading to the observed effect.
+This results in the gaussian fits huge $\chi ^2$ ranging from 140 to 390, because it tries to find the best fitting curve for all points, thus being drawn downward along the curve by the lower count strips and not modelling the expected gaussian distribution.
+With the ideal value of $\chi ^2=1$ it is not possible for this fit to accurately model the data.
+To optimize the fit, one could leave out all strips with lower count and only fit at the strips with a high count.
+This was not done at the time of analysis, because, although theories for this were present, it was not clear in detail what caused this phenomenon.
 
 To calculate the RMS of the deflection angle $\theta_\text{exp}$, the standard deviation $\sigma_\text{mat}$ of the curves, available through the parameters of the fit, is used. To consider the width of the electron distribution without any scattering, it is replaced by the modified standard deviation
 \begin{equation} \label{eq:sigma_mod}
@@ -441,12 +444,12 @@ Via \autoref{eq:theta_exp} this leads to the experimental value.
     \toprule
     $\tfrac{x}{X_0}$ & $\theta _\text{exp}$/rad & $\theta _\text{theo}$/rad \\
     \midrule
-    1/2 & \num{.00812+-.00343}[42\%,1.3$\sigma$] & 0.0343\\
+    0.5 & \num{.00812+-.00343}[42\%,1.3$\sigma$] & 0.0343\\
     1 & \num{.01274+-.00198}[16\%,3.9$\sigma$] & 0.00497\\
     2 & \num{.01961+-.00593}[30\%,2$\sigma$] & 0.00744\\
     3 & \num{.02329+-.00632}[27\%,2.3$\sigma$] & 0.0858\\
     \midrule
-    1/2 & \num{.00778+-.00678}[87\%,0.7$\sigma$] & 0.00318\\
+    0.5 & \num{.00778+-.00678}[87\%,0.7$\sigma$] & 0.00318\\
     1 & \num{.01187+-.00171}[14\%,4.2$\sigma$] & 0.00476\\
     2 & \num{.01995+-.00510}[26\%,2.6$\sigma$] & 0.00692\\
     3 & \num{.02129+-.00592}[28\%,2.2$\sigma$] & 0.00851\\
@@ -465,31 +468,25 @@ This hints at a systematical error, which results in a constant multiplication f
 Without the systematic error the theoretical prediction of scattering angles is confirmed.
 Experimental and theoretical values are related linearly and only differ in a factor.
 
-The relative error for the deflection angle of $\tfrac{x}{X_0}=1/2$ is very large compared to the other thicknesses, for both aluminium and copper.
+The relative error for the deflection angle of $\tfrac{x}{X_0}=0.5$ is very large compared to the other thicknesses, for both aluminium and copper.
 This is due to the overall broad shape of the data compared to the small width making the fit unprecise.
 The resulting deviation is thus small and lies close to one standard error also called sigma interval, or short sigma, but only due to the large relative error.
-
 For $\tfrac{x}{X_0}=1$ the relative error is closer to 10\% making these values more reliable for a measurement to be compared to the theory.
 In comparison with the other measurements, the curve has the most accurate gaussian profile which is consistent with the results.
 Although due to the small error the deviation is about 4 sigma and thus too far from the theoretical value to be consistent with it.
-
 For $\tfrac{x}{X_0} \in \left\{2,3\right\}$ the relative error stays the same of about 30\% with a similar standard deviation of 2.2 sigma.
 These values are the most consistent experimental values but with such a deviation also not compatible with the theory.
-
-
 % (To beeee or not to beeeee)
-
 % When plotting $\theta _\text{exp}$ against $\theta _\text{theo}$ one can see a clear linear relation between these two quantities.
 % The slope of the straight is $m_\text{Cu}=3$ and $m_\text{Al}=3$ (TODO GENAUER WERT).
-
 The linear fits for copper and aluminium yield values of $\chi ^2_\text{Cu}=\SI{270}{}\cdot10^{-6}$ and $\chi ^2_\text{Al}=\SI{4.59}{}\cdot10^{-6}$ which are very small.
 This is explained by the large errors on the experimentally determined scattering angles.
 Because of this the fit minimizes the $\chi^2$ which in return limits the significance of the result.
 % 1)... close enough to one for it to be a good fit, thus modelling the data well.
 % 2)... too small for an appropriate fit, thus unable to model the data in a predictive manner.
-
 % There is a systematic error for all data, which results in all angles to be three times larger than $\theta _\text{theo}$.
 This can have numerous sources, some of which are discussed now.
+
 One source could be that the measured data does not purely follow a gaussian distributuion. 
 This leads to wrong handling of the data because of false assumptions.
 A unknown systematical error caused by the detector, the beam setup or the readout electronics can be a problem source as well. 
@@ -503,28 +500,29 @@ Those events are not filtered and influence the data increasing the spread and l
 %-----------------------------------------------------------------------------------------------------------------------------
 
 \section{Summary}
-At ROT, the measurements of the spare micromegas detector were taken while it was disassembled.
-The recorded data of cosmic muons yielded a muon flux of approximately \SI{0.09}{\micro\per\centi\meter\squared\per\minute}, which is about a factor of 10 smaller than the value in the literature. 
+The spare micromegas detector was disassembeled to take its specifications and show the inner workings of the detector.
+The trigger logic was set up and the recorded data of cosmic muons yielded a muon flux of approximately \SI{0.09}{\text{µ}\per\centi\meter\squared\per\min}, which is about a factor of 10 smaller than the value in the literature. 
 This value can be explained by the absorption of muons while passing through the building, as well as muons arriving at an angle that prevents their detection.
-At ELSA, multiple scattering was studied by providing a \SI{2.9}{GeV} electron beam through various thicknesses of aluminum and copper. 
-A micromegas detector with a calibrated trigger logic was used to analyze the lateral broadening of the electron beam. 
+
+At ELSA, multiple scattering was studied by providing a \SI{2.9}{GeV} electron beam through various thicknesses of aluminium and copper. 
+A micromegas detector with the calibrated trigger logic was used to analyze the lateral broadening of the electron beam. 
 For both targets, a fixed distance of \SI{40}{\centi\meter} between the target and detector was set. 
-Target thicknesses corresponding to approximately $\tfrac{x}{X_0} = 1/2,\ 1,\ 2,\ 3$. Then a Gaussian fit was applied to the $y$-coordinate of the detected hits. 
-The $x$-coordinate data was corrupted due to defects in the strips.
-From the fits, the standard deviations were extracted, and the actual scattering widths were calculated by subtracting the deviation of the beam without a target. 
+The target thicknesses were approximately $\tfrac{x}{X_0} \in \left\{0.5,1,2,3\right\}$. 
+Then, a gaussian fit was applied to the $y$-coordinate of the detected hits; the $x$-coordinate data was corrupted due to defects in the strips.
+From the fits, the standard deviations were extracted, and the actual scattering widths were calculated by subtracting it from the deviation of the beam without a target. 
 This allowed for the determination of the experimental RMS scattering angle $\theta_{\text{exp}}$, which was compared to the theoretical scattering angle $\theta_{\text{theo}}$.
-The comparison showed linearity between $\theta_{\text{exp}}$ and $\theta_{\text{theo}}$ with fit slopes of $m = 2.90 \pm 0.04$ for aluminum and $m = 2.80 \pm 0.39$ for copper. 
+The comparison showed linearity between $\theta_{\text{exp}}$ and $\theta_{\text{theo}}$ with fit slopes of $m = 2.90 \pm 0.04$ for aluminium and $m = 2.80 \pm 0.39$ for copper. 
 These are larger slopes compared to the ideal value of 1 indicating a systematic error of the scattering angles and corresponding to a multiplicative constant in the measurements.
-The error for the deflection angle at $\tfrac{x}{X_0}=1/2$ is too large for both materials due to the broad shape of the distribution, which will make the Gaussian fit unreliable. 
-At $\tfrac{x}{X_0} = 1$, the relative error is around 10\%, and the Gaussian shape is the most reliable fit and result. 
-The measured value still differ from the theoretical prediction by 4 standard deviations. For $\tfrac{x}{X_0} = 2$ and 3, the error remains around 30\%, and the deviations from the theoretical values are approximately 2.2 $\sigma$. 
+The error for the deflection angle at $\tfrac{x}{X_0}=0.5$ is too large for both materials due to the broad shape of the distribution, which will make the gaussian fit unreliable. 
+At $\tfrac{x}{X_0} = 1$, the relative error is around 10\%, and the gaussian shape is the most reliable fit and result. 
+The measured value still differ from the theoretical prediction by 4 standard deviations. For $\tfrac{x}{X_0} \in \left\{2,3\right\}$, the error remains around 30\%, and the deviations from the theoretical values are approximately 2.2 $\sigma$. 
 These measurements are consistent but still incompatible with the theoretical predictions.
 The linear fits for aluminum and copper have very small \(\chi^2\) values (\(\chi^2_{\text{Cu}} = 270 \cdot 10^{-6}\), \(\chi^2_{\text{Al}} = 4.59 \cdot 10^{-6}\)). 
 It results from the uncertainties in the measured scattering angles, so that it reduces the statistical significance of the fit. 
-This can be because of various factors, such as deviations from an ideal Gaussian distribution, systematic uncertainties, the beam setup, or the readout electronics. 
+This can be because of various factors, such as deviations from an ideal gaussian distribution, systematic uncertainties, the beam setup, or the readout electronics. 
 Effects like the production of \(\delta\)-electrons or inelastic scattering of electrons in air could result in multiple hits per event, so that artificially broadening the measured distributions leads to an increased scattering angle \(\theta_{\text{exp}}\).
-\\
-All along, while the experimental results confirm the general idea of multiple scattering and indeed show a linear correlation between measured 
+
+To summarize, while the experimental results confirm the general idea of multiple scattering and indeed show a linear correlation between measured 
 and theoretical scattering angles the significant systematic errors and measurement limitations such as detector imperfections, beam setup, 
 and electron interactions lead to deviations from theoretical expectations and reduced precision in the analyzed values. 
 %-----------------------------------------------------------------------------------------------------------------------------
