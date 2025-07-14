@@ -52,6 +52,7 @@
 \author*[1]{\fnm{Marc} \sur{Hauer}}\email{s65mhaue@uni-bonn.de}
 \author*[1]{\fnm{Pitt} \sur{Düster}}\email{s15pdues@uni-bonn.de}
 \author*[1]{\fnm{Pouya} \sur{Dehghanfar}}\email{s28pdehg@uni-bonn.de}
+\author*[1]{\fnm{Florian} \sur{Bierlage}}\email{s95fbier@uni-bonn.de}
 \affil*[1]{Rheinische Friedrich--Wilhelms--Universität, Bonn}
 
 \maketitle
@@ -262,7 +263,7 @@ The measured rate is one order of magnitude smaller than the average muon flux a
 \subsection{Experimental Setup}
 To observe multiple scattering, an electron beam of $\SI{2.9}{GeV}$ is provided by the stretcher ring of ELSA \cite{ELSA}, whose beam exit is shown in \autoref{fig:beam_setup_elsa}. 
 The setup of the micromegas detector with the scintillators and the trigger logic, used and tested with the cosmic data, is placed a few metres in front of the output of the accelerator, such that the beam hits the detector as seen in \autoref{fig:detector_setup_elsa}. 
-This is ensured by a laser, build in at the end of the accelerator, which could be slid into the middle of the opening to point along the beam line. 
+This is ensured by a laser, built in at the end of the accelerator, which could be slid into the middle of the opening to point along the beam line. 
 However, it is known that the laser points a few centimetres lower than the actual beam. 
 This must be considered while placing the targets.
 A metal bar is mounted close to the detector thus the targets can be placed in a distance between $\SI{5.5\pm 0.5}{cm}$ and $\SI{105.5\pm 0.5}{cm}$ to the first scintillator into the beam, where the uncertainties come from the measuring tape used to evaluate these distances. 
@@ -374,9 +375,11 @@ Therefore, in the following analysis, only the y-direction is considered. The co
 Both the distribution in x and in y direction contain, additionally to the gaussian curve, other peaks in the foothills of the distribution, which is also observed for all recorded runs.
 By cutting away events of large charge deposition, these artifacts disappear. 
 A possible reason is that the detector is more sensitive at these strips which leads to more counted events.
-Additionally one observes, that at one specific point i.e.\ one specific strip in the detector, no event seems to be counted.
-This is due to the way the strips are converted to millimetre.
-To do this, one has to multiply the strip by the length of the detector (in the corresponding direction) and divide by the number of strips.
+The shown histograms contain what seem to be empty bins, this is not an error on the side of the detector,
+%Additionally one observes, that at one specific point i.e.\ one specific strip in the detector, no event seems to be counted.
+but arises due to the way the strips are converted to millimetre.
+This is done by taking the raw histogram data, multiplying by the total length of the detector unit, and dividing by the number of strips.
+%To do this, one has to multiply the strip by the length of the detector (in the corresponding direction) and divide by the number of strips.
 This will lead to rounding issues, where it is possible that one millimetre is left out, because a bin can only be of type integer.
 
 In general, the number of events increase gaussian from lower to higher y-positions before suddenly falling close after the maximum and start decreasing again gaussian. 
